@@ -54,40 +54,58 @@
   </ol>
 </details> -->
 
-
-
-<!-- ABOUT THE PROJECT -->
-# About The Project 
-
-<!-- ## Sign Up
-
-![Sign Up](./assets/images/sign-up-mammi.png?raw=true)
-
-## Sign In / Login
-
-![Sign In](./assets/images/login-mammi.png?raw=true)
-
-## Home
-
-![Home](./assets/images/home-mammi.png?raw=true)
-
-## Product
-
-![Product](./assets/images/product-mammi.png?raw=true)
-
-## Profile
-
-![Profile](./assets/images/profile-mammi.png?raw=true) -->
-
 ## Built With
 
 <p align="left">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=react,html,css,bootstrap" />
+    <img src="https://skillicons.dev/icons?i=react,javascript,html,css,bootstrap" />
   </a>
 </p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ABOUT THE PROJECT -->
+# About The Project 
+
+## Sign Up
+
+![Sign Up](src/assets/images/sign-up-mammi.png?raw=true)
+
+## Sign In / Login
+
+![Sign In](src/assets/images/login-mammi.png?raw=true)
+
+## Home
+
+![Home](src/assets/images/home-mammi.png?raw=true)
+
+## Product
+
+![Product](src/assets/images/product-mammi.png?raw=true)
+
+## Forgot Password
+
+![Profile](src/assets/images/forgot-password-mammi.png?raw=true)
+
+
+## History Customer
+
+![Profile](src/assets/images/history-customer-mammi.png?raw=true)
+
+
+## Product Detail Customer
+
+![Profile](src/assets/images/product-detail-customer-mammi.png?raw=true)
+
+
+## Profile
+
+![Profile](src/assets/images/profile-mammi.png?raw=true)
+
+
+## Payment And Delivery
+
+![Profile](src/assets/images/payment-and-delivery-mammi.png?raw=true)
 
 <!-- GETTING STARTED -->
 # Getting Started
@@ -133,7 +151,7 @@ For more examples, please refer to the [Documentation](https://example.com)
 <!-- CONTRIBUTING -->
 # Contributing
 
-![GitHub contributors](https://img.shields.io/github/contributors/muhahsanarifin/mammi-fe?style=flat-square) ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/muhahsanarifin/mammi-fe?style=flat-square)
+![GitHub contributors](https://img.shields.io/github/contributors/muhahsanarifin/mammi-fe-react?style=flat-square) ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/muhahsanarifin/mammi-fe-react?style=flat-square)
 
 
 1. Fork the Project
