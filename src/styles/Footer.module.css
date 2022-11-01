@@ -1,0 +1,203 @@
+/* || Import fonts */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
+
+/* || Root Footer Colors */
+:root {
+  --footer-font-color: #4f5665;
+  --footer-bg-color: #f8f8f8;
+  --footer-second-color: #afb5c0;
+}
+
+/* || Footer */
+.footer {
+  /* border: 1px solid darkgreen; */
+  position: relative;
+  padding-top: 10rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  padding-bottom: 10rem;
+  background: var(--footer-bg-color);
+}
+
+.footer__left-side {
+  /* border: 1px solid darkgoldenrod; */
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__left-side__init {
+  /* border: 1px solid darkorchid; */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.footer__left-side__init__logo {
+  /* border: 1px solid darkgoldenrod; */
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.footer__left-side__init__logo__image img {
+  /* border: 1px solid darkblue; */
+  width: 24px;
+}
+
+.footer__left-side__init__logo_init{
+  position: relative;
+  /* border: 1px solid darkblue; */
+}
+
+.footer__left-side__init__logo_init p {
+  position: relative;
+  /* border:1px solid darkblue; */
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.descriptions p {
+  /* border: 1px solid darkblue; */
+  max-width: 21rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--footer-font-color);
+}
+
+.footer__left-side__medias {
+  position: relative;
+  /* border: 1px solid darkorange; */
+  /* padding-top: 2rem;  */
+  display: flex;
+  flex-direction: row;
+  right: 1.2rem;
+}
+
+.footer__left-side__medias a {
+  /* border: 1px solid darkorchid; */
+  line-height: 0;
+  width: 3rem;
+}
+
+.footer__left-side__medias a img {
+  position: relative;
+  /* border: 1px solid darkcyan; */
+  padding-top: 1.5rem;
+}
+
+.footer__rigth-side {
+  position: relative;
+  /* border: 1px solid darkgreen; */
+  display: flex;
+  flex-direction: row;
+  gap: 6rem;
+}
+
+.footer__rigth-side__products ul, .footer__rigth-side__products__engage ul{
+  /* border: 1px solid darkblue; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 0;
+  gap: 1rem;
+}
+
+.footer__rigth-side__products p, .footer__rigth-side__products__engage p {
+  /* border: 1px solid darkgoldenrod; */
+  font-size: 18px;
+  font-weight: 500;
+}
+
+
+.footer__rigth-side__products ul li, .footer__rigth-side__products__engage ul li {
+  /* border: 1px solid darkblue; */
+  list-style: none;
+  /* margin: 1rem auto; */
+  color: var(--footer-font-color);
+}
+
+.copyright {
+  position: absolute;
+  /* border: 1px solid darkgreen; */
+  position: absolute;
+  top: 26.7rem;
+  font-weight: 400;
+  color: var(--footer-second-color);
+}
+
+/* || Responsive */
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+
+  .footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+
+  .footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media all and (max-width: 480px) {
+
+  .footer {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-top: 6rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 0.2rem;
+  }
+
+  .footer__left-side {
+    position: relative;
+    padding-top: 1.5rem;
+    padding-left: 2.5rem;
+    padding-left: 2.5rem;
+  }
+
+  .footer__left-side__init__logo__image img {
+    width: 24px;
+  }
+
+  .footer__left-side__init__logo_init p {
+    font-size: 18px;
+  }
+
+  .descriptions p {
+    font-size: 12px;
+    max-width: 14rem;
+  }
+
+  .footer__rigth-side__products p,
+  .footer__rigth-side__products__engage p {
+    font-size: 14px;
+  }
+
+  .footer__rigth-side__products ul li,
+  .footer__rigth-side__products__engage ul li {
+    font-size: 12px;
+  }
+
+  .footer__rigth-side {
+    justify-content: space-evenly;
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .copyright {
+    position: absolute;
+    left: 3rem;
+    top: 36.8rem;
+    font-size: 12px;
+  }
+}

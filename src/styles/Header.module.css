@@ -1,0 +1,117 @@
+/* || Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+/* || Root Colors */
+:root {
+  --header-bg-color: #FFFFFF;
+  --header-border-color: #DDDDDD;
+  --header-acent-border-color:#6A4029;
+  --header-font-color: #4F5665;
+
+}
+
+/* || Views */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;;
+}
+
+/* || Header */
+.header {
+  /* border: 1px solid red; */
+  height: 5rem;
+  border-bottom: 1px solid var(--header-border-color);
+}
+
+.header__logo {
+  /* border: 1px solid darkgoldenrod; */
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.header__logo__image img {
+  /* border: 1px solid darkblue; */
+  width: 24px;
+}
+
+.header__logo__init p {
+  position: relative;
+  /* border:1px solid darkblue; */
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+/* .navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+} */
+
+.navbar a {
+  /* border: 1px solid darkorange; */
+  text-decoration: none;
+  color: var(--header-font-color);
+}
+
+.navbar a:hover {
+  color: var(--home-font-fourth-color);
+  font-weight: 700;
+}
+
+.search, .chat, .avatar {
+  cursor: pointer;
+}
+
+.search img {
+  width: 30px;
+}
+
+.avatar {
+  border: 3px solid var(--acent-border-color);
+  border-radius: 100%;
+  filter: drop-shadow(0px 6px 20px rgba(106, 64, 41, 0.8));
+  z-index: 1;
+}
+.avatar img {
+  width: 32px;
+  border-radius: 100%;
+}
+
+
+/* || Responsive */
+
+@media all and (max-width: 480px) {
+
+  .header {
+    position: relative;
+    justify-content: space-between !important;
+    padding: 0 1rem;
+  }
+
+    .navbar {
+    position: absolute;
+    justify-content: center;
+    top: 4.6rem;
+    background: var(--header-bg-color);
+    padding: 0.5rem;
+    border-radius: 8px;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 10px;
+    border-bottom: 3px solid var(--header-acent-border-color);
+  }
+
+  .navbar > a {
+    /* border: 1px solid darkgoldenrod; */
+    text-decoration: none;
+    color: var(--header-font-color);
+  }
+
+}

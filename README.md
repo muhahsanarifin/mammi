@@ -1,70 +1,159 @@
-# Getting Started with Create React App
+<a id="readme-top"></a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- <div align="center"> 
+  <h2>MAMMI - FRONTEND</h2>
+</div> -->
 
-## Available Scripts
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <!-- <a href="#">
+    <img src="./assets/images/coffee-logo.svg" alt="Logo" width="80" height="80">
+  </a> -->
 
-In the project directory, you can run:
+  <h2 align="center">MAMMI</h2>
 
-### `npm start`
+  <p align="center">
+    <br />
+    <a href="#"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="#">View Demo</a>
+    ·
+    <!-- <a href="">Report Bug</a>
+    ·
+    <a href="">Request Feature</a> -->
+  </p>
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+<!-- TABLE OF CONTENTS -->
+<!-- <details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details> -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- ABOUT THE PROJECT -->
+# About The Project 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<!-- ## Sign Up
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Sign Up](./assets/images/sign-up-mammi.png?raw=true)
 
-### `npm run eject`
+## Sign In / Login
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Sign In](./assets/images/login-mammi.png?raw=true)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Home
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Home](./assets/images/home-mammi.png?raw=true)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Product
 
-## Learn More
+![Product](./assets/images/product-mammi.png?raw=true)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Profile
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Profile](./assets/images/profile-mammi.png?raw=true) -->
 
-### Code Splitting
+## Built With
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,html,css,bootstrap" />
+  </a>
+</p>
 
-### Analyzing the Bundle Size
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<!-- GETTING STARTED -->
+# Getting Started
 
-### Making a Progressive Web App
+<!-- 
+## Prerequisites
+-->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Installation
 
-### Advanced Configuration
+1. Clone the repo
+   ```sh
+   git clone https://github.com/muhahsanarifin/mammi.git
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<!-- USAGE -->
+<!-- # Usage
 
-### `npm run build` fails to minify
+For more examples, please refer to the [Documentation](https://example.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+
+
+<!-- ROADMAP -->
+<!-- # Roadmap
+
+- [x] Add Changelog
+- [x] Add back to top links
+- [ ] Add Additional Templates w/ Examples
+- [ ] Add "components" document to easily copy & paste sections of the readme
+- [ ] Multi-language Support
+    - [ ] Chinese
+    - [ ] Spanish -->
+
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+
+
+<!-- CONTRIBUTING -->
+# Contributing
+
+![GitHub contributors](https://img.shields.io/github/contributors/muhahsanarifin/mammi-fe?style=flat-square) ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/muhahsanarifin/mammi-fe?style=flat-square)
+
+
+1. Fork the Project
+2. Create your new Branch ( `git checkout -b ...` )
+3. Commit your Changes ( `git commit -m '...'` )
+4. Push to the Branch ( `git push origin ...` )
+5. Open a Pull Request
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+<!-- # Contact
+
+Your Name - []() -->
+
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+
+
+<p align="center"> <samp><i>&copy; 2022 mammi</i></samp> </p>

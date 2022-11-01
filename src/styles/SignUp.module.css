@@ -1,0 +1,345 @@
+/* || Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+/* || Root Colors */
+:root {
+  --su-bg-login: #FFFFFF;
+  --su-btn-color: #FFBA33;
+  --su-font-color: #6A4029;
+  --su-font-second-color: #0B132A;
+  --su-font-third-color: #4F5665;
+}
+
+/* || Views */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;;
+}
+
+.main {
+  /* border: 1px solid darkred; */
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.main__left-side img {
+  /* border: 1px solid darkblue; */
+  width: 682px;
+}
+
+.main__rigth-side {
+  /* border: 1px solid darkgoldenrod; */
+  padding: 2.5rem;
+  width: 100vw;
+}
+
+.header {
+  /* border: 1px solid darkorange; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 0 8.5rem; */
+  padding-right: 8.5rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* .logo__image img {
+  border: 1px solid darkblue;
+} */
+
+.logo__init p {
+  /* border: 1px solid darkgoldenrod; */
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.login {
+  border-radius: 50px;
+  background: var(--su-btn-color);
+  filter: drop-shadow(0px 6px 20px rgba(255, 186, 51, 0.4));
+}
+
+.login button {
+  /* border: 1px solid darkblue; */
+  border: none;
+  background: none;
+  padding: 0.6rem 2.6rem;
+}
+
+.sign-up {
+  /* border: 1px solid darkgoldenrod; */
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+}
+
+.sign-up h3 {
+  /* border: 1px solid darkgoldenrod; */
+  text-align: center;
+  padding-top: 3rem;
+  font-size: 30px;
+  color: var(--su-font-color);
+}
+
+.sign-up .form {
+  /* border: 1px solid darkblue; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 7rem;
+  padding-right: 7rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.sign-up .form label {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--su-font-third-color);
+}
+
+.form input[type=text] {
+  outline: none;
+  border-radius: 20px;
+  padding: 1rem;
+  max-width: 31.5625rem;
+  border: 1px solid var(--su-font-third-color);
+}
+
+.form button.btn-sign-up {
+  position: relative;
+  border: none;
+  padding: 1rem;
+  max-width: 31.5625rem;
+  border-radius: 20px;
+  background: var(--su-btn-color);
+  box-shadow: 0px 6px 20px rgba(255, 186, 51, 0.4);
+  top: 1rem;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.form button.btn-google-sign-up {
+  position: relative;
+  /* border: 1px solid darkgreen; */
+  border: none;
+  padding-top: 0.2rem;
+  max-width: 31.5625rem;
+  border-radius: 20px;
+  background: none;
+  box-shadow: 0px 6px 20px rgba(196, 196, 196, 0.67);
+  top: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  padding-bottom: 0.8rem;
+  font-size: 17px;
+}
+
+.form button.btn-google-sign-up::before {
+  position: relative;
+  content: url(../assets/images/google-logo.svg);
+  top: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.member-cards {
+  /* border: 1px solid darkblue; */
+  position: absolute;
+  background: var(--su-bg-login);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem;
+  width: 78vw;
+  margin-left: 10rem;
+  z-index: 1;
+  top: 58rem;
+  border-radius: 10px;
+  box-shadow: 0px 6px 20px rgba(196, 196, 196, 0.67)
+}
+
+.member-cards span h3{
+  font-size: 35px;
+  color: var(--su-font-second-color);
+  max-width: 20rem;
+}
+
+
+.member-cards span p{
+  color: var(--su-font-third-color)
+}
+
+.btn-create-member {
+  /* border: 1px solid darkblue; */
+  border: none;
+  background: var(--su-btn-color);
+  height: 3.75rem;
+  width: 15.625rem;
+  border-radius: 10px;
+  font-weight: 700;
+  color: var(--su-font-color);
+  filter: drop-shadow(0px 6px 20px rgba(255, 186, 51, 0.4));
+}
+
+/* || Responsive */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+
+  .header {
+    padding-right: 0;
+  }
+
+  .main {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-bottom: 2.5rem;
+  } 
+
+  .main__left-side {
+    display: none;
+  }
+
+  /* .login {
+
+  } */
+
+  .sign-up h3 {
+    padding-top: 1.5rem;
+  }
+
+  .sign-up .form {
+    padding-top: 1.5rem;
+  }
+
+  .member-cards {
+    position: absolute;
+    width: 78vw;
+    margin-left: 5.5rem;
+    top: 41.5rem;
+  }
+
+  .member-cards span h3 {
+    font-size: 24px;
+  }
+
+  /* .member-cards span p {
+
+  } */
+
+  .btn-create-member {
+    height: 2.75rem;
+    width: 10.625rem;
+  }
+
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .header {
+    padding-right: 0;
+  }
+
+  .main {
+    padding-bottom: 2.5rem;
+  } 
+
+  .main__left-side {
+    display: none;
+  }
+
+  /* .login {
+
+  } */
+
+  .sign-up h3 {
+    padding-top: 1.5rem;
+  }
+
+  .sign-up .form {
+    padding-top: 1.5rem;
+  }
+
+  .member-cards {
+    position: absolute;
+    width: 78vw;
+    margin-left: 5rem;
+    top: 41.5rem;
+  }
+
+  .member-cards span h3 {
+    font-size: 24px;
+  }
+
+  /* .member-cards span p {
+
+  } */
+
+  .btn-create-member {
+    height: 2.75rem;
+    width: 10.625rem;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .header {
+  padding-right: 0;
+  }
+
+  .main {
+    padding-bottom: 2.5rem;
+  } 
+
+  .main__left-side {
+    display: none;
+  }
+
+  .login button {
+    padding: 0.6rem 1.8rem;
+  }
+
+  /* .login {
+
+  } */
+
+  .sign-up h3 {
+    padding-top: 1.5rem;
+  }
+
+  .sign-up .form {
+    padding-top: 1.5rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .member-cards {
+    position: absolute;
+    width: 78vw;
+    margin-left: 2.6rem;
+    top: 46.5rem;
+    padding: 1rem;
+  }
+
+  .member-cards span h3 {
+    font-size: 16px;
+  }
+
+  .member-cards span p {
+    font-size: 12px;
+  }
+
+  .btn-create-member {
+    height: 2.75rem;
+    width: 10.625rem;
+  }
+}
