@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 import Header from '../components/Header';
+
 import Footer from '../components/Footer';
 
 import styles from "../styles/HistoryCustomer.module.css";
-
-import veggieTomatoMix from "../assets/images/products/veggie-tomato-mix.svg"
 
 import bangPutra from "../assets/images/bang-putra.png";
 
@@ -21,7 +20,6 @@ export class HistoryCustomer extends Component {
       // console.log(response.data.result)
       this.setState({
         histories: response.data.result
-        
       })
     })
   }
@@ -90,7 +88,7 @@ export class HistoryCustomer extends Component {
                         <p
                           className={styles["product_item__description__price"]}
                         >
-                          {history.price}
+                          {`IDR ${history.price}`}
                         </p>
                         <p
                           className={

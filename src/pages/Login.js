@@ -2,25 +2,27 @@ import React from "react";
 
 import axios from "axios";
 
-import { useState } from "react"
+import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-
-import withNavigate from "../helpers/withNavigate";
 
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
 
-import styles from "../styles/Login.module.css"
+import styles from "../styles/Login.module.css";
 
 import eat from "../assets/images/eat.png";
 
-import coffeLogo from "../assets/images/coffee-logo.svg";
+import mammiLogo from "../assets/images/mammi-logo.png";
+
+import CardMember from "../components/CardMember";
+
+// import PasswordToggle from "../components/PasswordToggle";
 
 const Login = () => {
-
-  const navigate = useNavigate()
+  // const [PasswordInputType, ToggleIcon] = PasswordToggle();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,18 +30,18 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:8080/api/v1/auth', {
-      email,
-      password
-    }).then((response) => {
-      alert('Login Success');
-      //console.log(response.data.result.result.token);
-      localStorage.setItem('token', response.data.result.result.token);
-
-      navigate('/');
-
-    }).catch((err) => alert ("Password or Email is wrong"));
-  }
+    axios
+      .post(`http://localhost:8080/api/v1/auth`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data.result.result.token);
+        localStorage.setItem("token", response.data.result.result.token);
+        navigate("/products");
+      })
+      .catch((err) => console.log("Password or Email is wrong"));
+  };
 
   return (
     <>
@@ -51,7 +53,7 @@ const Login = () => {
           <span className={styles.header}>
             <span className={styles.logo}>
               <span className={styles["logo__image"]}>
-                <img src={coffeLogo} alt="mammi-logo" />
+                <img src={mammiLogo} alt="mammi-logo" />
               </span>
               <span className={styles["logo__init"]}>
                 <p>MAMMI</p>
@@ -76,12 +78,13 @@ const Login = () => {
               />
               <label for="inputPassword">Password:</label>
               <input
-                type="text"
+                type="password"
+                // type={PasswordInputType}
                 placeholder="Enter your password"
-                // id="inputPassword"
                 required="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {/* <span className="password-toogle-icon">{ToggleIcon}</span> */}
               <span className={styles["forgot-password"]}>
                 <Link
                   to={`/forgot-password`}
@@ -98,16 +101,10 @@ const Login = () => {
           </span>
         </section>
       </main>
-      <section className={styles["member-cards"]}>
-        <span>
-          <h3>Get your member card now!</h3>
-          <p>Lets join with our member and enjoy the deals</p>
-        </span>
-        <button className={styles["btn-create-member"]}>Create Now</button>
-      </section>
+      <CardMember/>
       <Footer />
     </>
   );
-}
+};
 
-export default withNavigate(Login);
+export default Login;

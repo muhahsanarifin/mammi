@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 
 import Header from '../components/Header';
+
 import Footer from '../components/Footer';
 
 import styles from "../styles/ProductDetailCustomer.module.css";
-
-// import { Breadcrumb, BreadcrumbItem} from "react-bootstrap";
 
 import coldBrew from "../assets/images/products/cold-brew.svg";
 
 import arrowBrown from "../assets/icons/arrow-brown.svg";
 
 import bangPutra from "../assets/images/bang-putra.png";
+
+import { Link } from 'react-router-dom';
 
 export class ProductDetailCustomer extends Component {
   render() {
@@ -30,7 +31,9 @@ export class ProductDetailCustomer extends Component {
             <nav className={styles["breadcrumb-nav"]}>
               <ul className={styles["breadcrumb-list"]}>
                 <li className={styles["breadcrumb-item"]}>
-                  <a href="">Favorite & Promo</a>
+                  <Link to={`/products`}>
+                    Favorite & Promo
+                  </Link>
                 </li>
                 <li
                   className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
@@ -39,15 +42,6 @@ export class ProductDetailCustomer extends Component {
                 </li>
               </ul>
             </nav>
-            {/* Using Component ReactBootstrap */}
-            {/* <Breadcrumb>
-              <BreadcrumbItem>
-                <a href="#">Favorite & Promo</a>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <a href="">Cold Brew</a>
-              </BreadcrumbItem>
-            </Breadcrumb> */}
           </section>
           <section
             className={`${styles["first-main"]} ${styles["identity-product"]}`}

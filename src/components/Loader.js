@@ -1,14 +1,16 @@
-import React from 'react'
+// Ongoing fixing ◬ ↴
 
-import styles from "../styles/Loader.module.css"
+// import React from 'react'
 
-function Loader() {
-  return (
-    <div class={styles["lds-ripple"]}>
-      <div></div>
-      <div></div>
-    </div>
-  );
-}
+// import styles from "../styles/Loader.module.css"
 
-export default Loader
+// function Loader() {
+//   return (
+//     <div class={styles["lds-ripple"]}>
+//       <div></div>
+//       <div></div>
+//     </div>
+//   );
+// }
+
+// export default Loader

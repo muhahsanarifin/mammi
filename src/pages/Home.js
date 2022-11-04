@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 
 import styles from "../styles/Home.module.css";
 
-import coffeeLogo from "../assets/images/coffee-logo.svg";
+import mammiLogo from "../assets/images/mammi-logo.png";
 
 import searchIcon from "../assets/icons/search.svg";
 
@@ -54,7 +54,7 @@ export class Home extends Component {
         <header className={styles.header}>
           <div className={styles["header__logo"]}>
             <span className={styles["header__logo__image"]}>
-              <img src={coffeeLogo} alt="mammi-logo" />
+              <img src={mammiLogo} alt="mammi-logo" />
             </span>
             <span className={styles["header__logo__init"]}>
               <p>MAMMI</p>

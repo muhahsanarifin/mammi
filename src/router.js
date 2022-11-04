@@ -9,7 +9,6 @@ import HistoryCustomer from "./pages/HistoryCustomer";
 import PaymentAndDelivery from "./pages/PaymentAndDelivery";
 import Profile from "./pages/Profile"
 import ForgotPassword from "./pages/ForgotPassword";
-// import Loader from "./components/Loader";
 
 const router = createBrowserRouter([
   {
