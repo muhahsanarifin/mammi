@@ -22,7 +22,7 @@ const Products = () => {
   const getProducts = async () => {
     try {
       const repsonse = await axios.get(
-        `http://localhost:8080/api/v1/products`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products`
       );
       setProducts(repsonse.data.result.data);
       // console.log(repsonse.data);
@@ -34,7 +34,7 @@ const Products = () => {
   const getPromos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/promos?page=1&limit=1"
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos?page=1&limit=1`
       );
       setPromos(response.data.result.data);
     } catch (error) {
@@ -70,7 +70,7 @@ const Products = () => {
           {promos.map((promo, index) => (
             <span className={styles["promo__card"]} key={index}>
               <img
-                src={"http://localhost:8080" + promo.image}
+                src={`${process.env.REACT_APP_BACKEND_HOST}${promo.image}`}
                 alt="Product Promo"
               />
               <p>
@@ -125,13 +125,15 @@ const Products = () => {
               .map((product, index) => (
                 <span className={`col my-3 ${styles.product}`} key={index}>
                   <img
-                    src={"http://localhost:8080" + product.image}
+                    src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
                     alt={product.product_name}
                   />
                   <p className={styles["product__name"]}>
                     {product.product_name}
                   </p>
-                  <p className={styles["product__price"]}>{`IDR ${product.price}`}</p>
+                  <p
+                    className={styles["product__price"]}
+                  >{`IDR ${product.price}`}</p>
                 </span>
               ))}
           </span>
