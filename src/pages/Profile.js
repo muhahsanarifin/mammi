@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,7 @@ const Profile = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!localStorage.getItem("data-user")) {
       navigate("/login");
     }
   }, [])
@@ -121,7 +120,7 @@ const Profile = () => {
                 <button className={styles["btn-save"]}>Save Change</button>
                 <button className={styles["btn-cancel"]}>Cancel</button>
                 <button className={styles["btn-edit"]}>Edit Password</button>
-                <button onClick={() => {localStorage.removeItem("token"); navigate("/login");}} className={styles["btn-log-out"]} >Log Out</button>
+                <button onClick={() => {localStorage.removeItem("data-user"); navigate("/login");}} className={styles["btn-log-out"]} >Log Out</button>
               </section>
             </section>
           </main>
