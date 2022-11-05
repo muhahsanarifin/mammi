@@ -16,7 +16,7 @@ export class HistoryCustomer extends Component {
     }
     
   componentDidMount() {
-    axios.get("http://localhost:8080/api/v1/transactions/history").then(response => {
+    axios.get(`${process.env.REACT_APP_BACKEND_HOST}api/v1/transactions/history`).then(response => {
       // console.log(response.data.result)
       this.setState({
         histories: response.data.result
@@ -66,41 +66,35 @@ export class HistoryCustomer extends Component {
                   </span>
                 </span>
               </li> */}
-              {
-                this.state.histories.map((history) =>
-                  <li className={styles["history-customer__product__item"]}>
+              {this.state.histories.map((history) => (
+                <li className={styles["history-customer__product__item"]}>
+                  <span className={styles["history-customer__product__detail"]}>
                     <span
-                      className={styles["history-customer__product__detail"]}
+                      className={
+                        styles["history-customer__product__item__image"]
+                      }
                     >
-                      <span
-                        className={
-                          styles["history-customer__product__item__image"]
-                        }
-                      >
-                        <img src={"http://localhost:8080" + history.image} alt={history.product_name} />
-                      </span>
-                      <span className={styles["product_item__description"]}>
-                        <p
-                          className={styles["product_item__description__title"]}
-                        >
-                          {history.product_name}
-                        </p>
-                        <p
-                          className={styles["product_item__description__price"]}
-                        >
-                          {`IDR ${history.price}`}
-                        </p>
-                        <p
-                          className={
-                            styles["product_item__description__status"]
-                          }
-                        >
-                          {history.status}
-                        </p>
-                      </span>
+                      <img
+                        src={`${process.env.REACT_APP_BACKEND_HOST}${history.image}`}
+                        alt={history.product_name}
+                      />
                     </span>
-                  </li>
-                )}
+                    <span className={styles["product_item__description"]}>
+                      <p className={styles["product_item__description__title"]}>
+                        {history.product_name}
+                      </p>
+                      <p className={styles["product_item__description__price"]}>
+                        {`IDR ${history.price}`}
+                      </p>
+                      <p
+                        className={styles["product_item__description__status"]}
+                      >
+                        {history.status}
+                      </p>
+                    </span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </section>
         </main>
