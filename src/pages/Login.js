@@ -31,13 +31,15 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:8080/api/v1/auth`, {
+      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/auth`, {
         email,
         password,
       })
       .then((response) => {
-        console.log(response.data.result.result.token);
-        localStorage.setItem("token", response.data.result.result.token);
+        const dataUser = response.data.result.result;
+
+        localStorage.setItem("data-user", JSON.stringify(dataUser));
+
         navigate("/products");
       })
       .catch((err) => console.log("Password or Email is wrong"));
@@ -68,18 +70,19 @@ const Login = () => {
           <span className={styles.login}>
             <h3>Login</h3>
             <form className={styles.form} onSubmit={submitHandler}>
-              <label for="inputEmail">Email Address:</label>
+              <label htmlFor="inputEmail">Email Address:</label>
               <input
                 type="text"
                 placeholder="Enter your Email Address"
-                // id="inputEmail"
+                id="inputEmail"
                 required="password"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <label for="inputPassword">Password:</label>
+              <label htmlFor="inputPassword">Password:</label>
               <input
                 type="password"
                 // type={PasswordInputType}
+                id="inputPassword"
                 placeholder="Enter your password"
                 required="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -101,7 +104,7 @@ const Login = () => {
           </span>
         </section>
       </main>
-      <CardMember/>
+      <CardMember />
       <Footer />
     </>
   );

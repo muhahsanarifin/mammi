@@ -25,7 +25,7 @@ function SignUp() {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:8080/api/v1/users", {
+      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/users`, {
         email: data.name,
         password: data.password,
         phone_number: data.phonenumber,
@@ -64,7 +64,7 @@ function SignUp() {
           <span className={styles["sign-up"]}>
             <h3>Sign Up</h3>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-              <label for="inputEmail">Email Address:</label>
+              <label htmlFor="inputEmail">Email Address:</label>
               <input
                 type="text"
                 placeholder="Enter your Email Address"
@@ -72,7 +72,7 @@ function SignUp() {
                 required="text"
                 {...register("name")}
               />
-              <label for="inputPassword">Password:</label>
+              <label htmlFor="inputPassword">Password:</label>
               <input
                 type="password"
                 placeholder="Enter your password"
@@ -80,7 +80,7 @@ function SignUp() {
                 required="text"
                 {...register("password")}
               />
-              <label for="inputPhoneNumber">Phone Number:</label>
+              <label htmlFor="inputPhoneNumber">Phone Number:</label>
               <input
                 type="text"
                 placeholder="Enter your phone number"
