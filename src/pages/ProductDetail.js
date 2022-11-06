@@ -4,7 +4,7 @@ import Header from '../components/Header';
 
 import Footer from '../components/Footer';
 
-import styles from "../styles/ProductDetailCustomer.module.css";
+import styles from "../styles/ProductDetail.module.css";
 
 import coldBrew from "../assets/images/products/cold-brew.svg";
 
@@ -14,15 +14,15 @@ import bangPutra from "../assets/images/bang-putra.png";
 
 import { Link } from 'react-router-dom';
 
-export class ProductDetailCustomer extends Component {
+export class ProductDetail extends Component {
   render() {
     return (
       <>
         <Header
           LinktoHome="/"
           LinktoProducts="/products"
-          LinktoYourcart="/product-detail-customer"
-          LinktoHistory="/history-customer"
+          LinktoYourcart="/checkout"
+          LinktoHistory="/history"
           Avatar={bangPutra}
           LinktoProfile="/profile"
         />
@@ -160,4 +160,4 @@ export class ProductDetailCustomer extends Component {
   }
 }
 
-export default ProductDetailCustomer
+export default ProductDetail

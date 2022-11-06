@@ -122,6 +122,10 @@
   border: 1px solid var(--login-font-third-color);
 }
 
+.form input[type=text]:focus, .form input[type=password]:focus {
+  border: 1px solid var(--login-btn-color);
+}
+
 .forgot-password {
   cursor: pointer;
 }

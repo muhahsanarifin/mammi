@@ -17,7 +17,9 @@ const Header = ({
   LinktoHistory,
   LinktoProfile,
   Avatar,
+  value,
   onChange,
+  onSubmit,
 }) => {
   return (
     <header
@@ -41,9 +43,14 @@ const Header = ({
         {/* <span className={styles.search}>
           <img src={searchGray} alt="search" />
         </span> */}
-        <span className={styles.search}>
+        <span className={styles.search} onSubmit={onSubmit}>
           <img src={searchIcon} alt="search" />
-          <input type="text" placeholder="Search" onChange={onChange} />
+          <input
+            type="text"
+            placeholder="Search"
+            value={value}
+            onChange={onChange}
+          />
         </span>
         <span className={styles.chat}>
           <img src={chat} alt="chat" />

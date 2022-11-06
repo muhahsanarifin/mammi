@@ -30,8 +30,8 @@ const Profile = () => {
       <Header
           LinktoHome="/"
           LinktoProducts="/products"
-          LinktoYourcart="/product-detail-customer"
-          LinktoHistory="/history-customer"
+          LinktoYourcart="/checkout"
+          LinktoHistory="/history"
           Avatar={bangPutra}
           LinktoProfile="/profile"
         />

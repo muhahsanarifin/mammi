@@ -6,11 +6,11 @@ import Header from '../components/Header';
 
 import Footer from '../components/Footer';
 
-import styles from "../styles/HistoryCustomer.module.css";
+import styles from "../styles/History.module.css";
 
 import bangPutra from "../assets/images/bang-putra.png";
 
-export class HistoryCustomer extends Component {
+export class History extends Component {
   state  = {
     histories: []
     }
@@ -30,8 +30,8 @@ export class HistoryCustomer extends Component {
         <Header
           LinktoHome="/"
           LinktoProducts="/products"
-          LinktoYourcart="/product-detail-customer"
-          LinktoHistory="/history-customer"
+          LinktoYourcart="/product-detail"
+          LinktoHistory="/history"
           Avatar={bangPutra}
           LinktoProfile="/profile"
         />
@@ -104,4 +104,4 @@ export class HistoryCustomer extends Component {
   }
 }
 
-export default HistoryCustomer
+export default History

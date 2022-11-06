@@ -119,6 +119,10 @@
   border: 1px solid var(--su-font-third-color);
 }
 
+.form input[type=text]:focus, .form input[type=password]:focus {
+  border: 1px solid var(--login-btn-color);
+}
+
 .form button.btn-sign-up {
   position: relative;
   border: none;

@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
 
 import styles from "../styles/Home.module.css";
 
@@ -16,7 +16,7 @@ import storesIcon from "../assets/icons/stores.svg";
 
 import customersIcon from "../assets/icons/customers.svg";
 
-import teamWorkImage from "../assets/images/team-work.png"
+import teamWorkImage from "../assets/images/team-work.png";
 
 import hazzelnatLatteImage from "../assets/images/hazelnat-latte.svg";
 
@@ -26,9 +26,9 @@ import chickenWings from "../assets/images/chicken-wings.svg";
 
 import hugeGlobal from "../assets/images/huge-global.svg";
 
-import customer from "../assets/images/customer.svg"
+import customer from "../assets/images/customer.svg";
 
-import star from "../assets/icons/star.svg"
+import star from "../assets/icons/star.svg";
 
 import dots from "../assets/icons/dots.svg";
 
@@ -46,7 +46,6 @@ import discord from "../assets/images/discord.svg";
 
 import spotify from "../assets/images/spotify.svg";
 
-
 export class Home extends Component {
   render() {
     return (
@@ -63,7 +62,7 @@ export class Home extends Component {
           <nav className={styles.navbar}>
             <Link to={`/`}>Home</Link>
             <Link to={`/products`}>Product</Link>
-            <Link to={`/product-detail-customer`}>YourCart</Link>
+            <Link to={`/checkout`}>YourCart</Link>
             <Link to={`/history-customer`}>History</Link>
           </nav>
           <div className={styles["sign-in-up"]}>
@@ -95,10 +94,12 @@ export class Home extends Component {
                 <button>Get Started</button>
               </Link>
             </span>
-            <span className={styles.search}>
-              <img src={searchIcon} alt="search" />
-              <input type="text" placeholder="Search" />
-            </span>
+            <Link to = {`/products`}>
+              <span className={styles.search}>
+                <img src={searchIcon} alt="search" />
+                <input type="text" placeholder="Search" />
+              </span>
+            </Link>
           </section>
           <section className={styles["informations-cards"]}>
             <span className={styles.staff}>
@@ -322,4 +323,4 @@ export class Home extends Component {
   }
 }
 
-export default Home
+export default Home;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from "../styles/PaymentAndDelivery.module.css";
+import styles from "../styles/Checkout.module.css";
 
 import Header from "../components/Header";
 
@@ -18,15 +18,15 @@ import chikenFireWings from "../assets/images/products/chicken-fire-wings-82-90.
 
 import bangPutra from "../assets/images/bang-putra.png";
 
-export class PaymentAndDelivery extends Component {
+export class Checkout extends Component {
   render() {
     return (
       <>
         <Header
           LinktoHome="/"
           LinktoProducts="/products"
-          LinktoYourcart="/product-detail-customer"
-          LinktoHistory="/history-customer"
+          LinktoYourcart="/product-detail"
+          LinktoHistory="/history"
           Avatar={bangPutra}
           LinktoProfile="/profile"
         />
@@ -42,7 +42,7 @@ export class PaymentAndDelivery extends Component {
                   <li className={styles["order-summary__product"]}>
                     <img src={huzelnutLatte} alt="Hazelnut Latte" />
                     <span className={styles["order-summary__product__entity"]}>
-                      <p className={styles["product__item"]}>Hazelnut Latter</p>
+                      <p className={styles["product__item"]}>Hazelnut Latte</p>
                       <p className={styles["product__qty"]}>x1</p>
                       <p className={styles["product__size"]}>Reguler</p>
                     </span>
@@ -53,7 +53,7 @@ export class PaymentAndDelivery extends Component {
                   <li className={styles["order-summary__product"]}>
                     <img src={chikenFireWings} alt="Chicken Wings" />
                     <span className={styles["order-summary__product__entity"]}>
-                      <p className={styles["product__item"]}>Hazelnut Latter</p>
+                      <p className={styles["product__item"]}>Hazelnut Latte</p>
                       <p className={styles["product__qty"]}>x1</p>
                       <p className={styles["product__size"]}>Reguler</p>
                     </span>
@@ -136,4 +136,4 @@ export class PaymentAndDelivery extends Component {
   }
 }
 
-export default PaymentAndDelivery
+export default Checkout

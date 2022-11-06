@@ -4,16 +4,21 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Products from "./pages/Products";
-import ProductDetailCustomer from "./pages/ProductDetailCustomer";
-import HistoryCustomer from "./pages/HistoryCustomer";
-import PaymentAndDelivery from "./pages/PaymentAndDelivery";
-import Profile from "./pages/Profile"
+import ProductDetail from "./pages/ProductDetail";
+import History from "./pages/History";
+import Checkout from "./pages/Checkout";
+import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
+import NotFound from "./pages/NotFound";
+
+// Sample Components
+// import Loader from "./components/Loader";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <NotFound/>
   },
   {
     path: "/login",
@@ -36,17 +41,23 @@ const router = createBrowserRouter([
     element: <Products />,
   },
   {
-    path: "/product-detail-customer",
-    element: <ProductDetailCustomer />,
+    path: "/product-detail",
+    element: <ProductDetail />,
   },
   {
-    path: "/history-customer",
-    element: <HistoryCustomer />,
+    path: "/history",
+    element: <History />,
   },
   {
-    path: "/payment-and-delivery",
-    element: <PaymentAndDelivery />,
+    path: "/checkout",
+    element: <Checkout />,
   },
+
+  // Sample Component ↴
+  // {
+  //   path: "/loader",
+  //   element: <Loader />,
+  // },
 ]);
 
 export default router;
