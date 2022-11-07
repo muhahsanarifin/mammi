@@ -1,6 +1,6 @@
 import React from 'react'
 
-import coffeeLogo from "../assets/images/coffee-logo.svg";
+import mammiLogo from "../assets/images/mammi-logo.png";
 
 import styles from "../styles/Footer.module.css"
 
@@ -17,7 +17,7 @@ const Footer = () => {
         <span className={styles["footer__left-side__init"]}>
           <span className={styles["footer__left-side__init__logo"]}>
             <span className={styles["footer__left-side__init__logo__image"]}>
-              <img src={coffeeLogo} alt="mammi-logo" />
+              <img src={mammiLogo} alt="mammi-logo" />
             </span>
             <span className={styles["footer__left-side__init__logo_init"]}>
               <p>MAMMI</p>
