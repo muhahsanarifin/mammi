@@ -12,7 +12,21 @@ import styles from "../styles/Products.module.css";
 
 import { Link } from "react-router-dom";
 
-import Loader from "../components/Loader";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+
+import {
+  Pagination,
+  PaginationItem,
+  PaginationLink
+}
+from "reactstrap";
+
+// import Loader from "../components/Loader";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -21,24 +35,29 @@ const Products = () => {
 
   // const [value, setSearchProduct] = useState("");
 
-  // Filtering ↴
-  // const [query, setSearchProduct] = useState("");
+  // Search ↴
+  // const [value, setSearchProduct] = useState("");
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   // const sortOption = ["favor", "cofee", "noncofee", "foods", "add-on"];
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
+
   const getProducts = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const repsonse = await axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?page=1&limit=6`
       );
       setProducts(repsonse.data.result.data);
+      console.log(repsonse.data.result.data);
       // console.log(repsonse.data);
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
-      setLoading(true);
+      // setLoading(true);
       console.log(error.message);
     }
   };
@@ -53,7 +72,7 @@ const Products = () => {
       console.log(error.message);
     }
   };
-  
+
   useEffect(() => {
     getProducts();
     getPromos();
@@ -71,18 +90,18 @@ const Products = () => {
   //   } catch (error) {
   //     console.log(error.message);
   //   }
-  // } 
+  // }
 
   const favorProduct = async () => {
-   try {
-     const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?favorite=true`
-    );
-    setProducts(response.data.result.data);
-   } catch (error) {
-    console.log(error.message);
-   }
-  }
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?favorite=true`
+      );
+      setProducts(response.data.result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const coffee = async () => {
     try {
@@ -93,7 +112,7 @@ const Products = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   const nonCofee = async () => {
     try {
@@ -104,36 +123,81 @@ const Products = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   const foods = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?filter=Food`
       );
+      console.log(response.data.result.data);
       setProducts(response.data.result.data);
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   const addOn = async () => {
     try {
       const response = await axios.get(
-       `${process.env.REACT_APP_BACKEND_HOST}api/v1/products`
-      )
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products`
+      );
       setProducts(response.data.result.data);
-    } catch(error) {
+    } catch (error) {
       console.log(error.message);
     }
-  }
-  
+  };
+
+  const expensive = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?price=expensive`
+      );
+      setProducts(response.data.result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const low = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?price=low`
+      );
+      setProducts(response.data.result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const latest = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?post=latest`
+      );
+      setProducts(response.data.result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const oldest = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?post=oldest`
+      );
+      setProducts(response.data.result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   // const handleSearch = async (e) => {
   //   e.preventDefault();
   //   try {
   //     const response = await axios.get(`${process.env.REACT_APP_BACKEND_HOST}api/v1/product?search=${value}`);
   //     console.log(response.data.result.data);
-  //     setProducts(response.data.result.data);  
+  //     setProducts(response.data.result.data);
   //     setSearchProduct("");
   //   } catch (error) {
   //     console.log(error);
@@ -196,47 +260,142 @@ const Products = () => {
           className={`${styles["main__right-side"]} ${styles["main__products"]}`}
         >
           <span className={styles["main__products__header"]}>
-            <p className={styles["favor-products"]} onClick={favorProduct}>Favorite Product</p>
-            <p className={styles["coffee-products"]} onClick={coffee}>Coffee</p>
-            <p className={styles["non-coffee-products"]} onClick={nonCofee}>Non Coffee</p>
-            <p className={styles.foods} onClick={foods}>Foods</p>
-            <p className={styles["Add-on"]} onClick={addOn}>Add-on</p>
+            <p className={styles["favor-products"]} onClick={favorProduct}>
+              Favorite Product
+            </p>
+            <p className={styles["coffee-products"]} onClick={coffee}>
+              Coffee
+            </p>
+            <p className={styles["non-coffee-products"]} onClick={nonCofee}>
+              Non Coffee
+            </p>
+            <p className={styles.foods} onClick={foods}>
+              Foods
+            </p>
+            <p className={styles["Add-on"]} onClick={addOn}>
+              Add-on
+            </p>
           </span>
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
             {
-            loading ? <Loader/> : 
-
-            // Search ↴ 
-            products
-            // .filter((product) => {
-            //     if (value === "") {
-            //       return product;
-            //     } else if (
-            //       product.product_name
-            //         .toLowerCase()
-            //         .includes(value.toLowerCase())
-            //     ) {
-            //       return product;
-            //     }
-            //   })
-              .map((product, index) => (
-                <span className={`col my-3 ${styles.product}`} key={index}>
-                  <Link to={`/product-detail`}>
-                    <img
-                      src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
-                      alt={product.product_name}
-                    />
-                  </Link>
-                  <p className={styles["product__name"]}>
-                    {product.product_name}
-                  </p>
-                  <p
-                    className={styles["product__price"]}
-                  >{`IDR ${product.price}`}</p>
-                </span>
-              ))}
+              // loading ? (
+              //   <Loader />
+              // ) : (
+              // Search ↴
+              products
+                // .filter((product) => {
+                //   if (value === "") {
+                //     return product;
+                //   } else if (
+                //     product.product_name
+                //       .toLowerCase()
+                //       .includes(value.toLowerCase())
+                //   ) {
+                //     return product;
+                //   }
+                // })
+                .map((product, index) => (
+                  <span className={`col my-3 ${styles.product}`} key={index}>
+                    <Link to={`{id}`}>
+                      <img
+                        src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
+                        alt={product.product_name}
+                      />
+                    </Link>
+                    <p className={styles["product__name"]}>
+                      {product.product_name}
+                    </p>
+                    <p
+                      className={styles["product__price"]}
+                    >{`IDR ${product.price}`}</p>
+                  </span>
+                ))
+              // )
+            }
+          </span>
+          <span className={styles["sorting-and-pagination"]}>
+            <span className={styles.sorting}>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle caret className={styles["dropdown-products"]}>
+                  Sort :
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem
+                    header
+                    className={styles["dropdown-item-products"]}
+                  >
+                    Price
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={expensive}
+                  >
+                    Expensive
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={low}
+                  >
+                    Low
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    header
+                  >
+                    post
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={latest}
+                  >
+                    latest
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={oldest}
+                  >
+                    oldest
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </span>
+            <span className={styles.pagination}>
+              <Pagination>
+                <PaginationItem style={{ color: "red" }}>
+                  <PaginationLink first href="#" style={{ color: "#6a4029" }} />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    previous
+                    style={{ color: "#6a4029" }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" style={{ color: "#6a4029" }}>
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" style={{ color: "#6a4029" }}>
+                    2
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" style={{ color: "#6a4029" }}>
+                    3
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" next style={{ color: "#6a4029" }} />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" last style={{ color: "#6a4029" }} />
+                </PaginationItem>
+              </Pagination>
+            </span>
           </span>
         </section>
       </main>
