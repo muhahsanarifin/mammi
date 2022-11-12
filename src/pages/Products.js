@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
+import { Link } from "react-router-dom";
 
-import bangPutra from "../assets/images/bang-putra.png";
+import axios from "axios";
 
 import Footer from "../components/Footer";
 
 import Header from "../components/Header";
 
-import styles from "../styles/Products.module.css";
+import Loader from "../components/Loader";
 
-import { Link } from "react-router-dom";
+import styles from "../styles/Products.module.css";
 
 import {
   Dropdown,
@@ -19,78 +19,47 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-import {
-  Pagination,
-  PaginationItem,
-  PaginationLink
-}
-from "reactstrap";
-
-// import Loader from "../components/Loader";
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 const Products = () => {
+  // « Init »
   const [products, setProducts] = useState([]);
 
   const [promos, setPromos] = useState([]);
 
-  // const [value, setSearchProduct] = useState("");
-
-  // Search ↴
-  // const [value, setSearchProduct] = useState("");
-
-  // const [loading, setLoading] = useState(false);
-
-  // const sortOption = ["favor", "cofee", "noncofee", "foods", "add-on"];
+  const [loading, setLoading] = useState(false);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  const getProducts = async () => {
-    // setLoading(true);
-    try {
-      const repsonse = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?page=1&limit=6`
-      );
-      setProducts(repsonse.data.result.data);
-      console.log(repsonse.data.result.data);
-      // console.log(repsonse.data);
-      // setLoading(false);
-    } catch (error) {
-      // setLoading(true);
-      console.log(error.message);
-    }
+  // « Get Token User »
+  const userID = (userId) => {
+    const getTokenUser = localStorage.getItem("data-user");
+    const dataUser = JSON.parse(getTokenUser);
+    //  console.log(dataUser)
+    return (userId = dataUser.id);
   };
+  const userId = userID();
 
-  const getPromos = async () => {
+  // « Get Products »
+  const getProducts = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos?page=1&limit=1`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?page=1&limit=6`
       );
-      setPromos(response.data.result.data);
+      setProducts(response.data.result.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(true);
       console.log(error.message);
     }
   };
 
   useEffect(() => {
     getProducts();
-    getPromos();
   }, []);
-
-  // const handleSearch = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.get(
-  //       `${process.env.REACT_APP_BACKEND_HOST}/api/v1/products?search=${value}`
-  //     );
-  //     console.log(response.data.result.data);
-  //     setProducts(response.data.result.data);
-  //     setSearchProduct("");
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
 
   const favorProduct = async () => {
     try {
@@ -192,6 +161,22 @@ const Products = () => {
     }
   };
 
+  // « Get Promos »
+  const getPromos = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos?page=1&limit=1`
+      );
+      setPromos(response.data.result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getPromos();
+  }, []);
+
+  // « Handle Search »
   // const handleSearch = async (e) => {
   //   e.preventDefault();
   //   try {
@@ -211,8 +196,9 @@ const Products = () => {
         LinktoProducts="/products"
         LinktoYourcart="/checkout"
         LinktoHistory="/history"
-        Avatar={bangPutra}
-        LinktoProfile="/profile"
+        imgsrc={""}
+        alt="Avatar"
+        LinktoProfile={`${userId}`}
         // value={value}
         // onChange={(e) => setSearchProduct(e.target.value)}
         // onSubmit={handleSearch}
@@ -279,41 +265,23 @@ const Products = () => {
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
-            {
-              // loading ? (
-              //   <Loader />
-              // ) : (
-              // Search ↴
-              products
-                // .filter((product) => {
-                //   if (value === "") {
-                //     return product;
-                //   } else if (
-                //     product.product_name
-                //       .toLowerCase()
-                //       .includes(value.toLowerCase())
-                //   ) {
-                //     return product;
-                //   }
-                // })
-                .map((product, index) => (
-                  <span className={`col my-3 ${styles.product}`} key={index}>
-                    <Link to={`{id}`}>
-                      <img
-                        src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
-                        alt={product.product_name}
-                      />
-                    </Link>
-                    <p className={styles["product__name"]}>
-                      {product.product_name}
-                    </p>
-                    <p
-                      className={styles["product__price"]}
-                    >{`IDR ${product.price}`}</p>
-                  </span>
-                ))
-              // )
-            }
+            {loading && <Loader />}
+            {products.map((product) => (
+              <span className={`col my-3 ${styles.product}`} key={product.id}>
+                <Link to={`/product/${product.id}`}>
+                  <img
+                    src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
+                    alt={product.product_name}
+                  />
+                </Link>
+                <p className={styles["product__name"]}>
+                  {product.product_name}
+                </p>
+                <p
+                  className={styles["product__price"]}
+                >{`IDR ${product.price}`}</p>
+              </span>
+            ))}
           </span>
           <span className={styles["sorting-and-pagination"]}>
             <span className={styles.sorting}>
