@@ -1,16 +1,14 @@
-// Ongoing fixing ◬ ↴
+import React from "react";
 
-import React from 'react'
+import styles from "../styles/Loader.module.css";
 
-import styles from "../styles/Loader.module.css"
-
-function Loader() {
+const Loader = () => {
   return (
-    <div class={styles["lds-ripple"]}>
+    <div className={styles["lds-ripple"]}>
       <div></div>
       <div></div>
     </div>
   );
 }
 
-export default Loader
+export default Loader;

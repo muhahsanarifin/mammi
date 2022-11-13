@@ -16,7 +16,8 @@ const Header = ({
   LinktoYourcart,
   LinktoHistory,
   LinktoProfile,
-  Avatar,
+  imgsrc,
+  alt,
   value,
   onChange,
   onSubmit,
@@ -56,8 +57,8 @@ const Header = ({
           <img src={chat} alt="chat" />
         </span>
         <span className={styles.avatar}>
-          <Link to={LinktoProfile}>
-            <img src={Avatar} alt="Avatar" />
+          <Link to={`/profile/${LinktoProfile}`}>
+            <img src={imgsrc} alt={alt} />
           </Link>
         </span>
       </div>

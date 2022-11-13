@@ -1,10 +1,13 @@
-// import React from 'react'
+import React from 'react'
 
-// function Toast() {
-//   return (
-//     <>
-//     </>
-//   )
-// }
+import { ToastContainer, toast } from 'react-toastify'
 
-// export default Toast
+const Toast = () => {
+  return (
+    <>
+      
+    </>
+  )
+}
+
+export default Toast

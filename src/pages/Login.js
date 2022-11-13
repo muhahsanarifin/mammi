@@ -21,7 +21,6 @@ import CardMember from "../components/CardMember";
 // import PasswordToggle from "../components/PasswordToggle";
 
 const Login = () => {
-  // const [PasswordInputType, ToggleIcon] = PasswordToggle();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -42,7 +41,7 @@ const Login = () => {
 
         navigate("/products");
       })
-      .catch((err) => console.log("Password or Email is wrong"));
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -75,19 +74,17 @@ const Login = () => {
                 type="text"
                 placeholder="Enter your Email Address"
                 id="inputEmail"
-                required="password"
+                required={true}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <label htmlFor="inputPassword">Password:</label>
               <input
                 type="password"
-                // type={PasswordInputType}
                 id="inputPassword"
                 placeholder="Enter your password"
-                required="password"
+                required={true}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {/* <span className="password-toogle-icon">{ToggleIcon}</span> */}
               <span className={styles["forgot-password"]}>
                 <Link
                   to={`/forgot-password`}
@@ -97,10 +94,12 @@ const Login = () => {
                 </Link>
               </span>
               <button className={styles["btn-login"]}>Login</button>
+            </form>
+            <span className={styles["btn-google"]}>
               <button className={styles["btn-google-login"]}>
                 Login with Google
               </button>
-            </form>
+            </span>
           </span>
         </section>
       </main>

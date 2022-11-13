@@ -23,6 +23,8 @@ import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 const Products = () => {
   // « Init »
+  const [profiles, setProfiles] = useState([]);
+
   const [products, setProducts] = useState([]);
 
   const [promos, setPromos] = useState([]);
@@ -34,10 +36,17 @@ const Products = () => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   // « Get Token User »
+  const getTokenUser = (token) => {
+    const getTokenUser = localStorage.getItem("data-user");
+    const dataUser = JSON.parse(getTokenUser);
+    return (token = dataUser.token);
+  };
+  const tokenUser = getTokenUser();
+
+  // « Get ID User »
   const userID = (userId) => {
     const getTokenUser = localStorage.getItem("data-user");
     const dataUser = JSON.parse(getTokenUser);
-    //  console.log(dataUser)
     return (userId = dataUser.id);
   };
   const userId = userID();
@@ -75,7 +84,7 @@ const Products = () => {
   const coffee = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?filter=Coffee`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Coffee`
       );
       setProducts(response.data.result.data);
     } catch (error) {
@@ -86,7 +95,7 @@ const Products = () => {
   const nonCofee = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?filter=Non Coffee`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Non Coffee`
       );
       setProducts(response.data.result.data);
     } catch (error) {
@@ -99,7 +108,6 @@ const Products = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?filter=Food`
       );
-      console.log(response.data.result.data);
       setProducts(response.data.result.data);
     } catch (error) {
       console.log(error.message);
@@ -189,20 +197,43 @@ const Products = () => {
   //   }
   // }
 
+  // « Get Profiles »
+  const getProfiles = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/profile/id`,
+        {
+          headers: {
+            "x-access-token": tokenUser,
+          },
+        }
+      );
+      setProfiles(response.data.result);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getProfiles();
+  }, []);
+
   return (
     <>
-      <Header
-        LinktoHome="/"
-        LinktoProducts="/products"
-        LinktoYourcart="/checkout"
-        LinktoHistory="/history"
-        imgsrc={""}
-        alt="Avatar"
-        LinktoProfile={`${userId}`}
-        // value={value}
-        // onChange={(e) => setSearchProduct(e.target.value)}
-        // onSubmit={handleSearch}
-      />
+      {profiles.map((profile) => (
+        <Header
+          LinktoHome="/"
+          LinktoProducts="/products"
+          LinktoYourcart="/checkout"
+          LinktoHistory="/history"
+          imgsrc={`${process.env.REACT_APP_BACKEND_HOST}${profile.picture}`}
+          alt={`${profile.display_name}`}
+          LinktoProfile={`${userId}`}
+          // value={value}
+          // onChange={(e) => setSearchProduct(e.target.value)}
+          // onSubmit={handleSearch}
+        />
+      ))}
 
       <main className={styles.main}>
         <aside

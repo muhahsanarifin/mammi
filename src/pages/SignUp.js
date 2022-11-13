@@ -2,28 +2,37 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import Footer from "../components/Footer";
-
-import styles from "../styles/SignUp.module.css";
-
-import eat from "../assets/images/eat.png";
-
-import mammiLogo from "../assets/images/mammi-logo.png";
-
 import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 
+// import Validation from "../components/ValidationRegister";
+
 import axios from "axios";
+
+import styles from "../styles/SignUp.module.css";
+
+import mammiLogo from "../assets/images/mammi-logo.png";
+
+import eat from "../assets/images/eat.png";
+
+import Footer from "../components/Footer";
 
 import CardMember from "../components/CardMember";
 
 function SignUp() {
   const navigate = useNavigate();
-
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+    reset,
+  } = useForm();
 
   const onSubmit = (data) => {
+    reset();
+
     axios
       .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/users`, {
         email: data.name,
@@ -31,7 +40,6 @@ function SignUp() {
         phone_number: data.phonenumber,
       })
       .then((res) => {
-        console.log(res.data);
         navigate("/login");
       })
       .catch((err) => {
@@ -64,39 +72,78 @@ function SignUp() {
           <span className={styles["sign-up"]}>
             <h3>Sign Up</h3>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-              <label htmlFor="inputEmail">Email Address:</label>
+              <label>Email Address:</label>
               <input
                 type="text"
                 placeholder="Enter your Email Address"
-                id="inputEmail"
-                required="text"
-                {...register("name")}
+                {...register("name", {
+                  required: "Email is required",
+                })}
+                onKeyUp={() => {
+                  trigger("name");
+                }}
+                className={`${errors.name && "invalid"}`}
               />
-              <label htmlFor="inputPassword">Password:</label>
+              {errors.name && (
+                <span className={styles["info-validation"]}>
+                  {errors.name.message}
+                </span>
+              )}
+
+              <label>Password:</label>
               <input
                 type="password"
                 placeholder="Enter your password"
-                id="inputPassword"
-                required="text"
-                {...register("password")}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Min password is six chracters",
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger("password");
+                }}
               />
-              <label htmlFor="inputPhoneNumber">Phone Number:</label>
+              {errors.password && (
+                <span className={styles["info-validation"]}>
+                  {errors.password.message}
+                </span>
+              )}
+
+              <label>Phone Number:</label>
               <input
                 type="text"
                 placeholder="Enter your phone number"
-                id="inputPhoneNumber"
-                required="text"
-                {...register("phonenumber")}
+                {...register("phonenumber", {
+                  required: "Phone number is required",
+                  pattern: {
+                    value:
+                      /(\+62 ((\d{3}([ -]\d{3,})([- ]\d{4,})?)|(\d+)))|(\(\d+\) \d+)|\d{3}( \d+)+|(\d+[ -]\d+)|\d+/gm,
+                    message: "Input valid phone number",
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger("phonenumber");
+                }}
               />
+              {errors.phonenumber && (
+                <span className={styles["info-validation"]}>
+                  {errors.phonenumber.message}
+                </span>
+              )}
+
               <button className={styles["btn-sign-up"]}>Sign Up</button>
+            </form>
+            <span className={styles["btn-google"]}>
               <button className={styles["btn-google-sign-up"]}>
                 Sign up with Google
               </button>
-            </form>
+            </span>
           </span>
         </section>
       </main>
-      <CardMember/>
+      <CardMember />
       <Footer />
     </>
   );
