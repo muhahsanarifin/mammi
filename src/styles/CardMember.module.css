@@ -64,10 +64,10 @@
 @media all and (min-width: 768px) and (max-width: 1024px) {
 
   .member-cards {
-    position: absolute;
+    position: relative;
     width: 78vw;
     margin-left: 5.5rem;
-    top: 45.5rem;
+    top: 4rem;
     padding: 1.5rem
   }
 
@@ -89,10 +89,10 @@
 @media all and (min-width: 480px) and (max-width: 768px) {
 
   .member-cards {
-    position: absolute;
+    position: relative;
     width: 78vw;
     margin-left: 5rem;
-    top: 45.5rem;
+    top: 4rem;;
     padding: 1.5rem;
   }
 
@@ -113,10 +113,10 @@
 
 @media all and (max-width: 480px) {
   .member-cards {
-    position: absolute;
+    position: relative;
     width: 78vw;
     margin-left: 2.6rem;
-    top: 46.5rem;
+    top: 5rem;
     padding: 1rem;
   }
 
