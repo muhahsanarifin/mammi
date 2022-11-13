@@ -1,16 +1,18 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import { Provider as ReduxProvider } from 'react-redux';
+// import ReduxStore from "./redux/store";
 
 import reportWebVitals from './reportWebVitals';
-import router from './router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
