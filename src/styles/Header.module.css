@@ -21,6 +21,7 @@
 
 /* || Header */
 .header {
+  /* position: relative; */
   /* border: 1px solid red; */
   height: 5rem;
   border-bottom: 1px solid var(--header-border-color);
@@ -110,6 +111,7 @@
 }
 .avatar img {
   width: 32px;
+  height: 32px;
   border-radius: 100%;
 }
 

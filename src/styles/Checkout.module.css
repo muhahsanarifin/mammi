@@ -257,6 +257,15 @@
   height: 18px;
 }
 
+.payment-method__card input, .bank-account input , .cash-on-delivery input {
+  cursor: pointer;
+  outline: none;
+}
+
+.payment-method__card input:checked, .bank-account input:checked, .cash-on-delivery input:checked {
+  content: url("../assets/icons/radio.svg");
+}
+
 .payment-method__card label img {
   /* border: 1px solid darkorange; */
   border-radius: 10px;

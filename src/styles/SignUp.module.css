@@ -1,14 +1,16 @@
 /* || Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
 
 /* || Root Colors */
 :root {
-  --su-bg-login: #FFFFFF;
-  --su-btn-color: #FFBA33;
-  --su-font-color: #6A4029;
-  --su-font-second-color: #0B132A;
-  --su-font-third-color: #4F5665;
+  --su-bg-login: #ffffff;
+  --su-btn-color: #ffba33;
+  --su-font-color: #6a4029;
+  --su-font-second-color: #0b132a;
+  --su-font-third-color: #4f5665;
+  --su-color-info-validation: #CC0000;
+  --su-bg-color-info-validation: #CC0000;
 }
 
 /* || Views */
@@ -16,11 +18,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Rubik', sans-serif;;
+  font-family: "Rubik", sans-serif;
 }
 
 .main {
-  /* border: 1px solid darkred; */
+  border: 1px solid darkred;
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -56,7 +59,7 @@
 
 .logo__image img {
   /* border: 1px solid darkblue; */
-  width: 40px
+  width: 40px;
 }
 
 .logo__init p {
@@ -102,7 +105,7 @@
   padding-left: 7rem;
   padding-right: 7rem;
   padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2.5rem;
 }
 
 .sign-up .form label {
@@ -111,7 +114,9 @@
   color: var(--su-font-third-color);
 }
 
-.form input[type=text], .form input[type=password] {
+.form input[type="text"],
+.form input[type="password"],
+.form input[type="number"] {
   outline: none;
   border-radius: 20px;
   padding: 1rem;
@@ -119,7 +124,8 @@
   border: 1px solid var(--su-font-third-color);
 }
 
-.form input[type=text]:focus, .form input[type=password]:focus {
+.form input[type="text"]:focus,
+.form input[type="password"]:focus {
   border: 1px solid var(--login-btn-color);
 }
 
@@ -136,23 +142,40 @@
   font-weight: 700;
 }
 
-.form button.btn-google-sign-up {
-  position: relative;
+/* ↴ Validation styles */
+.info-validation {
+  /* border: 1px solid darkblue; */
+  font-weight: 700;
+  width: fit-content;
+  color: var(--su-color-info-validation);
+  font-size: small;
+}
+
+.btn-google {
+  /* border: 1px solid darkblue; */
+  display: flex;
+  flex-direction: column;
+  padding-left: 7rem;
+  padding-right: 7rem;
+}
+.btn-google-sign-up {
   /* border: 1px solid darkgreen; */
+  position: relative;
   border: none;
   padding-top: 0.2rem;
   max-width: 31.5625rem;
   border-radius: 20px;
   background: none;
   box-shadow: 0px 6px 20px rgba(196, 196, 196, 0.67);
-  top: 2rem;
-  font-family: 'Poppins', sans-serif;
+  /* top: 2rem; */
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   padding-bottom: 0.8rem;
   font-size: 17px;
+  /* align-self: center; */
 }
 
-.form button.btn-google-sign-up::before {
+.btn-google-sign-up::before {
   position: relative;
   content: url(../assets/images/google-logo.svg);
   top: 0.5rem;
@@ -173,18 +196,17 @@
   z-index: 1;
   top: 58rem;
   border-radius: 10px;
-  box-shadow: 0px 6px 20px rgba(196, 196, 196, 0.67)
+  box-shadow: 0px 6px 20px rgba(196, 196, 196, 0.67);
 }
 
-.member-cards span h3{
+.member-cards span h3 {
   font-size: 35px;
   color: var(--su-font-second-color);
   max-width: 20rem;
 }
 
-
-.member-cards span p{
-  color: var(--su-font-third-color)
+.member-cards span p {
+  color: var(--su-font-third-color);
 }
 
 .btn-create-member {
@@ -201,7 +223,6 @@
 
 /* || Responsive */
 @media all and (min-width: 768px) and (max-width: 1024px) {
-
   .header {
     padding-right: 0;
   }
@@ -210,7 +231,7 @@
     padding-left: 5rem;
     padding-right: 5rem;
     padding-bottom: 2.5rem;
-  } 
+  }
 
   .main__left-side {
     display: none;
@@ -247,7 +268,6 @@
     height: 2.75rem;
     width: 10.625rem;
   }
-
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
@@ -257,7 +277,7 @@
 
   .main {
     padding-bottom: 2.5rem;
-  } 
+  }
 
   .main__left-side {
     display: none;
@@ -298,12 +318,12 @@
 
 @media all and (max-width: 480px) {
   .header {
-  padding-right: 0;
+    padding-right: 0;
   }
 
   .main {
     padding-bottom: 2.5rem;
-  } 
+  }
 
   .main__left-side {
     display: none;
@@ -316,6 +336,11 @@
   /* .login {
 
   } */
+
+  .btn-google {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   .sign-up h3 {
     padding-top: 1.5rem;

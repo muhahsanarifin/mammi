@@ -3,9 +3,7 @@
   position: relative;
   width: 72px;
   height: 72px;
-  left: 45rem;
-  top: 18rem;
-  border: 1px solid darkblue;
+  /* border: 1px solid darkblue; */
 }
 .lds-ripple div {
   position: absolute;
