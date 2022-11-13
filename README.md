@@ -19,8 +19,8 @@
     <br />
     <br />
     <a href="#">View Demo</a>
-    ·
-    <!-- <a href="">Report Bug</a>
+    <!-- ·
+    <a href="">Report Bug</a>
     ·
     <a href="">Request Feature</a> -->
   </p>
@@ -118,7 +118,7 @@
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/muhahsanarifin/mammi.git
+   git clone https://github.com/muhahsanarifin/mammi-fe.git
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

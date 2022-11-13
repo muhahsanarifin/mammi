@@ -11,14 +11,22 @@ import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 
-// Sample Components
-// import Loader from "./components/Loader";
+// Admin ↴
+// import AddProductAdmin from "./pages/admin/AddProduct";
+// import AddPromoAdmin from "./pages/admin/AddPromo";
+// import EditPromoAdmin from "./pages/admin/EditPromo";
+// import EditProuctAdmin from "./pages/admin/EditProuct";
+// import ProductDetailAdmin from "./pages/admin/ProductDetail";
+// import ChatAdmin from "./pages/admin/Chat";
+
+// Sample Components ↴
+// import Header from "./components/admin/Header";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <NotFound/>
+    errorElement: <NotFound />,
   },
   {
     path: "/login",
@@ -33,15 +41,16 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     element: <Profile />,
   },
   {
     path: "/products",
     element: <Products />,
   },
+
   {
-    path: "/product-detail",
+    path: "/product/:id",
     element: <ProductDetail />,
   },
   {
@@ -53,10 +62,29 @@ const router = createBrowserRouter([
     element: <Checkout />,
   },
 
-  // Sample Component ↴
+  // || Under  maintanance
+  
+  // Admin ↴
   // {
-  //   path: "/loader",
-  //   element: <Loader />,
+  //   path: "/product/add",
+  //   element: <AddProductAdmin />,
+  // },
+  // {
+  //   path: "/product/edit",
+  //   element: <EditProuctAdmin />,
+  // },
+  // {
+  //   path: "/promo/add",
+  //   element: <AddPromoAdmin />,
+  // },
+  // {
+  //   path: "/promo/edit",
+  //   element: <EditPromoAdmin />,
+  // },
+
+  // {
+  //   path: "/header",
+  //   element: <Header />,
   // },
 ]);
 
