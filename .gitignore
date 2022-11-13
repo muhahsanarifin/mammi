@@ -28,3 +28,9 @@ yarn-error.log*
 
 ## Admin ##
 admin
+
+## API ##
+api
+
+## Redux ##
+redux
