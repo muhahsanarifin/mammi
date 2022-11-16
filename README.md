@@ -67,6 +67,31 @@
 <!-- ABOUT THE PROJECT -->
 # About The Project 
 
+## Features
+
+| Info          |       Status           |
+| :-----------  |:---------------------- |
+| Login         | `On going development` |
+| Logout        | `On going development` |
+| `ADMIN`                                |
+| Home          | `On going development` |
+| Profile       | `On going development` |
+| Product       | `On going development` |
+| Promo         | `On going development` |
+| Orders        | `On going development` |
+| Dashbord      | `On going development` |
+| Transactions  | `On going development` |
+| `Customer`                             |
+| Home          | `On going development` |
+| Profile       | `On going development` |
+| Product       | `On going development` |
+| Promo         | `On going development` |
+| YourChart     | `On going development` |
+| Transactions  | `On going development` |
+| History       | `On going development` |
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Sign Up
 
 ![Sign Up](src/assets/images/sign-up-mammi.png?raw=true)
@@ -106,6 +131,8 @@
 ## Payment And Delivery
 
 ![Profile](src/assets/images/payment-and-delivery-mammi.png?raw=true)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 # Getting Started
