@@ -14,15 +14,15 @@
   <h2 align="center">MAMMI</h2>
 
   <p align="center">
-    <br />
+    <!-- <br />
     <a href="#"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="#">View Demo</a>
-    <!-- ·
-    <a href="">Report Bug</a>
+    <br /> -->
+    <a href="http://mammi-fe-react.vercel.app/">View Demo</a>
     ·
-    <a href="">Request Feature</a> -->
+    <a href="#">Report Bug</a>
+    ·
+    <a href="#">Request Feature</a>
   </p>
 </div>
 
