@@ -25,7 +25,7 @@ const Footer = () => {
           </span>
           <span className={styles.descriptions}>
             <p>
-              Coffee Shop is a store that sells some good meals, and especially
+              Mammi is a store that sells some good meals, and especially
               coffee. We Provide high quality beans.
             </p>
           </span>
