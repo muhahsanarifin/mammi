@@ -16,6 +16,7 @@
   --product-promo-card-color: #ffcb65;
   --first-promo-card-layer: #000000;
   --last-promo-card-layer: #895537;
+  --btn-add-promo-bg: #ffba33;
 }
 
 /* || Views */
@@ -138,10 +139,6 @@
   font-weight: 400;
 }
 
-/* .coupon h3 {
-  border: 1px solid darkorchid;
-} */
-
 .coupon .description {
   font-size: 12px;
 }
@@ -153,6 +150,16 @@
   padding: 0.8rem 5rem;
   border: none;
   border-radius: 20px;
+  font-weight: 700;
+}
+
+.btn-add-promo {
+  /* border: 1px solid darkblue; */
+  background: var(--btn-add-promo-bg);
+  color: var(--product-btn-color);
+  padding: 0.8rem 5rem;
+  border: none;
+  border-radius: 8px;
   font-weight: 700;
 }
 
@@ -224,6 +231,7 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   justify-content: center;
+  min-height: 40.075rem;
 }
 
 .product {
@@ -284,10 +292,6 @@
   align-items: center;
 }
 
-/* .sorting {
-  border: 1px solid darkblue;
-} */
-
 .pagination {
   padding-top: 0.8rem;
   /* border: 1px solid red; */
@@ -313,6 +317,26 @@
   background: var(--product-btn-color) !important;
 }
 
+.link-btn-new-product {
+  text-decoration: none;
+}
+
+.btn-new-product {
+  /* border: 1px solid darkblue; */
+  display: flex;
+  justify-content: center;
+}
+
+.btn-new-product button {
+  padding: 0.8rem 8rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--product-btn-color);
+  font-weight: 700;
+  color: var(--product-font-fourth-color);
+  outline: none;
+}
+
 /* || Responsive */
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
@@ -324,10 +348,6 @@
   .main__left-side {
     display: none;
   }
-
-  /* .main__right-side {
-    
-  } */
 
   .main__products__header {
     justify-content: center;
@@ -388,6 +408,16 @@
     justify-content: center;
     display: grid;
     grid-template-columns: auto auto;
+  }
+
+  .btn-new-product button {
+    padding: 0.8rem 5rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--product-btn-color);
+    font-weight: 700;
+    color: var(--product-font-fourth-color);
+    outline: none;
   }
 
   .sorting {
