@@ -27,7 +27,10 @@ yarn-error.log*
 .env
 
 ## Admin ##
-admin
+Dashboard.js
+
+## Pages ##
+Chat.js
 
 ## API ##
 api
