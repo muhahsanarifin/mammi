@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
+import HeaderAdmin from "../components/admin/Header";
+
 import Header from "../components/Header";
 
 import Footer from "../components/Footer";
@@ -15,35 +17,23 @@ import coldBrew from "../assets/images/products/cold-brew.svg";
 import arrowBrown from "../assets/icons/arrow-brown.svg";
 
 import { Link } from "react-router-dom";
-import axios from "axios";
+import Axios from "axios";
 
 const ProductDetail = () => {
   // « Init »
   const [products, setProductDetail] = useState([]);
-  const [profiles, setProfiles] = useState([]);
 
   const { id } = useParams();
 
-  // « Get Token User »
-  const getTokenUser = (token) => {
-    const getTokenUser = localStorage.getItem("data-user");
-    const dataUser = JSON.parse(getTokenUser);
-    return (token = dataUser.token);
-  };
-  const tokenUser = getTokenUser();
+  // « Get token & role from localstorage »
 
-  // « Get ID User »
-  const userID = (userId) => {
-    const getTokenUser = localStorage.getItem("data-user");
-    const dataUser = JSON.parse(getTokenUser);
-    return (userId = dataUser.id);
-  };
-  const userId = userID();
+  // const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   // « Get Product Detail »
   const getProductDetail = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`
       );
 
@@ -57,40 +47,26 @@ const ProductDetail = () => {
     getProductDetail();
   }, []);
 
-  // « Get Profiles »
-  const getProfiles = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/profile/id`,
-        {
-          headers: {
-            "x-access-token": tokenUser,
-          },
-        }
-      );
-      setProfiles(response.data.result);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getProfiles();
-  }, []);
-
   return (
     <>
-      {profiles.map((profile) => (
+      {role === "Admin" ? (
+        <HeaderAdmin
+          LinktoHome={`/`}
+          LinktoProducts={`/products`}
+          LinktoOrders={`/order`}
+          LinktoDashboard={`/dashboard`}
+          // value = {}
+          // onChange = {}
+          // onSubmit = {}
+        />
+      ) : (
         <Header
           LinktoHome="/"
           LinktoProducts="/products"
           LinktoYourcart="/checkout"
           LinktoHistory="/history"
-          imgsrc={`${process.env.REACT_APP_BACKEND_HOST}${profile.picture}`}
-          alt={`${profile.display_name}`}
-          LinktoProfile={`${userId}`}
         />
-      ))}
+      )}
       <main className={styles.main}>
         {products.map((product) => (
           <>
@@ -103,7 +79,7 @@ const ProductDetail = () => {
                   <li
                     className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
                   >
-                    <a href="#">{product.product_name}</a>
+                    {product.product_name}
                   </li>
                 </ul>
               </nav>
@@ -184,12 +160,30 @@ const ProductDetail = () => {
               </span>
             </span>
             <span className={styles["confirm-product-btn"]}>
-              <button className={styles["confirm-product-btn__add"]}>
-                Add to Cart
-              </button>
-              <button className={styles["confirm-product-btn__ask"]}>
-                Ask a staff
-              </button>
+              {role === "Admin" ? (
+                <>
+                  <button className={styles["confirm-product-btn__add"]}>
+                    Add to Cart
+                  </button>
+                  <Link
+                    to={`/product/${id}/edit`}
+                    className={styles["edit-product-btn__ask-link"]}
+                  >
+                    <button className={styles["edit-product-btn__ask"]}>
+                      Edit Product
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <button className={styles["confirm-product-btn__add"]}>
+                    Add to Cart
+                  </button>
+                  <button className={styles["confirm-product-btn__ask"]}>
+                    Ask a staff
+                  </button>
+                </>
+              )}
             </span>
           </span>
         </section>
