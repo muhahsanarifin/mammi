@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+import Axios from "axios";
 
 import Header from "../components/Header";
 
@@ -16,38 +16,21 @@ const History = () => {
   // « Init »
   const navigate = useNavigate();
   const [historyTransactions, setHistoryTransactions] = useState([]);
-  const [profiles, setProfiles] = useState([]);
 
   useEffect(() => {
-    if (!localStorage.getItem("data-user")) {
+    if (!localStorage.getItem("token")) {
       navigate("/login");
     }
   }, []);
 
-  // « Get Token User »
-  const getTokenUser = (token) => {
-    const getTokenUser = localStorage.getItem("data-user");
-    const dataUser = JSON.parse(getTokenUser);
-    return (token = dataUser.token);
-  };
-  const tokenUser = getTokenUser();
-
-  // « Get ID User »
-  const userID = (userId) => {
-    const getTokenUser = localStorage.getItem("data-user");
-    const dataUser = JSON.parse(getTokenUser);
-    return (userId = dataUser.id);
-  };
-  const userId = userID();
-
   // « Get History Transaction »
   const getHistoryTransactions = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/transactions/history`,
         {
           headers: {
-            "x-access-token": tokenUser,
+            "x-access-token": localStorage.getItem("token"),
           },
         }
       );
@@ -61,40 +44,14 @@ const History = () => {
     getHistoryTransactions();
   }, []);
 
-  // « Get Profiles »
-  const getProfiles = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/profile/id`,
-        {
-          headers: {
-            "x-access-token": tokenUser,
-          },
-        }
-      );
-      setProfiles(response.data.result);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getProfiles();
-  }, []);
-
   return (
     <>
-      {profiles.map((profile) => (
-        <Header
-          LinktoHome="/"
-          LinktoProducts="/products"
-          LinktoYourcart="/checkout"
-          LinktoHistory="/history"
-          imgsrc={`${process.env.REACT_APP_BACKEND_HOST}${profile.picture}`}
-          alt={`${profile.display_name}`}
-          LinktoProfile={`${userId}`}
-        />
-      ))}
+      <Header
+        LinktoHome="/"
+        LinktoProducts="/products"
+        LinktoYourcart="/order"
+        LinktoHistory="/history"
+      />
       <main className={styles.main}>
         <section className={styles["history-customer"]}>
           <h3 className={styles["history-customer__title"]}>

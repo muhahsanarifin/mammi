@@ -1,8 +1,10 @@
-import React from 'react'
+import React from "react";
+
+import { Link } from "react-router-dom";
 
 import mammiLogo from "../assets/images/mammi-logo.png";
 
-import styles from "../styles/Footer.module.css"
+import styles from "../styles/Footer.module.css";
 
 import facebookIcon from "../assets/icons/facebook.svg";
 
@@ -31,15 +33,15 @@ const Footer = () => {
           </span>
         </span>
         <span className={styles["footer__left-side__medias"]}>
-          <a href="#">
+          <Link>
             <img src={facebookIcon} alt="Facebook" />
-          </a>
-          <a href="#">
+          </Link>
+          <Link>
             <img src={instagramIcon} alt="Twitter" />
-          </a>
-          <a href="#">
+          </Link>
+          <Link>
             <img src={twitterIcon} alt="Instagram" />
-          </a>
+          </Link>
         </span>
       </section>
       <section className={styles["footer__rigth-side"]}>
@@ -56,7 +58,7 @@ const Footer = () => {
         <span className={styles["footer__rigth-side__products__engage"]}>
           <p>Engage</p>
           <ul>
-            <li>Coffee Shop ?</li>
+            <li>Mammi Shop ?</li>
             <li>FAQ</li>
             <li>About Us</li>
             <li>Privacy Policy</li>
@@ -69,6 +71,6 @@ const Footer = () => {
       </section>
     </footer>
   );
-}
+};
 
 export default Footer;

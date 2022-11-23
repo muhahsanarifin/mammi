@@ -6,21 +6,22 @@ import SignUp from "./pages/SignUp";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import History from "./pages/History";
-import Checkout from "./pages/Checkout";
+import Order from "./pages/Order";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
+import EditPassword from "./pages/EditPassword";
 import NotFound from "./pages/NotFound";
 
-// Admin ↴
-// import AddProductAdmin from "./pages/admin/AddProduct";
-// import AddPromoAdmin from "./pages/admin/AddPromo";
-// import EditPromoAdmin from "./pages/admin/EditPromo";
-// import EditProuctAdmin from "./pages/admin/EditProuct";
-// import ProductDetailAdmin from "./pages/admin/ProductDetail";
+// « Admin »
+import AddProduct from "./pages/admin/AddProduct";
+import AddPromo from "./pages/admin/AddPromo";
+import EditPromo from "./pages/admin/EditPromo";
+import EditProduct from "./pages/admin/EditProuct";
 // import ChatAdmin from "./pages/admin/Chat";
+import Dashboard from "./pages/admin/Dashboard";
 
 // Sample Components ↴
-// import Header from "./components/admin/Header";
+import Header from "./components/Header";
 
 const router = createBrowserRouter([
   {
@@ -37,8 +38,12 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/forgot-password",
+    path: "/password/forgot",
     element: <ForgotPassword />,
+  },
+  {
+    path: "/profile/:id/edit",
+    element: <EditPassword />,
   },
   {
     path: "/profile/:id",
@@ -58,34 +63,39 @@ const router = createBrowserRouter([
     element: <History />,
   },
   {
-    path: "/checkout",
-    element: <Checkout />,
+    path: "/order",
+    element: <Order />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 
-  // || Under  maintanance
-  
-  // Admin ↴
-  // {
-  //   path: "/product/add",
-  //   element: <AddProductAdmin />,
-  // },
-  // {
-  //   path: "/product/edit",
-  //   element: <EditProuctAdmin />,
-  // },
-  // {
-  //   path: "/promo/add",
-  //   element: <AddPromoAdmin />,
-  // },
-  // {
-  //   path: "/promo/edit",
-  //   element: <EditPromoAdmin />,
-  // },
+  // || Under  maintanance ↴
 
-  // {
-  //   path: "/header",
-  //   element: <Header />,
-  // },
+  // « Admin »
+  {
+    path: "/product/add",
+    element: <AddProduct />,
+  },
+  {
+    path: "/product/:id/edit",
+    element: <EditProduct />,
+  },
+  {
+    path: "/promo/add",
+    element: <AddPromo />,
+  },
+  {
+    path: "/promo/:id/edit",
+    element: <EditPromo />,
+  },
+
+  // Sample Components Route ↴
+  {
+    path: "/header",
+    element: <Header />,
+  },
 ]);
 
 export default router;

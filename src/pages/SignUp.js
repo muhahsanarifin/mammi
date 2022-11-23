@@ -20,7 +20,7 @@ import Footer from "../components/Footer";
 
 import CardMember from "../components/CardMember";
 
-function SignUp() {
+const SignUp = () => {
   const navigate = useNavigate();
   const {
     register,

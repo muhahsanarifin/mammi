@@ -35,10 +35,11 @@ const Login = () => {
         password,
       })
       .then((response) => {
-        const dataUser = response.data.result.result;
-
-        localStorage.setItem("data-user", JSON.stringify(dataUser));
-
+        console.log(response.data.result.result);
+        localStorage.setItem("id", response.data.result.result.id); // ← Set id to LocalStorage
+        localStorage.setItem("token", response.data.result.result.token); // ← Set token to LocalStorage
+        localStorage.setItem("role", response.data.result.result.role); // ← Set role to lodalStorage
+        localStorage.setItem("picture", response.data.result.result.picture); // ← Set picture to lodalStorage
         navigate("/products");
       })
       .catch((err) => console.log(err.message));
