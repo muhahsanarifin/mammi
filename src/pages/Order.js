@@ -1,10 +1,12 @@
 import React from "react";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+// import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-// import axios from "axios";
+// import Axios from "axios";
 
 import HeaderAdmin from "../components/admin/Header";
 
@@ -49,7 +51,6 @@ const Order = () => {
           LinktoProducts={`/products`}
           LinktoOrders={`/order`}
           // LinktoDashboard={`/dashboard`}
-          // LinktoProfile={`${id}`}
           // value = {}
           // onChange = {}
           // onSubmit = {}
@@ -60,7 +61,6 @@ const Order = () => {
           LinktoProducts="/products"
           LinktoYourcart="/order"
           LinktoHistory="/history"
-          // LinktoProfile={`${id}`}
         />
       )}
       <main className={styles.main}>
