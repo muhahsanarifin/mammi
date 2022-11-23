@@ -8,20 +8,23 @@ import mammiLogo from "../assets/images/mammi-logo.png";
 
 import searchIcon from "../assets/icons/search.svg";
 
-import chat from "../assets//icons/chat.svg";
+import chat from "../assets/icons/chat.svg";
 
 const Header = ({
   LinktoHome,
   LinktoProducts,
   LinktoYourcart,
   LinktoHistory,
-  LinktoProfile,
-  imgsrc,
-  alt,
   value,
   onChange,
   onSubmit,
 }) => {
+
+  // « Get picture and dispaly name from localstorage»
+  const picture = localStorage.getItem("picture");
+  const display_name = localStorage.getItem("display_name");
+  const id_user = localStorage.getItem("id");
+
   return (
     <header
       className={`${styles.header} d-flex justify-content-evenly align-items-center`}
@@ -41,9 +44,6 @@ const Header = ({
         <Link to={LinktoHistory}>History</Link>
       </nav>
       <div className="d-flex flex-row gap-4  align-items-center">
-        {/* <span className={styles.search}>
-          <img src={searchGray} alt="search" />
-        </span> */}
         <span className={styles.search} onSubmit={onSubmit}>
           <img src={searchIcon} alt="search" />
           <input
@@ -57,8 +57,11 @@ const Header = ({
           <img src={chat} alt="chat" />
         </span>
         <span className={styles.avatar}>
-          <Link to={`/profile/${LinktoProfile}`}>
-            <img src={imgsrc} alt={alt} />
+          <Link to={`/profile/${id_user}`}>
+            <img
+              src={`${process.env.REACT_APP_BACKEND_HOST}${picture}`}
+              alt={display_name}
+            />
           </Link>
         </span>
       </div>
