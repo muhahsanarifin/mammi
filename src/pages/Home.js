@@ -1,4 +1,10 @@
+import React from "react";
+
 import { Link } from "react-router-dom";
+
+import { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 
@@ -44,9 +50,18 @@ import discord from "../assets/images/discord.svg";
 
 import spotify from "../assets/images/spotify.svg";
 
-import React from "react";
-
 const Home = () => {
+  // « Init»
+  // const [navbar, setNabvar] = useState("")
+  // const navigate = useNavigate()
+
+  // « Get token & role from localstorage »
+  const token = localStorage.getItem("token");
+  console.log(token);
+
+  const role  = localStorage.getItem("role")
+  console.log(role);
+
   return (
     <>
       <header className={styles.header}>
@@ -59,23 +74,70 @@ const Home = () => {
           </span>
         </div>
         <nav className={styles.navbar}>
-          <Link to={"/"}>Home</Link>
-          <Link to={"/products"}>Product</Link>
-          <Link to={"/checkout"}>YourCart</Link>
-          <Link to={"/history"}>History</Link>
+          <ul className={styles["content-navbar"]}>
+            <li>
+              <Link to={"/"} className={styles["content-navbar-text"]}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to={"/products"} className={styles["content-navbar-text"]}>
+                Product
+              </Link>
+            </li>
+            <li>
+              <Link to={"/order"} className={styles["content-navbar-text"]}>
+                YourCart
+              </Link>
+            </li>
+            <li>
+              <Link to={"/history"} className={styles["content-navbar-text"]}>
+                History
+              </Link>
+            </li>
+          </ul>
         </nav>
-        <div className={styles["sign-in-up"]}>
-          <span className={styles["sign-in"]}>
-            <Link to={`/login`}>
-              <button>Login</button>
-            </Link>
-          </span>
-          <span className={styles["sign-up"]}>
-            <Link to={`/sign-up`}>
-              <button>Sign Up</button>
-            </Link>
-          </span>
-        </div>
+
+        {token ? (
+          <div className={styles["sign-in-up"]} style={{ display: "none" }}>
+            <span className={styles["sign-in"]}>
+              <Link to={`/login`}>
+                <button>Login</button>
+              </Link>
+            </span>
+            <span className={styles["sign-up"]}>
+              <Link to={`/sign-up`}>
+                <button>Sign Up</button>
+              </Link>
+            </span>
+          </div>
+        ) : role === "Admin" ? (
+          <div className={styles["sign-in-up"]}>
+            <span className={styles["sign-in"]}>
+              <Link to={`/login`}>
+                <button>Login</button>
+              </Link>
+            </span>
+            <span className={styles["sign-up"]}>
+              <Link to={`/sign-up`}>
+                <button>Sign Up</button>
+              </Link>
+            </span>
+          </div>
+        ) : (
+          <div className={styles["sign-in-up"]}>
+            <span className={styles["sign-in"]}>
+              <Link to={`/login`}>
+                <button>Login</button>
+              </Link>
+            </span>
+            <span className={styles["sign-up"]}>
+              <Link to={`/sign-up`}>
+                <button>Sign Up</button>
+              </Link>
+            </span>
+          </div>
+        )}
       </header>
 
       <main className={styles.main}>
@@ -92,10 +154,10 @@ const Home = () => {
               <button>Get Started</button>
             </Link>
           </span>
-            <span className={styles.search}>
-              <img src={searchIcon} alt="search" />
-              <input type="text" placeholder="Search" />
-            </span>
+          <span className={styles.search}>
+            <img src={searchIcon} alt="search" />
+            <input type="text" placeholder="Search" />
+          </span>
         </section>
         <section className={styles["informations-cards"]}>
           <span className={styles.staff}>
@@ -313,6 +375,6 @@ const Home = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default Home;
