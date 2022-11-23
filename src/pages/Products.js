@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+
+import Axios from "axios";
 
 import Footer from "../components/Footer";
 
@@ -11,6 +13,10 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 
 import styles from "../styles/Products.module.css";
+
+import HeaderAdmin from "../components/admin/Header";
+
+import ProductAdmin from "../components/admin/Product";
 
 import {
   Dropdown,
@@ -23,8 +29,6 @@ import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 const Products = () => {
   // « Init »
-  const [profiles, setProfiles] = useState([]);
-
   const [products, setProducts] = useState([]);
 
   const [promos, setPromos] = useState([]);
@@ -33,29 +37,20 @@ const Products = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  // const navigate = useNavigate()
+
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  // « Get Token User »
-  const getTokenUser = (token) => {
-    const getTokenUser = localStorage.getItem("data-user");
-    const dataUser = JSON.parse(getTokenUser);
-    return (token = dataUser.token);
-  };
-  const tokenUser = getTokenUser();
+  // « Get token & role from localstorage »
 
-  // « Get ID User »
-  const userID = (userId) => {
-    const getTokenUser = localStorage.getItem("data-user");
-    const dataUser = JSON.parse(getTokenUser);
-    return (userId = dataUser.id);
-  };
-  const userId = userID();
+  // const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   // « Get Products »
   const getProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?page=1&limit=6`
       );
       setProducts(response.data.result.data);
@@ -72,7 +67,7 @@ const Products = () => {
 
   const favorProduct = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?favorite=true`
       );
       setProducts(response.data.result.data);
@@ -83,7 +78,7 @@ const Products = () => {
 
   const coffee = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Coffee`
       );
       setProducts(response.data.result.data);
@@ -94,7 +89,7 @@ const Products = () => {
 
   const nonCofee = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Non Coffee`
       );
       setProducts(response.data.result.data);
@@ -105,8 +100,8 @@ const Products = () => {
 
   const foods = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?filter=Food`
+      const response = await Axios.get(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Food`
       );
       setProducts(response.data.result.data);
     } catch (error) {
@@ -116,7 +111,7 @@ const Products = () => {
 
   const addOn = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products`
       );
       setProducts(response.data.result.data);
@@ -127,7 +122,7 @@ const Products = () => {
 
   const expensive = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?price=expensive`
       );
       setProducts(response.data.result.data);
@@ -138,7 +133,7 @@ const Products = () => {
 
   const low = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?price=low`
       );
       setProducts(response.data.result.data);
@@ -149,7 +144,7 @@ const Products = () => {
 
   const latest = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?post=latest`
       );
       setProducts(response.data.result.data);
@@ -160,7 +155,7 @@ const Products = () => {
 
   const oldest = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?post=oldest`
       );
       setProducts(response.data.result.data);
@@ -172,7 +167,7 @@ const Products = () => {
   // « Get Promos »
   const getPromos = async () => {
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos?page=1&limit=1`
       );
       setPromos(response.data.result.data);
@@ -184,57 +179,37 @@ const Products = () => {
     getPromos();
   }, []);
 
-  // « Handle Search »
-  // const handleSearch = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.get(`${process.env.REACT_APP_BACKEND_HOST}api/v1/product?search=${value}`);
-  //     console.log(response.data.result.data);
-  //     setProducts(response.data.result.data);
-  //     setSearchProduct("");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // « Get Profiles »
-  const getProfiles = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/profile/id`,
-        {
-          headers: {
-            "x-access-token": tokenUser,
-          },
-        }
-      );
-      setProfiles(response.data.result);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getProfiles();
-  }, []);
+// useEffect(() => {
+//   if(!localStorage.getItem("token")) {
+//     navigate("/login")
+//   }
+// },[])
 
   return (
     <>
-      {profiles.map((profile) => (
-        <Header
-          LinktoHome="/"
-          LinktoProducts="/products"
-          LinktoYourcart="/checkout"
-          LinktoHistory="/history"
-          imgsrc={`${process.env.REACT_APP_BACKEND_HOST}${profile.picture}`}
-          alt={`${profile.display_name}`}
-          LinktoProfile={`${userId}`}
-          // value={value}
-          // onChange={(e) => setSearchProduct(e.target.value)}
-          // onSubmit={handleSearch}
+      {role === "Admin" ? (
+        <HeaderAdmin
+          LinktoHome={`/`}
+          LinktoProducts={`/products`}
+          LinktoOrders={`/order`}
+          LinktoDashboard={`/dashboard`}
+          // LinktoProfile={`${id}`}
+          // value = {}
+          // onChange = {}
+          // onSubmit = {}
         />
-      ))}
-
+      ) : (
+        <Header
+          LinktoHome={`/`}
+          LinktoProducts={`/products`}
+          LinktoYourcart={`/order`}
+          LinktoHistory={`/history`}
+          // LinktoProfile={`${id}`}
+          // value={}
+          // onChange={}
+          // onSubmit={}
+        />
+      )}
       <main className={styles.main}>
         <aside
           className={`${styles["main__left-side"]} ${styles["main__promo"]}`}
@@ -272,6 +247,11 @@ const Products = () => {
             <p>3. Buy 1 get 1only for new user</p>
             <p>4. Should make member card to apply coupon</p>
           </span>
+          {role === "Admin" ? (
+            <Link to={`/promo/add`}>
+              <button className={styles["btn-add-promo"]}>Add new promo</button>
+            </Link>
+          ) : null}
         </aside>
         <section
           className={`${styles["main__right-side"]} ${styles["main__products"]}`}
@@ -297,105 +277,141 @@ const Products = () => {
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
             {loading && <Loader />}
-            {products.map((product) => (
-              <span className={`col my-3 ${styles.product}`} key={product.id}>
-                <Link to={`/product/${product.id}`}>
-                  <img
-                    src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
-                    alt={product.product_name}
+            {role === "Admin"
+              ? products.map((product) => (
+                  <ProductAdmin
+                    productKey={product.id}
+                    productId={`/product/${product.id}`}
+                    productImage={product.image}
+                    productName={product.product_name}
+                    prodcutPrice={product.price}
                   />
-                </Link>
-                <p className={styles["product__name"]}>
-                  {product.product_name}
-                </p>
-                <p
-                  className={styles["product__price"]}
-                >{`IDR ${product.price}`}</p>
+                ))
+              : products.map((product) => (
+                  <span
+                    className={`col my-3 ${styles.product}`}
+                    key={product.id}
+                  >
+                    <Link to={`/product/${product.id}`}>
+                      <img
+                        src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
+                        alt={product.product_name}
+                      />
+                    </Link>
+                    <p className={styles["product__name"]}>
+                      {product.product_name}
+                    </p>
+                    <p
+                      className={styles["product__price"]}
+                    >{`IDR ${product.price}`}</p>
+                  </span>
+                ))}
+          </span>
+          {role === "Admin" ? (
+            <Link
+              to={`/product/add`}
+              className={styles["link-btn-new-product"]}
+            >
+              <span className={styles["btn-new-product"]}>
+                <button> Add new Product</button>
               </span>
-            ))}
-          </span>
-          <span className={styles["sorting-and-pagination"]}>
-            <span className={styles.sorting}>
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle caret className={styles["dropdown-products"]}>
-                  Sort :
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem
-                    header
-                    className={styles["dropdown-item-products"]}
-                  >
-                    Price
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    onClick={expensive}
-                  >
-                    Expensive
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    onClick={low}
-                  >
-                    Low
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    header
-                  >
-                    post
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    onClick={latest}
-                  >
-                    latest
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    onClick={oldest}
-                  >
-                    oldest
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+            </Link>
+          ) : (
+            <span className={styles["sorting-and-pagination"]}>
+              <span className={styles.sorting}>
+                <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle caret className={styles["dropdown-products"]}>
+                    Sort :
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem
+                      header
+                      className={styles["dropdown-item-products"]}
+                    >
+                      Price
+                    </DropdownItem>
+                    <DropdownItem
+                      className={styles["dropdown-item-products"]}
+                      onClick={expensive}
+                    >
+                      Expensive
+                    </DropdownItem>
+                    <DropdownItem
+                      className={styles["dropdown-item-products"]}
+                      onClick={low}
+                    >
+                      Low
+                    </DropdownItem>
+                    <DropdownItem
+                      className={styles["dropdown-item-products"]}
+                      header
+                    >
+                      post
+                    </DropdownItem>
+                    <DropdownItem
+                      className={styles["dropdown-item-products"]}
+                      onClick={latest}
+                    >
+                      latest
+                    </DropdownItem>
+                    <DropdownItem
+                      className={styles["dropdown-item-products"]}
+                      onClick={oldest}
+                    >
+                      oldest
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </span>
+              <span className={styles.pagination}>
+                <Pagination>
+                  <PaginationItem style={{ color: "red" }}>
+                    <PaginationLink
+                      first
+                      href="#"
+                      style={{ color: "#6a4029" }}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      href="#"
+                      previous
+                      style={{ color: "#6a4029" }}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" style={{ color: "#6a4029" }}>
+                      1
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" style={{ color: "#6a4029" }}>
+                      2
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" style={{ color: "#6a4029" }}>
+                      3
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      href="#"
+                      next
+                      style={{ color: "#6a4029" }}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      href="#"
+                      last
+                      style={{ color: "#6a4029" }}
+                    />
+                  </PaginationItem>
+                </Pagination>
+              </span>
             </span>
-            <span className={styles.pagination}>
-              <Pagination>
-                <PaginationItem style={{ color: "red" }}>
-                  <PaginationLink first href="#" style={{ color: "#6a4029" }} />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink
-                    href="#"
-                    previous
-                    style={{ color: "#6a4029" }}
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" style={{ color: "#6a4029" }}>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" style={{ color: "#6a4029" }}>
-                    2
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" style={{ color: "#6a4029" }}>
-                    3
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" next style={{ color: "#6a4029" }} />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" last style={{ color: "#6a4029" }} />
-                </PaginationItem>
-              </Pagination>
-            </span>
-          </span>
+          )}
         </section>
       </main>
       <Footer />
