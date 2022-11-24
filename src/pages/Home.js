@@ -2,9 +2,9 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 
@@ -51,16 +51,14 @@ import discord from "../assets/images/discord.svg";
 import spotify from "../assets/images/spotify.svg";
 
 const Home = () => {
-  // « Init»
+  // « Init »
   // const [navbar, setNabvar] = useState("")
   // const navigate = useNavigate()
 
   // « Get token & role from localstorage »
   const token = localStorage.getItem("token");
-  console.log(token);
 
   const role  = localStorage.getItem("role")
-  console.log(role);
 
   return (
     <>
