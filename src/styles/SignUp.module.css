@@ -22,7 +22,7 @@
 }
 
 .main {
-  border: 1px solid darkred;
+  /* border: 1px solid darkred; */
   position: relative;
   display: flex;
   flex-direction: row;
