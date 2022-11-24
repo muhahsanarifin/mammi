@@ -29,7 +29,7 @@ const Header = ({
   // « Handle logout »
   const handleLogout = async () => {
     try {
-      const response = await Axios.delete(
+      await Axios.delete(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/logout`,
         {
           headers: {
@@ -37,7 +37,6 @@ const Header = ({
           },
         }
       );
-      console.log(response);
       localStorage.clear()
       navigate("/login");
     } catch (error) {

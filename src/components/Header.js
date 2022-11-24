@@ -20,10 +20,11 @@ const Header = ({
   onSubmit,
 }) => {
 
-  // « Get picture and dispaly name from localstorage»
+  // « Get picture, dispaly name, id user, from localstorage»
   const picture = localStorage.getItem("picture");
   const display_name = localStorage.getItem("display_name");
   const id_user = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
 
   return (
     <header
@@ -53,17 +54,23 @@ const Header = ({
             onChange={onChange}
           />
         </span>
-        <span className={styles.chat}>
-          <img src={chat} alt="chat" />
-        </span>
-        <span className={styles.avatar}>
-          <Link to={`/profile/${id_user}`}>
-            <img
-              src={`${process.env.REACT_APP_BACKEND_HOST}${picture}`}
-              alt={display_name}
-            />
-          </Link>
-        </span>
+        {token ? (
+          <>
+            <span className={styles.chat}>
+              <img src={chat} alt="chat" />
+            </span>
+            <span className={styles.avatar}>
+              <Link to={`/profile/${id_user}`}>
+                <img
+                  src={`${process.env.REACT_APP_BACKEND_HOST}${picture}`}
+                  alt={display_name}
+                />
+              </Link>
+            </span>
+          </>
+        ) : (
+          null
+        )}
       </div>
     </header>
   );
