@@ -50,7 +50,7 @@ const ProductDetail = () => {
   }, []);
 
   useEffect(() => {
-    if(!localStorage.getItem("token")) navigate('/');
+    if(!localStorage.getItem("token")) navigate('/login');
   },[])
 
   return (
