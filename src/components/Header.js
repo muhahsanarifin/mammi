@@ -61,16 +61,11 @@ const Header = ({
             </span>
             <span className={styles.avatar}>
               <Link to={`/profile/${id_user}`}>
-                <img
-                  src={`${process.env.REACT_APP_BACKEND_HOST}${picture}`}
-                  alt={display_name}
-                />
+                <img src={picture} alt={display_name} />
               </Link>
             </span>
           </>
-        ) : (
-          null
-        )}
+        ) : null}
       </div>
     </header>
   );

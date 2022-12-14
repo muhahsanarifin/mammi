@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-// import { useNavigate } from "react-router-dom";
+// 
 
 import Axios from "axios";
 
@@ -179,11 +179,11 @@ const Products = () => {
     getPromos();
   }, []);
 
-// useEffect(() => {
-//   if(!localStorage.getItem("token")) {
-//     navigate("/login")
-//   }
-// },[])
+  // useEffect(() => {
+  //   if(!localStorage.getItem("token")) {
+  //     navigate("/login")
+  //   }
+  // },[])
 
   return (
     <>
@@ -220,10 +220,7 @@ const Products = () => {
           </p>
           {promos.map((promo, index) => (
             <span className={styles["promo__card"]} key={index}>
-              <img
-                src={`${process.env.REACT_APP_BACKEND_HOST}${promo.image}`}
-                alt="Product Promo"
-              />
+              <img src={promo.image} alt="Product Promo" />
               <p>
                 {promo.product_name} {promo.discount}% OFF
               </p>
@@ -273,6 +270,53 @@ const Products = () => {
               Add-on
             </p>
           </span>
+          <span className={styles["sorting-and-pagination"]}>
+            <span className={styles.sorting}>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle caret className={styles["dropdown-products"]}>
+                  Sort :
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem
+                    header
+                    className={styles["dropdown-item-products"]}
+                  >
+                    Price
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={expensive}
+                  >
+                    Expensive
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={low}
+                  >
+                    Low
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    header
+                  >
+                    post
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={latest}
+                  >
+                    latest
+                  </DropdownItem>
+                  <DropdownItem
+                    className={styles["dropdown-item-products"]}
+                    onClick={oldest}
+                  >
+                    oldest
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </span>
+          </span>
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
@@ -294,7 +338,7 @@ const Products = () => {
                   >
                     <Link to={`/product/${product.id}`}>
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
+                        src={product.image}
                         alt={product.product_name}
                       />
                     </Link>
@@ -318,51 +362,6 @@ const Products = () => {
             </Link>
           ) : (
             <span className={styles["sorting-and-pagination"]}>
-              <span className={styles.sorting}>
-                <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                  <DropdownToggle caret className={styles["dropdown-products"]}>
-                    Sort :
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem
-                      header
-                      className={styles["dropdown-item-products"]}
-                    >
-                      Price
-                    </DropdownItem>
-                    <DropdownItem
-                      className={styles["dropdown-item-products"]}
-                      onClick={expensive}
-                    >
-                      Expensive
-                    </DropdownItem>
-                    <DropdownItem
-                      className={styles["dropdown-item-products"]}
-                      onClick={low}
-                    >
-                      Low
-                    </DropdownItem>
-                    <DropdownItem
-                      className={styles["dropdown-item-products"]}
-                      header
-                    >
-                      post
-                    </DropdownItem>
-                    <DropdownItem
-                      className={styles["dropdown-item-products"]}
-                      onClick={latest}
-                    >
-                      latest
-                    </DropdownItem>
-                    <DropdownItem
-                      className={styles["dropdown-item-products"]}
-                      onClick={oldest}
-                    >
-                      oldest
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </span>
               <span className={styles.pagination}>
                 <Pagination>
                   <PaginationItem style={{ color: "red" }}>

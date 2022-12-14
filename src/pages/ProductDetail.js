@@ -2,6 +2,8 @@ import React from "react";
 
 import { useParams } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 
 import HeaderAdmin from "../components/admin/Header";
@@ -22,8 +24,8 @@ import Axios from "axios";
 const ProductDetail = () => {
   // « Init »
   const [products, setProductDetail] = useState([]);
-
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // « Get token & role from localstorage »
 
@@ -46,6 +48,10 @@ const ProductDetail = () => {
   useEffect(() => {
     getProductDetail();
   }, []);
+
+  useEffect(() => {
+    if(!localStorage.getItem("token")) navigate('/');
+  },[])
 
   return (
     <>
