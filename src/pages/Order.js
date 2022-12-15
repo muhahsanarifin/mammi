@@ -161,9 +161,15 @@ const Order = () => {
                 </span>
               </span>
             </span>
-            <button className={styles["confirm-and-pay"]}>
-              Confirm and Pay
-            </button>
+            {role === "Admin" ? (
+              <button className={styles["confirm-and-pay"]}>
+                Mark ad done
+              </button>
+            ) : (
+              <button className={styles["confirm-and-pay"]}>
+                Confirm and Pay
+              </button>
+            )}
           </span>
         </section>
       </main>

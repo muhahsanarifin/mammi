@@ -83,16 +83,39 @@ const Home = () => {
                 Product
               </Link>
             </li>
-            <li>
-              <Link to={"/order"} className={styles["content-navbar-text"]}>
-                YourCart
-              </Link>
-            </li>
-            <li>
-              <Link to={"/history"} className={styles["content-navbar-text"]}>
-                History
-              </Link>
-            </li>
+            {role === "Admin" ? (
+              <>
+                <li>
+                  <Link to={"/order"} className={styles["content-navbar-text"]}>
+                    Order
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/dashboard"}
+                    className={styles["content-navbar-text"]}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to={"/order"} className={styles["content-navbar-text"]}>
+                    YourCart
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/history"}
+                    className={styles["content-navbar-text"]}
+                  >
+                    History
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
 

@@ -16,10 +16,7 @@ const Product = ({
       {
         <span className={`col my-3 ${styles.product}`} key={productKey}>
           <Link to={productId}>
-            <img
-              src={`${process.env.REACT_APP_BACKEND_HOST}${productImage}`}
-              alt={productName}
-            />
+            <img src={productImage} alt={productName} />
           </Link>
           <p className={styles["product__name"]}>{productName}</p>
           <p className={styles["product__price"]}>{`IDR ${prodcutPrice}`}</p>

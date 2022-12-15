@@ -73,7 +73,7 @@ const History = () => {
                       }
                     >
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_HOST}${historyTransaction.image}`}
+                        src={historyTransaction.image}
                         alt={historyTransaction.product_name}
                       />
                     </span>

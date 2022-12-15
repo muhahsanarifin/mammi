@@ -116,7 +116,7 @@ const Profile = () => {
               LinktoProducts="/products"
               LinktoYourcart="/order"
               LinktoHistory="/history"
-              imgsrc={`${process.env.REACT_APP_BACKEND_HOST}${detail.picture}`}
+              imgsrc={detail.picture}
               alt={`${detail.display_name}`}
             />
           )}
@@ -149,7 +149,7 @@ const Profile = () => {
                   ) : (
                     <span className={styles.profile}>
                       <img
-                        src={`${process.env.REACT_APP_BACKEND_HOST}${detail.picture}`}
+                        src={detail.picture}
                         alt="Profile"
                         className={styles["profile__image"]}
                       />
