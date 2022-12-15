@@ -17,7 +17,11 @@ const EditPromo = () => {
               <li
                 className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
               >
-                <a href="">Edit promo</a>
+                Edit promo
+              </li>
+              <li
+                className={`${styles["breadcrumb-item"]} ${styles["cancel-btn"]}`}>
+                Cancel
               </li>
             </ul>
           </nav>
@@ -126,7 +130,7 @@ const EditPromo = () => {
               <span className={styles.stock}>
                 <label htmlFor="#">Enter the discount:</label>
                 <span className={styles["stock-component"]}>
-                  <select>
+                  <select disabled>
                     <option value=""></option>
                     <option value=""></option>
                     <option value=""></option>
@@ -145,7 +149,6 @@ const EditPromo = () => {
             </span>
           </span>
         </section>
-        <section></section>
       </main>
     </>
   );

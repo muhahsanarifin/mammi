@@ -155,7 +155,7 @@ const AddPromo = () => {
               </span>
               <span className={styles["btn-product"]}>
                 <button className={styles["btn-product__save"]}>
-                  Save Product
+                  Save Promo
                 </button>
                 <button className={styles["btn-products__cancel"]}>
                   Cancel

@@ -64,9 +64,7 @@ const router = createBrowserRouter([
     element: <Order />,
   },
 
-  // || Under  maintanance ↴
-
-  // « Admin »
+  // TODO: Admin
   {
     path: "/product/add",
     element: <AddProduct />,
