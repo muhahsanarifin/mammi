@@ -94,10 +94,7 @@ const ProductDetail = () => {
               className={`${styles["first-main"]} ${styles["identity-product"]}`}
             >
               <span className={styles["identity-product_image"]}>
-                <img
-                  src={`${process.env.REACT_APP_BACKEND_HOST}${product.image}`}
-                  alt="Cold Brew"
-                />
+                <img src={product.image} alt="Cold Brew" />
               </span>
 
               <span className={styles["identity-product__description"]}>
