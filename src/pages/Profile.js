@@ -17,23 +17,23 @@ import pen from "../assets/icons/pen.svg";
 import Axios from "axios";
 
 const Profile = () => {
-  // « Init »
+  // TODO: Init
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [details, setDetails] = useState([]);
 
-  // « Get token & role from localstorage »
+  // TODO: Get token & role from localstorage »
   const token = localStorage.getItem("token");
   console.log(token);
 
   const role = localStorage.getItem("role");
   console.log(role);
 
-  // « Get Contact Profile»
+  // TODO: Get Contact Profile»
   const getContact = async () => {
     try {
       const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/id`,
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/contact/id`,
         {
           headers: {
             "x-access-token": token,
@@ -54,7 +54,7 @@ const Profile = () => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/profile/id`,
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/detail/id`,
         {
           headers: {
             "x-access-token": token,
@@ -116,7 +116,7 @@ const Profile = () => {
               LinktoProducts="/products"
               LinktoYourcart="/order"
               LinktoHistory="/history"
-              imgsrc={detail.picture}
+              imgsrc={detail.picturew}
               alt={`${detail.display_name}`}
             />
           )}
