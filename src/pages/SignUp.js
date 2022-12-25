@@ -34,7 +34,7 @@ const SignUp = () => {
     reset();
 
     axios
-      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/users`, {
+      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/users/register`, {
         email: data.name,
         password: data.password,
         phone_number: data.phonenumber,
