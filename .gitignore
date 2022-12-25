@@ -26,17 +26,24 @@ yarn-error.log*
 # .env
 .env
 
-## Admin ##
+# Admin
 Dashboard.js
 
-## Pages ##
+# Pages
 Chat.js
+EditPassword.js
 
-## API ##
+## API
 api
 
-## Redux ##
+## Redux
 redux
 
-## helpers ##
+# helpers 
 helpers
+
+# Components
+ValidationRegister.jsx
+Toast.jsx
+TitleBar.jsx
+ProductCard.jsx
