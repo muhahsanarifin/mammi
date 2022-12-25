@@ -122,11 +122,20 @@
   padding: 1rem;
   max-width: 31.5625rem;
   border: 1px solid var(--login-font-third-color);
+  flex: 1;
 }
 
 .form input[type="text"]:focus,
 .form input[type="password"]:focus {
   border: 1px solid var(--login-btn-color);
+}
+
+.sectionPassword {
+  /* border: 1px solid darkblue; */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .forgot-password {
