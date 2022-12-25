@@ -30,7 +30,7 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/auth`, {
+      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/login`, {
         email,
         password,
       })
