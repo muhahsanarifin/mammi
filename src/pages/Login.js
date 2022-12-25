@@ -18,13 +18,13 @@ import mammiLogo from "../assets/images/mammi-logo.png";
 
 import CardMember from "../components/CardMember";
 
-// import PasswordToggle from "../components/PasswordToggle";
+import PasswordToggle from "../components/PasswordToggle";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,6 +43,10 @@ const Login = () => {
         navigate("/products");
       })
       .catch((err) => console.log(err.message));
+  };
+
+  const handleShowPassword = () => {
+    setShow(!show);
   };
 
   return (
@@ -79,13 +83,19 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <label htmlFor="inputPassword">Password:</label>
-              <input
-                type="password"
-                id="inputPassword"
-                placeholder="Enter your password"
-                required={true}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <span className={styles.sectionPassword}>
+                <input
+                  type={!show ? "password" : "text"}
+                  id="inputPassword"
+                  placeholder="Enter your password"
+                  required={true}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <PasswordToggle
+                  onClickParams={handleShowPassword}
+                  stateParams={!show}
+                />
+              </span>
               <span className={styles["forgot-password"]}>
                 <Link
                   to={`/forgot-password`}
