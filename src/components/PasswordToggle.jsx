@@ -2,9 +2,9 @@ import React from "react";
 
 const PasswordToggle = ({ onClickParams, stateParams }) => {
   const ptSection = {
-    position: "absolute",
+    position: "relative",
     width: "fit-content",
-    right: "1.5rem",
+    marginRight: "auto",
     cursor: "pointer",
   };
 

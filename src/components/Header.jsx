@@ -1,29 +1,17 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
+import mammiLogo from "../assets/images/mammi-logo.png";
+import searchIcon from "../assets/icons/search.svg";
+import chat from "../assets/icons/chat.svg";
 import styles from "../styles/Header.module.css";
 
-import mammiLogo from "../assets/images/mammi-logo.png";
-
-import searchIcon from "../assets/icons/search.svg";
-
-import chat from "../assets/icons/chat.svg";
-
 const Header = ({
-  LinktoHome,
-  LinktoProducts,
-  LinktoYourcart,
-  LinktoHistory,
   value,
   onChange,
   onSubmit,
 }) => {
-
-  // TODO: Get picture, dispaly name, id user, from localstorage
   const picture = localStorage.getItem("picture");
-  const display_name = localStorage.getItem("display_name");
-  const id_user = localStorage.getItem("id");
   const token = localStorage.getItem("token");
 
   return (
@@ -39,10 +27,10 @@ const Header = ({
         </span>
       </div>
       <nav className={`d-flex flex-row gap-4 ${styles.navbar}`}>
-        <Link to={LinktoHome}>Home</Link>
-        <Link to={LinktoProducts}>Product</Link>
-        <Link to={LinktoYourcart}>YourCart</Link>
-        <Link to={LinktoHistory}>History</Link>
+        <Link to={`/`}>Home</Link>
+        <Link to={`products`}>Product</Link>
+        <Link to={`order`}>YourCart</Link>
+        <Link to={`history`}>History</Link>
       </nav>
       <div className="d-flex flex-row gap-4  align-items-center">
         <span className={styles.search} onSubmit={onSubmit}>
@@ -60,8 +48,8 @@ const Header = ({
               <img src={chat} alt="chat" />
             </span>
             <span className={styles.avatar}>
-              <Link to={`/profile/${id_user}`}>
-                <img src={picture} alt={display_name} />
+              <Link to={`/profile`}>
+                <img src={picture} alt={picture} />
               </Link>
             </span>
           </>

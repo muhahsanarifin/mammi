@@ -1,30 +1,18 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
 import { useNavigate } from "react-router-dom";
-
 import Axios from "axios";
-
-import mammiLogo from "../../assets/images/mammi-logo.png";
-
-import searchIcon from "../../assets/icons/search.svg";
-
-import chat from "../../assets/icons/chat.svg";
 
 import styles from "../../styles/admin/Header.module.css";
 
-const Header = ({
-  LinktoHome,
-  LinktoProducts,
-  LinktoOrders,
-  LinktoDashboard,
-  value,
-  onChange,
-  onSubmit,
-}) => {
+import mammiLogo from "../../assets/images/mammi-logo.png";
+import searchIcon from "../../assets/icons/search.svg";
+import chat from "../../assets/icons/chat.svg";
+
+const Header = ({ value, onChange, onSubmit }) => {
   // TODO: Init
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("token");
 
   // TODO: Handle logout
   const handleLogout = async () => {
@@ -37,7 +25,7 @@ const Header = ({
           },
         }
       );
-      localStorage.clear()
+      localStorage.clear();
       navigate("/login");
     } catch (error) {
       console.log(error.message);
@@ -58,10 +46,10 @@ const Header = ({
           </span>
         </div>
         <nav className={`d-flex flex-row gap-4 ${styles.navbar}`}>
-          <Link to={LinktoHome}>Home</Link>
-          <Link to={LinktoProducts}>Product</Link>
-          <Link to={LinktoOrders}>Orders</Link>
-          <Link to={LinktoDashboard}>Dashboard</Link>
+          <Link to={`/`}>Home</Link>
+          <Link to={`/products`}>Product</Link>
+          <Link to={`/orders`}>Orders</Link>
+          <Link to={`/dashboard`}>Dashboard</Link>
         </nav>
         <div className="d-flex flex-row gap-4  align-items-center">
           <span className={styles.search} onSubmit={onSubmit}>
@@ -76,11 +64,13 @@ const Header = ({
           <span className={styles.chat}>
             <img src={chat} alt="chat" />
           </span>
-          <span className={styles["btn-logout"]}>
-            <p className={styles["btn-logout-init"]} onClick={handleLogout}>
-              Logout
-            </p>
-          </span>
+          {accessToken ? (
+            <span className={styles["btn-logout"]}>
+              <p className={styles["btn-logout-init"]} onClick={handleLogout}>
+                Logout
+              </p>
+            </span>
+          ) : null}
         </div>
       </header>
     </>
