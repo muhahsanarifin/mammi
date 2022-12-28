@@ -1,0 +1,41 @@
+.testimonial__customer {
+  border: 2px solid var(--home-border-color);
+  max-width: 25rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 10px;
+  background-color: var(--home-bg-color);
+}
+
+.testimonial__customer__identity {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.testimonial__identity__profile {
+  padding-top: 0.2rem;
+}
+
+.testimonial__ratings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.testimonial__ratings p {
+  margin-bottom: 0;
+}
+
+.testimonial__ratings img {
+  width: 16px;
+}
+
+.testimonials__comment {
+  line-height: 1.6;
+}
