@@ -9,7 +9,7 @@ import History from "./pages/History";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
-import EditPassword from "./pages/EditPassword";
+// import EditPassword from "./pages/EditPassword";
 import NotFound from "./pages/NotFound";
 // import Chat from "./pages/Chat";
 
@@ -38,10 +38,10 @@ const router = createBrowserRouter([
     path: "/password/forgot",
     element: <ForgotPassword />,
   },
-  {
-    path: "/profile/edit",
-    element: <EditPassword />,
-  },
+  // {
+  //   path: "/profile/edit",
+  //   element: <EditPassword />,
+  // },
   {
     path: "/profile",
     element: <Profile />,
