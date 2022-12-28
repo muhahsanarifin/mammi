@@ -40,6 +40,7 @@
   gap: 1.5rem;
   padding: 1.5rem 3.5rem;
   border-right: 1px solid var(--product-border-color);
+  max-width: 398px;
 }
 
 .promo__title {
@@ -69,26 +70,16 @@
   justify-content: center;
 }
 
-.main__promo .promo__card::before {
-  position: absolute;
-  content: "";
-  background: var(--last-promo-card-layer);
-  width: 284px;
-  height: 338px;
-  border-radius: 20px;
-  left: 2.3rem;
-  z-index: -1;
+.promo__card-section {
+  /* border: 1px solid darkblue; */
+  width: 100%;
+  height: 100%;
 }
 
-.main__promo .promo__card::after {
-  position: absolute;
-  content: "";
-  background: var(--first-promo-card-layer);
-  width: 284px;
-  height: 400px;
-  border-radius: 20px;
-  left: 1.2rem;
-  z-index: -1;
+.sectionLoader {
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 
 .promo__card img {

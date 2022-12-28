@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards } from "swiper";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -13,9 +15,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
-
 import styles from "../styles/Products.module.css";
 
 const Products = () => {
@@ -151,9 +151,10 @@ const Products = () => {
     try {
       setLoading(true);
       const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos?page=1&limit=1`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
       );
       setLoading(false);
+      console.log(response.data.result);
       setPromos(response.data.result.data);
     } catch (error) {
       setLoading(true);
@@ -168,15 +169,15 @@ const Products = () => {
     <>
       {role === "Admin" ? (
         <HeaderAdmin
-          // value = {}
-          // onChange = {}
-          // onSubmit = {}
+        // value = {}
+        // onChange = {}
+        // onSubmit = {}
         />
       ) : (
         <Header
-          // value={}
-          // onChange={}
-          // onSubmit={}
+        // value={}
+        // onChange={}
+        // onSubmit={}
         />
       )}
       <main className={styles.main}>
@@ -187,28 +188,33 @@ const Products = () => {
           <p className={styles["promo__announcement"]}>
             Coupon will updated every weeks. Check them out
           </p>
-          {loading ? (
-            <Loader />
-          ) : (
-            promos.map((promo, index) => (
-              <span className={styles["promo__card"]} key={index}>
-                <img src={promo.image} alt="Product Promo" />
-                <p>
-                  {promo.product_name} {promo.discount}% OFF
-                </p>
-                <span className={styles["promo__card__decs"]}>
-                  Buy 1 Choco Oreo and get 20% off for Beff Spaghetti
-                </span>
-                <span className={styles.coupon}>
-                  <p className={styles["coupon__title"]}>COUPON CODE</p>
-                  <h3>{promo.code}</h3>
-                  <p className={styles.description}>
-                    Valid until October 10th 2020
-                  </p>
-                </span>
-              </span>
-            ))
-          )}
+          <span className={styles["promo__card-section"]}>
+            <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
+              {loading ? (
+                <Loader styleSection={styles["sectionLoader"]} />
+              ) : (
+                promos.map((promo) => (
+                  <SwiperSlide>
+                    <span className={styles["promo__card"]} key={promo.id}>
+                      <img src={promo.image} alt="Product Promo" />
+                      <p>
+                        {promo.product_name} {promo.discount}% OFF
+                      </p>
+                      <span className={styles["promo__card__decs"]}>
+                        Buy 1 Choco Oreo and get 20% off for Beff Spaghetti
+                      </span>
+                      <span className={styles.coupon}>
+                        <p className={styles["coupon__title"]}>COUPON CODE</p>
+                        <h3>{promo.code}</h3>
+                        <p className={styles.description}>{``}</p>
+                      </span>
+                    </span>
+                  </SwiperSlide>
+                ))
+              )}
+            </Swiper>
+          </span>
+
           <button className={styles["btn-coupon"]}>Apply Coupon</button>
           <span className={styles["terms-and-condition"]}>
             <h3>Terms and Condition</h3>
@@ -217,6 +223,7 @@ const Products = () => {
             <p>3. Buy 1 get 1only for new user</p>
             <p>4. Should make member card to apply coupon</p>
           </span>
+
           {role === "Admin" ? (
             <Link to={`/promo/add`}>
               <button className={styles["btn-add-promo"]}>Add new promo</button>
