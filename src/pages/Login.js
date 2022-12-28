@@ -8,7 +8,6 @@ import Footer from "../components/Footer";
 import CardMember from "../components/CardMember";
 import PasswordToggle from "../components/PasswordToggle";
 
-
 import eat from "../assets/images/eat.png";
 import mammiLogo from "../assets/images/mammi-logo.png";
 import styles from "../styles/Login.module.css";
@@ -102,7 +101,9 @@ const Login = () => {
                   <p>Forgot password?</p>
                 </Link>
               </span>
-              <button className={styles["btn-login"]}>Login</button>
+              <button className={styles["btn-login"]} disabled={!email && !password}>
+                Login
+              </button>
             </form>
             <span className={styles["btn-google"]}>
               <button className={styles["btn-google-login"]}>
