@@ -5,7 +5,6 @@ import Axios from "axios";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
 import pen from "../assets/icons/pen.svg";
 import styles from "../styles/Profile.module.css";
 
@@ -14,7 +13,8 @@ const Profile = () => {
   const [contacts, setContacts] = useState([]);
   const [details, setDetails] = useState([]);
   const [address, setAddress] = useState(null);
-  const [disableInput, setDisableInput] = useState(true);
+  const [disableInputContact, setDisableInputContact] = useState(true);
+  const [disableInputDetail, setDisableInputDetail] = useState(true);
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -79,8 +79,12 @@ const Profile = () => {
     }
   };
 
-  const handleInput = () => {
-    setDisableInput(!disableInput);
+  const handleInputContact = () => {
+    setDisableInputContact(!disableInputContact);
+  };
+
+  const handleInputDetail = () => {
+    setDisableInputDetail(!disableInputDetail);
   };
 
   useEffect(() => {
@@ -140,7 +144,7 @@ const Profile = () => {
                       <h3>Contacts</h3>
                       <span
                         className={styles["btn-contact"]}
-                        onClick={handleInput}
+                        onClick={handleInputContact}
                       >
                         <img src={pen} alt="btn-contact" />
                       </span>
@@ -168,24 +172,14 @@ const Profile = () => {
                         <label htmlFor="deliveryAddress">
                           Delivery address:
                         </label>
-                        {disableInput ? (
-                          <input
-                            type="text"
-                            id="deliveryAddress"
-                            placeholder={`${detail.address}`}
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            disabled
-                          />
-                        ) : (
-                          <input
-                            type="text"
-                            id="deliveryAddress"
-                            placeholder={`${detail.address}`}
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                          />
-                        )}
+                        <input
+                          type="text"
+                          id="deliveryAddress"
+                          placeholder={`${detail.address}`}
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          disabled={disableInputContact}
+                        />
                       </span>
                     </form>
                   </span>
@@ -196,113 +190,77 @@ const Profile = () => {
               <section className={styles.details}>
                 <span className={styles["header-detail"]}>
                   <h3>Details</h3>
-                  <span className={styles["btn-detail"]} onClick={handleInput}>
+                  <span
+                    className={styles["btn-detail"]}
+                    onClick={handleInputDetail}
+                  >
                     <img src={pen} alt="btn-detail" />
                   </span>
                 </span>
-                {disableInput ? (
-                  <>
-                    <span className={styles["details__left-side"]}>
-                      <span className={styles["display-name"]}>
-                        <label htmlFor="displayName">Display name:</label>
-                        <input
-                          type="text"
-                          id="displayName"
-                          value={`${detail.display_name}`}
-                          disabled
-                        />
-                      </span>
-                      <span className={styles["first-name"]}>
-                        <label htmlFor="firstName">First name:</label>
-                        <input
-                          type="text"
-                          id="firstName"
-                          value={`${detail.first_name}`}
-                        />
-                      </span>
-                      <span className={styles["last-name"]}>
-                        <label htmlFor="lastName">Last name:</label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          value={`${detail.last_name}`}
-                          disabled
-                        />
-                      </span>
+                <span className={styles["details__left-side"]}>
+                  <span className={styles["display-name"]}>
+                    <label htmlFor="displayName">Display name:</label>
+                    <input
+                      type="text"
+                      id="displayName"
+                      placeholder={`${detail.display_name}`}
+                      value={``}
+                      disabled={disableInputDetail}
+                    />
+                  </span>
+                  <span className={styles["first-name"]}>
+                    <label htmlFor="firstName">First name:</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      placeholder={`${detail.first_name}`}
+                      value={``}
+                      disabled={disableInputDetail}
+                    />
+                  </span>
+                  <span className={styles["last-name"]}>
+                    <label htmlFor="lastName">Last name:</label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      placeholder={`${detail.last_name}`}
+                      value={``}
+                      disabled={disableInputDetail}
+                    />
+                  </span>
+                </span>
+                <span className={styles["details__right-side"]}>
+                  <span className={styles.date}>
+                    <label htmlFor="birth">DD/MM/YY</label>
+                    <input
+                      type="text"
+                      id="birth"
+                      placeholder={`${detail.birth}`}
+                      value={``}
+                      disabled={disableInputDetail}
+                    />
+                  </span>
+                  <span className={styles.gender}>
+                    <span>
+                      <input
+                        type="radio"
+                        id="male"
+                        value={"Male"}
+                        disabled={disableInputDetail}
+                      />
+                      <label htmlFor="male">Male</label>
                     </span>
-                    <span className={styles["details__right-side"]}>
-                      <span className={styles.date}>
-                        <label htmlFor="birth">DD/MM/YY</label>
-                        <input type="text" id="birth" disabled />
-                      </span>
-                      <span className={styles.gender}>
-                        <span>
-                          <input
-                            type="radio"
-                            id="male"
-                            value={"Male"}
-                            disabled
-                          />
-                          <label htmlFor="male">Male</label>
-                        </span>
-                        <span>
-                          <input
-                            type="radio"
-                            id="female"
-                            value={"Female"}
-                            disabled
-                          />
-                          <label htmlFor="female">Female</label>
-                        </span>
-                      </span>
+                    <span>
+                      <input
+                        type="radio"
+                        id="female"
+                        value={"Female"}
+                        disabled={disableInputDetail}
+                      />
+                      <label htmlFor="female">Female</label>
                     </span>
-                  </>
-                ) : (
-                  <>
-                    <span className={styles["details__left-side"]}>
-                      <span className={styles["display-name"]}>
-                        <label htmlFor="displayName">Display name:</label>
-                        <input
-                          type="text"
-                          id="displayName"
-                          value={`${detail.display_name}`}
-                        />
-                      </span>
-                      <span className={styles["first-name"]}>
-                        <label htmlFor="firstName">First name:</label>
-                        <input
-                          type="text"
-                          id="firstName"
-                          value={`${detail.first_name}`}
-                        />
-                      </span>
-                      <span className={styles["last-name"]}>
-                        <label htmlFor="lastName">Last name:</label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          value={`${detail.last_name}`}
-                        />
-                      </span>
-                    </span>
-                    <span className={styles["details__right-side"]}>
-                      <span className={styles.date}>
-                        <label htmlFor="birth">DD/MM/YY</label>
-                        <input type="text" id="birth" />
-                      </span>
-                      <span className={styles.gender}>
-                        <span>
-                          <input type="radio" id="male" value={"Male"} />
-                          <label htmlFor="male">Male</label>
-                        </span>
-                        <span>
-                          <input type="radio" id="female" value={"Female"} />
-                          <label htmlFor="female">Female</label>
-                        </span>
-                      </span>
-                    </span>
-                  </>
-                )}
+                  </span>
+                </span>
               </section>
               <section className={styles.buttons}>
                 <p>Do you want to save the change?</p>
