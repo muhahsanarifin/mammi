@@ -48,7 +48,7 @@ const Header = ({ value, onChange, onSubmit }) => {
         <nav className={`d-flex flex-row gap-4 ${styles.navbar}`}>
           <Link to={`/`}>Home</Link>
           <Link to={`/products`}>Product</Link>
-          <Link to={`/orders`}>Orders</Link>
+          <Link to={`/order`}>Orders</Link>
           <Link to={`/dashboard`}>Dashboard</Link>
         </nav>
         <div className="d-flex flex-row gap-4  align-items-center">
