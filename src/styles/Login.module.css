@@ -118,28 +118,27 @@
 .form input[type="text"],
 .form input[type="password"] {
   outline: none;
-  border-radius: 20px;
-  padding: 1rem;
-  max-width: 31.5625rem;
-  border: 1px solid var(--login-font-third-color);
+  padding: 1rem 0;
+  border: none;
   flex: 1;
+  height: 25px;
 }
 
-.form input[type="text"]:focus,
-.form input[type="password"]:focus {
-  border: 1px solid var(--login-btn-color);
-}
-
+.sectionEmail,
 .sectionPassword {
-  /* border: 1px solid darkblue; */
+  border: 1px solid var(--login-font-third-color);
+  border-radius: 20px;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
+  max-width: 31.5625rem;
+  height: 60px;
+  padding: 0 1rem;
 }
-
 .forgot-password {
   cursor: pointer;
+  border-radius: 20px;
 }
 
 .forgot-password p {

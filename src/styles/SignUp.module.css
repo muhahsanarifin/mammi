@@ -5,8 +5,8 @@
   --su-font-color: #6a4029;
   --su-font-second-color: #0b132a;
   --su-font-third-color: #4f5665;
-  --su-color-info-validation: #CC0000;
-  --su-bg-color-info-validation: #CC0000;
+  --su-color-info-validation: #cc0000;
+  --su-bg-color-info-validation: #cc0000;
 }
 
 /* || Views */
@@ -42,7 +42,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* padding: 0 8.5rem; */
   padding-right: 8.5rem;
 }
 
@@ -82,7 +81,6 @@
   /* border: 1px solid darkgoldenrod; */
   display: flex;
   flex-direction: column;
-  /* gap: 1rem; */
 }
 
 .sign-up h3 {
@@ -114,15 +112,24 @@
 .form input[type="password"],
 .form input[type="number"] {
   outline: none;
-  border-radius: 20px;
-  padding: 1rem;
-  max-width: 31.5625rem;
-  border: 1px solid var(--su-font-third-color);
+  padding: 1rem 0;
+  border: none;
+  flex: 1;
+  height: 25px;
 }
 
-.form input[type="text"]:focus,
-.form input[type="password"]:focus {
-  border: 1px solid var(--login-btn-color);
+.sectionEmail,
+.sectionPassword,
+.sectionPhoneNumber {
+  border: 1px solid var(--login-font-third-color);
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 31.5625rem;
+  height: 60px;
+  padding: 0 1rem;
 }
 
 .form button.btn-sign-up {
@@ -138,7 +145,7 @@
   font-weight: 700;
 }
 
-/* ↴ Validation styles */
+/* || TODO: Validation styles */
 .info-validation {
   /* border: 1px solid darkblue; */
   font-weight: 700;

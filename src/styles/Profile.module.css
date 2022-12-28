@@ -349,14 +349,9 @@
   flex-direction: column;
 }
 
-/* .details__right-side .gender input[type="radio"] {
-  width: 16px;
-  accent-color: var(--profile-accent-color);
-} */
-
-.details__right-side .gender input:checked {
+/* .details__right-side .gender input:checked {
   content: url("../assets/icons/radio.svg");
-}
+} */
 
 .gender span {
   /* border: 1px solid darkgoldenrod; */
@@ -368,15 +363,6 @@
 .gender span label {
   color: var(--profile-font-sixth-color);
 }
-
-/* .gender span label:active {
-  color: var(--profile-font-color);
-  font-weight: 500;
-} */
-
-/* .details__right-side .gender {
-  border: 1px solid darkblue;
-} */
 
 .main .buttons {
   /* border: 1px solid darkblue; */
