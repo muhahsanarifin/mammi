@@ -32,7 +32,7 @@
 .product img:hover {
   position: relative;
   transition: all 0.65s;
-  transform: rotateY(20deg) rotateX(30deg);
+  transform: rotateY(180deg);
 }
 
 .product .product__name {
