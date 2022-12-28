@@ -13,6 +13,8 @@ const Profile = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [details, setDetails] = useState([]);
+  const [address, setAddress] = useState(null);
+  const [disableInput, setDisableInput] = useState(true);
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -77,6 +79,10 @@ const Profile = () => {
     }
   };
 
+  const handleInput = () => {
+    setDisableInput(!disableInput);
+  };
+
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/login");
@@ -132,7 +138,10 @@ const Profile = () => {
                   <span className={styles.contacts}>
                     <span className={styles["header-contact"]}>
                       <h3>Contacts</h3>
-                      <span className={styles["btn-contact"]}>
+                      <span
+                        className={styles["btn-contact"]}
+                        onClick={handleInput}
+                      >
                         <img src={pen} alt="btn-contact" />
                       </span>
                     </span>
@@ -159,11 +168,24 @@ const Profile = () => {
                         <label htmlFor="deliveryAddress">
                           Delivery address:
                         </label>
-                        <input
-                          type="text"
-                          id="deliveryAddress"
-                          value={`${detail.address}`}
-                        />
+                        {disableInput ? (
+                          <input
+                            type="text"
+                            id="deliveryAddress"
+                            placeholder={`${detail.address}`}
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            disabled
+                          />
+                        ) : (
+                          <input
+                            type="text"
+                            id="deliveryAddress"
+                            placeholder={`${detail.address}`}
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                          />
+                        )}
                       </span>
                     </form>
                   </span>
@@ -174,52 +196,113 @@ const Profile = () => {
               <section className={styles.details}>
                 <span className={styles["header-detail"]}>
                   <h3>Details</h3>
-                  <span className={styles["btn-detail"]}>
+                  <span className={styles["btn-detail"]} onClick={handleInput}>
                     <img src={pen} alt="btn-detail" />
                   </span>
                 </span>
-                <span className={styles["details__left-side"]}>
-                  <span className={styles["display-name"]}>
-                    <label htmlFor="displayName">Display name:</label>
-                    <input
-                      type="text"
-                      id="displayName"
-                      value={`${detail.display_name}`}
-                    />
-                  </span>
-                  <span className={styles["first-name"]}>
-                    <label htmlFor="firstName">First name:</label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      value={`${detail.first_name}`}
-                    />
-                  </span>
-                  <span className={styles["last-name"]}>
-                    <label htmlFor="lastName">Last name:</label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      value={`${detail.last_name}`}
-                    />
-                  </span>
-                </span>
-                <span className={styles["details__right-side"]}>
-                  <span className={styles.date}>
-                    <label htmlFor="birth">DD/MM/YY</label>
-                    <input type="text" id="birth" />
-                  </span>
-                  <span className={styles.gender}>
-                    <span>
-                      <input type="radio" id="male" />
-                      <label htmlFor="male">Male</label>
+                {disableInput ? (
+                  <>
+                    <span className={styles["details__left-side"]}>
+                      <span className={styles["display-name"]}>
+                        <label htmlFor="displayName">Display name:</label>
+                        <input
+                          type="text"
+                          id="displayName"
+                          value={`${detail.display_name}`}
+                          disabled
+                        />
+                      </span>
+                      <span className={styles["first-name"]}>
+                        <label htmlFor="firstName">First name:</label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          value={`${detail.first_name}`}
+                        />
+                      </span>
+                      <span className={styles["last-name"]}>
+                        <label htmlFor="lastName">Last name:</label>
+                        <input
+                          type="text"
+                          id="lastName"
+                          value={`${detail.last_name}`}
+                          disabled
+                        />
+                      </span>
                     </span>
-                    <span>
-                      <input type="radio" id="female" />
-                      <label htmlFor="female">Female</label>
+                    <span className={styles["details__right-side"]}>
+                      <span className={styles.date}>
+                        <label htmlFor="birth">DD/MM/YY</label>
+                        <input type="text" id="birth" disabled />
+                      </span>
+                      <span className={styles.gender}>
+                        <span>
+                          <input
+                            type="radio"
+                            id="male"
+                            value={"Male"}
+                            disabled
+                          />
+                          <label htmlFor="male">Male</label>
+                        </span>
+                        <span>
+                          <input
+                            type="radio"
+                            id="female"
+                            value={"Female"}
+                            disabled
+                          />
+                          <label htmlFor="female">Female</label>
+                        </span>
+                      </span>
                     </span>
-                  </span>
-                </span>
+                  </>
+                ) : (
+                  <>
+                    <span className={styles["details__left-side"]}>
+                      <span className={styles["display-name"]}>
+                        <label htmlFor="displayName">Display name:</label>
+                        <input
+                          type="text"
+                          id="displayName"
+                          value={`${detail.display_name}`}
+                        />
+                      </span>
+                      <span className={styles["first-name"]}>
+                        <label htmlFor="firstName">First name:</label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          value={`${detail.first_name}`}
+                        />
+                      </span>
+                      <span className={styles["last-name"]}>
+                        <label htmlFor="lastName">Last name:</label>
+                        <input
+                          type="text"
+                          id="lastName"
+                          value={`${detail.last_name}`}
+                        />
+                      </span>
+                    </span>
+                    <span className={styles["details__right-side"]}>
+                      <span className={styles.date}>
+                        <label htmlFor="birth">DD/MM/YY</label>
+                        <input type="text" id="birth" />
+                      </span>
+                      <span className={styles.gender}>
+                        <span>
+                          <input type="radio" id="male" value={"Male"} />
+                          <label htmlFor="male">Male</label>
+                        </span>
+                        <span>
+                          <input type="radio" id="female" value={"Female"} />
+                          <label htmlFor="female">Female</label>
+                        </span>
+                      </span>
+                    </span>
+                  </>
+                )}
               </section>
               <section className={styles.buttons}>
                 <p>Do you want to save the change?</p>
