@@ -29,7 +29,6 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  /* gap: 2rem; */
   padding: 0 8rem;
 }
 
@@ -302,6 +301,15 @@
   border: none;
   background: var(--product-btn-color);
   border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.dropdown-products p {
+  margin-bottom: 0;
 }
 
 .dropdown-products:hover,
