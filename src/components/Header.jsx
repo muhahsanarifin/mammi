@@ -12,7 +12,7 @@ const Header = ({
   onSubmit,
 }) => {
   const picture = localStorage.getItem("picture");
-  const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("token");
 
   return (
     <header
@@ -42,7 +42,7 @@ const Header = ({
             onChange={onChange}
           />
         </span>
-        {token ? (
+        {accessToken ? (
           <>
             <span className={styles.chat}>
               <img src={chat} alt="chat" />
