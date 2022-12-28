@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
+import "swiper/css/bundle";
 
 // import { Provider as ReduxProvider } from 'react-redux';
 // import ReduxStore from "./redux/store";
