@@ -19,10 +19,10 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     trigger,
     reset,
-  } = useForm();
+  } = useForm({ mode: "onChange" });
 
   const onSubmit = async (data) => {
     reset();
@@ -87,11 +87,13 @@ const SignUp = () => {
                   className={`${errors.name && "invalid"}`}
                 />
               </span>
-              {errors.name && (
-                <span className={styles["info-validation"]}>
-                  {errors.name.message}
-                </span>
-              )}
+              <span className={styles["section__info-validation"]}>
+                {errors.name && (
+                  <span className={styles["info-validation"]}>
+                    {errors.name.message}
+                  </span>
+                )}
+              </span>
 
               <label>Password:</label>
               <span className={styles.sectionPassword}>
@@ -114,11 +116,13 @@ const SignUp = () => {
                   stateParams={!show}
                 />
               </span>
-              {errors.password && (
-                <span className={styles["info-validation"]}>
-                  {errors.password.message}
-                </span>
-              )}
+              <span className={styles["section__info-validation"]}>
+                {errors.password && (
+                  <span className={styles["info-validation"]}>
+                    {errors.password.message}
+                  </span>
+                )}
+              </span>
 
               <label>Phone Number:</label>
               <span className={styles.sectionPhoneNumber}>
@@ -138,13 +142,17 @@ const SignUp = () => {
                   }}
                 />
               </span>
-              {errors.phonenumber && (
-                <span className={styles["info-validation"]}>
-                  {errors.phonenumber.message}
-                </span>
-              )}
+              <span className={styles["section__info-validation"]}>
+                {errors.phonenumber && (
+                  <span className={styles["info-validation"]}>
+                    {errors.phonenumber.message}
+                  </span>
+                )}
+              </span>
 
-              <button className={styles["btn-sign-up"]}>Sign Up</button>
+              <button className={styles["btn-sign-up"]} disabled={!isValid}>
+                Sign Up
+              </button>
             </form>
             <span className={styles["btn-google"]}>
               <button className={styles["btn-google-sign-up"]}>
