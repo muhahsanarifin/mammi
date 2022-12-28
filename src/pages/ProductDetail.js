@@ -76,10 +76,6 @@ const ProductDetail = () => {
                 <article
                   className={styles["identity-product__description__article"]}
                 >
-                  {/* Cold brewing is a method of brewing that combines ground
-                  coffee and cool water and uses time instead of heat to extract
-                  theflavor. It is brewed in small batches and steeped for as
-                  long as 48 hours. */}
                   {product.description}
                 </article>
                 <p
