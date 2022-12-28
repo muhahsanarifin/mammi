@@ -1,24 +1,17 @@
 import React from "react";
-
-import axios from "axios";
-
+import Axios from "axios";
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
+import CardMember from "../components/CardMember";
+import PasswordToggle from "../components/PasswordToggle";
 
-import styles from "../styles/Login.module.css";
 
 import eat from "../assets/images/eat.png";
-
 import mammiLogo from "../assets/images/mammi-logo.png";
-
-import CardMember from "../components/CardMember";
-
-import PasswordToggle from "../components/PasswordToggle";
+import styles from "../styles/Login.module.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,23 +19,26 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/login`, {
-        email,
-        password,
-      })
-      .then((response) => {
-        console.log(response.data.result.data);
+    try {
+      const response = await Axios.post(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
+      if (response.status === 200) {
         localStorage.setItem("id", response.data.result.data.id); // ← Set id to LocalStorage
         localStorage.setItem("token", response.data.result.data.token); // ← Set token to LocalStorage
         localStorage.setItem("role", response.data.result.data.role); // ← Set role to lodalStorage
         localStorage.setItem("picture", response.data.result.data.picture); // ← Set picture to lodalStorage
         navigate("/products");
-      })
-      .catch((err) => console.log(err.message));
+      }
+    } catch (err) {
+      console.log(err.response.data.result.msg);
+    }
   };
 
   const handleShowPassword = () => {
@@ -75,13 +71,15 @@ const Login = () => {
             <h3>Login</h3>
             <form className={styles.form} onSubmit={submitHandler}>
               <label htmlFor="inputEmail">Email Address:</label>
-              <input
-                type="text"
-                placeholder="Enter your Email Address"
-                id="inputEmail"
-                required={true}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <span className={styles.sectionEmail}>
+                <input
+                  type="text"
+                  placeholder="Enter your Email Address"
+                  id="inputEmail"
+                  required={true}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </span>
               <label htmlFor="inputPassword">Password:</label>
               <span className={styles.sectionPassword}>
                 <input

@@ -1,35 +1,23 @@
 import React from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { useEffect, useState } from "react";
-
-import HeaderAdmin from "../components/admin/Header";
-
-import Header from "../components/Header";
-
-import Footer from "../components/Footer";
-
-import styles from "../styles/Profile.module.css";
-
-import pen from "../assets/icons/pen.svg";
-
 import Axios from "axios";
 
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
+import pen from "../assets/icons/pen.svg";
+import styles from "../styles/Profile.module.css";
+
 const Profile = () => {
-  // TODO: Init
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [details, setDetails] = useState([]);
 
-  // TODO: Get token & role from localstorage »
   const token = localStorage.getItem("token");
-  console.log(token);
-
   const role = localStorage.getItem("role");
-  console.log(role);
 
-  // TODO: Get Contact Profile»
+  // TODO: Get Contact Profile
   const getContact = async () => {
     try {
       const response = await Axios.get(
@@ -50,7 +38,7 @@ const Profile = () => {
     getContact();
   }, []);
 
-  // « Get Detail Profile »
+  // TODO: Get Detail Profile
   const getDetail = async () => {
     try {
       const response = await Axios.get(
@@ -61,7 +49,6 @@ const Profile = () => {
           },
         }
       );
-
       setDetails(response.data.result);
     } catch (error) {
       console.log(error.message);
@@ -72,7 +59,7 @@ const Profile = () => {
     getDetail();
   }, []);
 
-  // « Handle Logout »
+  // TODO: Handle Logout
   const handleLogOut = async () => {
     try {
       await Axios.delete(
@@ -86,7 +73,7 @@ const Profile = () => {
       localStorage.clear();
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -98,34 +85,11 @@ const Profile = () => {
 
   return (
     <>
-      {details.map((detail) => (
-        <>
-          {role === "Admin" ? (
-            <HeaderAdmin
-              LinktoHome={`/`}
-              LinktoProducts={`/products`}
-              LinktoOrders={`/order`}
-              LinktoDashboard={`/dashboard`}
-              // value = {}
-              // onChange = {}
-              // onSubmit = {}
-            />
-          ) : (
-            <Header
-              LinktoHome="/"
-              LinktoProducts="/products"
-              LinktoYourcart="/order"
-              LinktoHistory="/history"
-              imgsrc={detail.picturew}
-              alt={`${detail.display_name}`}
-            />
-          )}
-          <main className={styles.main}>
-            {role === "Admin" ? (
-              <h3 className={styles.title}>Admin Profile</h3>
-            ) : (
-              <h3 className={styles.title}>User Profile</h3>
-            )}
+      <Header />
+      <main className={styles.main}>
+        <h3 className={styles.title}>User Profile</h3>
+        {details.map((detail) => (
+          <>
             {contacts.map((contact) => (
               <>
                 <section
@@ -270,9 +234,9 @@ const Profile = () => {
                 </button>
               </section>
             </section>
-          </main>
-        </>
-      ))}
+          </>
+        ))}
+      </main>
       <Footer />
     </>
   );

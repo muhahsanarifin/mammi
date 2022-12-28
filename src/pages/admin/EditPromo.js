@@ -1,12 +1,14 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
+
+import HeaderAdmin from "../../components/Header";
 
 import styles from "../../styles/admin/EditPromo.module.css";
 
 const EditPromo = () => {
   return (
     <>
+      <HeaderAdmin />
       <main className={styles.main}>
         <section className={styles.breadcrumb}>
           <nav className={styles["breadcrumb-nav"]}>
@@ -20,7 +22,8 @@ const EditPromo = () => {
                 Edit promo
               </li>
               <li
-                className={`${styles["breadcrumb-item"]} ${styles["cancel-btn"]}`}>
+                className={`${styles["breadcrumb-item"]} ${styles["cancel-btn"]}`}
+              >
                 Cancel
               </li>
             </ul>

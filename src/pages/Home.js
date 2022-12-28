@@ -1,64 +1,32 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
-// import { useState, useEffect } from "react";
-
-// import { useNavigate } from "react-router-dom";
-
+import { Autoplay, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Footer from "../components/Footer";
+import TestimonialCard from "../components/TestimonialCard";
+import FavoriteMenuCard from "../components/FavoriteMenuCard";
 
 import styles from "../styles/Home.module.css";
-
 import mammiLogo from "../assets/images/mammi-logo.png";
-
 import searchIcon from "../assets/icons/search.svg";
-
 import staffIcon from "../assets/icons/staff.svg";
-
 import storesIcon from "../assets/icons/stores.svg";
-
 import customersIcon from "../assets/icons/customers.svg";
-
 import teamWorkImage from "../assets/images/team-work.png";
-
 import hazzelnatLatteImage from "../assets/images/hazelnat-latte.svg";
-
-import pingkyPromiseImage from "../assets/images/pinky-promise.svg";
-
-import chickenWings from "../assets/images/chicken-wings.svg";
-
 import hugeGlobal from "../assets/images/huge-global.svg";
-
-import customer from "../assets/images/customer.svg";
-
-import star from "../assets/icons/star.svg";
-
 import dots from "../assets/icons/dots.svg";
-
 import left from "../assets/icons/left.svg";
-
 import right from "../assets/icons/right.svg";
-
 import netflix from "../assets/images/netflix.svg";
-
 import reddit from "../assets/images/reddit.svg";
-
 import amazon from "../assets/images/amazon.svg";
-
 import discord from "../assets/images/discord.svg";
-
 import spotify from "../assets/images/spotify.svg";
 
 const Home = () => {
-  // « Init »
-  // const [navbar, setNabvar] = useState("")
-  // const navigate = useNavigate()
-
-  // « Get token & role from localstorage »
-  const token = localStorage.getItem("token");
-
-  const role  = localStorage.getItem("role")
+  const accessToken = localStorage.getItem("token");
+  const accessRole = localStorage.getItem("role");
 
   return (
     <>
@@ -83,7 +51,7 @@ const Home = () => {
                 Product
               </Link>
             </li>
-            {role === "Admin" ? (
+            {accessRole === "Admin" ? (
               <>
                 <li>
                   <Link to={"/order"} className={styles["content-navbar-text"]}>
@@ -118,8 +86,7 @@ const Home = () => {
             )}
           </ul>
         </nav>
-
-        {token ? (
+        {accessToken ? (
           <div className={styles["sign-in-up"]} style={{ display: "none" }}>
             <span className={styles["sign-in"]}>
               <Link to={`/login`}>
@@ -132,7 +99,7 @@ const Home = () => {
               </Link>
             </span>
           </div>
-        ) : role === "Admin" ? (
+        ) : accessRole === "Admin" ? (
           <div className={styles["sign-in-up"]}>
             <span className={styles["sign-in"]}>
               <Link to={`/login`}>
@@ -228,69 +195,42 @@ const Home = () => {
             yours tool
           </p>
           <div className={styles["pricing-table"]}>
-            <div className={styles["pricing-table__column"]}>
-              <img src={hazzelnatLatteImage} alt="Hazelnut Latte" />
-              <span className={styles.title}>
-                <p>Hazelnut Latte</p>
-              </span>
-              <span className={styles.description}>
-                <ul>
-                  <li>HazelnuSyrup</li>
-                  <li>Vanilla Whipped Cream</li>
-                  <li>Ice / Hot</li>
-                  <li>Sliced Banana on Top</li>
-                </ul>
-              </span>
-              <span className={styles.price}>
-                <p>IDR 25.000</p>
-              </span>
-              <span className={styles["btn-price"]}>
-                <button>Order Now</button>
-              </span>
-            </div>
-            <div className={styles["pricing-table__column"]}>
-              <img src={pingkyPromiseImage} alt="Pingky Promise" />
-              <span className={styles.title}>
-                <p>Pingky Promise</p>
-              </span>
-              <span className={styles.description}>
-                <ul>
-                  <li>1 Shot of Coffee</li>
-                  <li>Vanilla Whipped Cream</li>
-                  <li>Chocolate Biscuits</li>
-                  <li>Strawberry Syrup</li>
-                  <li>Sliced strawberry on Top</li>
-                </ul>
-              </span>
-              <span className={styles.price}>
-                <p>IDR 30.000</p>
-              </span>
-              <span className={styles["btn-price"]}>
-                <button>Order Now</button>
-              </span>
-            </div>
-            <div className={styles["pricing-table__column"]}>
-              <img src={chickenWings} alt="Chicken Wings" />
-              <span className={styles.title}>
-                <p>Chicken Wings</p>
-              </span>
-              <span className={styles.description}>
-                <ul>
-                  <li>Wings</li>
-                  <li>Drum Sticks</li>
-                  <li>Mayonaise and Lemon</li>
-                  <li>Hot Fried</li>
-                  <li>Secret Recipe</li>
-                  <li>Buy 1 Get 1 only for Dine in</li>
-                </ul>
-              </span>
-              <span className={styles.price}>
-                <p>IDR 40.000</p>
-              </span>
-              <span className={styles["btn-price"]}>
-                <button>Order Now</button>
-              </span>
-            </div>
+            <>
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={10}
+                breakpoints={{
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination]}
+              >
+                <SwiperSlide>
+                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+                </SwiperSlide>
+              </Swiper>
+            </>
           </div>
         </section>
         <section className={`${styles.section} ${styles.visit}`}>
@@ -321,54 +261,43 @@ const Home = () => {
           </p>
           <span className={styles.testimonial}>
             <span className={styles["testimonial__customers"]}>
-              <span className={styles["testimonial__customer"]}>
-                <span className={styles["testimonial__customer__identity"]}>
-                  <img
-                    src={customer}
-                    alt="Customer"
-                    className={styles["testimonial__identity__avatar"]}
-                  />
-                  <span className={styles["testimonial__identity__profile"]}>
-                    <h3 className={styles["profile__name"]}>Viezh Robert</h3>
-                    <p className={styles["profile__location"]}>
-                      Warsaw, poland
-                    </p>
-                  </span>
-                  <span className={styles["testimonial__ratings"]}>
-                    <p>4.5</p>
-                    <img src={star} alt="star" />
-                  </span>
-                </span>
-                <p className={styles["testimonials__comment"]}>
-                  “Wow... I am very happy to spend my whole day here. the Wi-fi
-                  is good, and the coffee and meals tho. I like it here!! Very
-                  recommended!
-                </p>
-              </span>
-              {/* <span className={styles["testimonial__customer"]}>
-                  <span className={styles["testimonial__customer__identity"]}>
-                    <img
-                      src={customer}
-                      alt="Customer"
-                      className={styles["testimonial__identity__avatar"]}
-                    />
-                    <span className={styles["testimonial__identity__profile"]}>
-                      <h3 className={styles["profile__name"]}>Viezh Robert</h3>
-                      <p className={styles["profile__location"]}>
-                        Warsaw, poland
-                      </p>
-                    </span>
-                    <span className={styles["testimonial__ratings"]}>
-                      <p>4.5</p>
-                      <img src={star} alt="star" />
-                    </span>
-                  </span>
-                  <p className={styles["testimonials__comment"]}>
-                    “Wow... I am very happy to spend my whole day here. the
-                    Wi-fi is good, and the coffee and meals tho. I like it
-                    here!! Very recommended!
-                  </p>
-                </span> */}
+              <>
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={10}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  breakpoints={{
+                    768: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    1024: {
+                      slidesPerView: 3,
+                      spaceBetween: 30,
+                    },
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination, Autoplay]}
+                >
+                  <SwiperSlide>
+                    <TestimonialCard />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <TestimonialCard />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <TestimonialCard />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <TestimonialCard />
+                  </SwiperSlide>
+                </Swiper>
+              </>
             </span>
             <span className={styles["testimonial__components"]}>
               <span className={styles["testimonial__components__dots"]}>

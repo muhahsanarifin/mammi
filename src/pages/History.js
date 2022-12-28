@@ -13,7 +13,6 @@ import Footer from "../components/Footer";
 import styles from "../styles/History.module.css";
 
 const History = () => {
-  // « Init »
   const navigate = useNavigate();
   const [historyTransactions, setHistoryTransactions] = useState([]);
 
@@ -23,7 +22,7 @@ const History = () => {
     }
   }, []);
 
-  // « Get History Transaction »
+  // TODO: Get History Transaction
   const getHistoryTransactions = async () => {
     try {
       const response = await Axios.get(
@@ -46,12 +45,7 @@ const History = () => {
 
   return (
     <>
-      <Header
-        LinktoHome="/"
-        LinktoProducts="/products"
-        LinktoYourcart="/order"
-        LinktoHistory="/history"
-      />
+      <Header />
       <main className={styles.main}>
         <section className={styles["history-customer"]}>
           <h3 className={styles["history-customer__title"]}>

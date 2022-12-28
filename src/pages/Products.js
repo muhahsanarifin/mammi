@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
-
 import Axios from "axios";
 
 import Footer from "../components/Footer";
-
 import Header from "../components/Header";
-
 import Loader from "../components/Loader";
-
-import styles from "../styles/Products.module.css";
-
 import HeaderAdmin from "../components/admin/Header";
-
 import ProductAdmin from "../components/admin/Product";
-
 import {
   Dropdown,
   DropdownToggle,
@@ -25,29 +16,22 @@ import {
 
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
+import styles from "../styles/Products.module.css";
+
 const Products = () => {
-  // « Init »
   const [products, setProducts] = useState([]);
-
   const [promos, setPromos] = useState([]);
-
   const [loading, setLoading] = useState(false);
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  // const navigate = useNavigate()
-
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-
-  // « Get token & role from localstorage »
 
   // const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  // « Get Products »
+  // TODO: Get Products
   const getProducts = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?page=1&limit=6`
       );
@@ -162,14 +146,17 @@ const Products = () => {
     }
   };
 
-  // « Get Promos »
+  // TODO: Get Promos
   const getPromos = async () => {
     try {
+      setLoading(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos?page=1&limit=1`
       );
+      setLoading(false);
       setPromos(response.data.result.data);
     } catch (error) {
+      setLoading(true);
       console.log(error.message);
     }
   };
@@ -177,32 +164,16 @@ const Products = () => {
     getPromos();
   }, []);
 
-  // useEffect(() => {
-  //   if(!localStorage.getItem("token")) {
-  //     navigate("/login")
-  //   }
-  // },[])
-
   return (
     <>
       {role === "Admin" ? (
         <HeaderAdmin
-          LinktoHome={`/`}
-          LinktoProducts={`/products`}
-          LinktoOrders={`/order`}
-          LinktoDashboard={`/dashboard`}
-          // LinktoProfile={`${id}`}
           // value = {}
           // onChange = {}
           // onSubmit = {}
         />
       ) : (
         <Header
-          LinktoHome={`/`}
-          LinktoProducts={`/products`}
-          LinktoYourcart={`/order`}
-          LinktoHistory={`/history`}
-          // LinktoProfile={`${id}`}
           // value={}
           // onChange={}
           // onSubmit={}
@@ -216,24 +187,28 @@ const Products = () => {
           <p className={styles["promo__announcement"]}>
             Coupon will updated every weeks. Check them out
           </p>
-          {promos.map((promo, index) => (
-            <span className={styles["promo__card"]} key={index}>
-              <img src={promo.image} alt="Product Promo" />
-              <p>
-                {promo.product_name} {promo.discount}% OFF
-              </p>
-              <span className={styles["promo__card__decs"]}>
-                Buy 1 Choco Oreo and get 20% off for Beff Spaghetti
-              </span>
-              <span className={styles.coupon}>
-                <p className={styles["coupon__title"]}>COUPON CODE</p>
-                <h3>{promo.code}</h3>
-                <p className={styles.description}>
-                  Valid until October 10th 2020
+          {loading ? (
+            <Loader />
+          ) : (
+            promos.map((promo, index) => (
+              <span className={styles["promo__card"]} key={index}>
+                <img src={promo.image} alt="Product Promo" />
+                <p>
+                  {promo.product_name} {promo.discount}% OFF
                 </p>
+                <span className={styles["promo__card__decs"]}>
+                  Buy 1 Choco Oreo and get 20% off for Beff Spaghetti
+                </span>
+                <span className={styles.coupon}>
+                  <p className={styles["coupon__title"]}>COUPON CODE</p>
+                  <h3>{promo.code}</h3>
+                  <p className={styles.description}>
+                    Valid until October 10th 2020
+                  </p>
+                </span>
               </span>
-            </span>
-          ))}
+            ))
+          )}
           <button className={styles["btn-coupon"]}>Apply Coupon</button>
           <span className={styles["terms-and-condition"]}>
             <h3>Terms and Condition</h3>
@@ -272,7 +247,7 @@ const Products = () => {
             <span className={styles.sorting}>
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret className={styles["dropdown-products"]}>
-                  Sort :
+                  <p>Sort</p>
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem
@@ -303,13 +278,13 @@ const Products = () => {
                     className={styles["dropdown-item-products"]}
                     onClick={latest}
                   >
-                    latest
+                    Latest
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
                     onClick={oldest}
                   >
-                    oldest
+                    Oldest
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
@@ -335,10 +310,7 @@ const Products = () => {
                     key={product.id}
                   >
                     <Link to={`/product/${product.id}`}>
-                      <img
-                        src={product.image}
-                        alt={product.product_name}
-                      />
+                      <img src={product.image} alt={product.product_name} />
                     </Link>
                     <p className={styles["product__name"]}>
                       {product.product_name}

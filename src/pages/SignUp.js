@@ -1,27 +1,21 @@
-import React from "react";
-
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import { useForm } from "react-hook-form";
 
-// import Validation from "../components/ValidationRegister";
-
-import axios from "axios";
+import PasswordToggle from "../components/PasswordToggle";
+import Footer from "../components/Footer";
+import CardMember from "../components/CardMember";
 
 import styles from "../styles/SignUp.module.css";
-
 import mammiLogo from "../assets/images/mammi-logo.png";
-
 import eat from "../assets/images/eat.png";
-
-import Footer from "../components/Footer";
-
-import CardMember from "../components/CardMember";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -30,21 +24,28 @@ const SignUp = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     reset();
+    try {
+      const response = await Axios.post(
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/register`,
+        {
+          email: data.name,
+          password: data.password,
+          phone_number: data.phonenumber,
+        }
+      );
+      // console.log(response.data.result.data);
+      if (response.status === 200) {
+        navigate("/Login");
+      }
+    } catch (err) {
+      console.log(err.response.data.result.msg);
+    }
+  };
 
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_HOST}api/v1/users/register`, {
-        email: data.name,
-        password: data.password,
-        phone_number: data.phonenumber,
-      })
-      .then((res) => {
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  const handleShowPassword = () => {
+    setShow(!show);
   };
 
   return (
@@ -73,17 +74,19 @@ const SignUp = () => {
             <h3>Sign Up</h3>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
               <label>Email Address:</label>
-              <input
-                type="text"
-                placeholder="Enter your Email Address"
-                {...register("name", {
-                  required: "Email is required",
-                })}
-                onKeyUp={() => {
-                  trigger("name");
-                }}
-                className={`${errors.name && "invalid"}`}
-              />
+              <span className={styles.sectionEmail}>
+                <input
+                  type="text"
+                  placeholder="Enter your Email Address"
+                  {...register("name", {
+                    required: "Email is required",
+                  })}
+                  onKeyUp={() => {
+                    trigger("name");
+                  }}
+                  className={`${errors.name && "invalid"}`}
+                />
+              </span>
               {errors.name && (
                 <span className={styles["info-validation"]}>
                   {errors.name.message}
@@ -91,20 +94,26 @@ const SignUp = () => {
               )}
 
               <label>Password:</label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Min password is six chracters",
-                  },
-                })}
-                onKeyUp={() => {
-                  trigger("password");
-                }}
-              />
+              <span className={styles.sectionPassword}>
+                <input
+                  type={!show ? "password" : "text"}
+                  placeholder="Enter your password"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Min password is six chracters",
+                    },
+                  })}
+                  onKeyUp={() => {
+                    trigger("password");
+                  }}
+                />
+                <PasswordToggle
+                  onClickParams={handleShowPassword}
+                  stateParams={!show}
+                />
+              </span>
               {errors.password && (
                 <span className={styles["info-validation"]}>
                   {errors.password.message}
@@ -112,21 +121,23 @@ const SignUp = () => {
               )}
 
               <label>Phone Number:</label>
-              <input
-                type="text"
-                placeholder="Enter your phone number"
-                {...register("phonenumber", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value:
-                      /(\+62 ((\d{3}([ -]\d{3,})([- ]\d{4,})?)|(\d+)))|(\(\d+\) \d+)|\d{3}( \d+)+|(\d+[ -]\d+)|\d+/gm,
-                    message: "Input valid phone number",
-                  },
-                })}
-                onKeyUp={() => {
-                  trigger("phonenumber");
-                }}
-              />
+              <span className={styles.sectionPhoneNumber}>
+                <input
+                  type="text"
+                  placeholder="Enter your phone number"
+                  {...register("phonenumber", {
+                    required: "Phone number is required",
+                    pattern: {
+                      value:
+                        /(\+62 ((\d{3}([ -]\d{3,})([- ]\d{4,})?)|(\d+)))|(\(\d+\) \d+)|\d{3}( \d+)+|(\d+[ -]\d+)|\d+/gm,
+                      message: "Input valid phone number",
+                    },
+                  })}
+                  onKeyUp={() => {
+                    trigger("phonenumber");
+                  }}
+                />
+              </span>
               {errors.phonenumber && (
                 <span className={styles["info-validation"]}>
                   {errors.phonenumber.message}
@@ -147,6 +158,6 @@ const SignUp = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default SignUp;

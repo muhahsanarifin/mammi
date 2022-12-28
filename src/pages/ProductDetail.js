@@ -1,38 +1,27 @@
 import React from "react";
-
 import { useParams } from "react-router-dom";
-
 import { useNavigate } from "react-router-dom";
-
 import { useEffect, useState } from "react";
-
-import HeaderAdmin from "../components/admin/Header";
-
-import Header from "../components/Header";
-
-import Footer from "../components/Footer";
-
-import styles from "../styles/ProductDetail.module.css";
-
-import coldBrew from "../assets/images/products/cold-brew.svg";
-
-import arrowBrown from "../assets/icons/arrow-brown.svg";
-
 import { Link } from "react-router-dom";
 import Axios from "axios";
 
+import HeaderAdmin from "../components/admin/Header";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
+import styles from "../styles/ProductDetail.module.css";
+import coldBrew from "../assets/images/products/cold-brew.svg";
+import arrowBrown from "../assets/icons/arrow-brown.svg";
+
 const ProductDetail = () => {
-  // « Init »
   const [products, setProductDetail] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // « Get token & role from localstorage »
-
   // const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  // « Get Product Detail »
+  // TODO: Get Product Detail
   const getProductDetail = async () => {
     try {
       const response = await Axios.get(
@@ -50,29 +39,12 @@ const ProductDetail = () => {
   }, []);
 
   useEffect(() => {
-    if(!localStorage.getItem("token")) navigate('/login');
-  },[])
+    if (!localStorage.getItem("token")) navigate("/login");
+  }, []);
 
   return (
     <>
-      {role === "Admin" ? (
-        <HeaderAdmin
-          LinktoHome={`/`}
-          LinktoProducts={`/products`}
-          LinktoOrders={`/order`}
-          LinktoDashboard={`/dashboard`}
-          // value = {}
-          // onChange = {}
-          // onSubmit = {}
-        />
-      ) : (
-        <Header
-          LinktoHome="/"
-          LinktoProducts="/products"
-          LinktoYourcart="/checkout"
-          LinktoHistory="/history"
-        />
-      )}
+      {role === "Admin" ? <HeaderAdmin /> : <Header />}
       <main className={styles.main}>
         {products.map((product) => (
           <>

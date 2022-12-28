@@ -27,8 +27,10 @@ import huzelnutLatte from "../assets/images/products/hazelnut-latte-82-90.svg";
 import chikenFireWings from "../assets/images/products/chicken-fire-wings-82-90.svg";
 
 const Order = () => {
-  // « Init »
   const navigate = useNavigate();
+
+  // const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -36,33 +38,9 @@ const Order = () => {
     }
   }, []);
 
-  // « Get token & role from localstorage »
-  const token = localStorage.getItem("token");
-  console.log(token);
-
-  const role = localStorage.getItem("role");
-  console.log(role);
-
   return (
     <>
-      {role === "Admin" ? (
-        <HeaderAdmin
-          LinktoHome={`/`}
-          LinktoProducts={`/products`}
-          LinktoOrders={`/order`}
-          // LinktoDashboard={`/dashboard`}
-          // value = {}
-          // onChange = {}
-          // onSubmit = {}
-        />
-      ) : (
-        <Header
-          LinktoHome="/"
-          LinktoProducts="/products"
-          LinktoYourcart="/order"
-          LinktoHistory="/history"
-        />
-      )}
+      {role === "Admin" ? <HeaderAdmin /> : <Header />}
       <main className={styles.main}>
         <section className={styles.title}>
           {role === "Admin" ? (
