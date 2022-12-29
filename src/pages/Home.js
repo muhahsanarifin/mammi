@@ -195,42 +195,79 @@ const Home = () => {
             yours tool
           </p>
           <div className={styles["pricing-table"]}>
-            <>
-              <Swiper
-                slidesPerView={1}
-                spaceBetween={10}
-                breakpoints={{
-                  768: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                  },
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={10}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+            >
+              <SwiperSlide
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
                 }}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
               >
-                <SwiperSlide>
-                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
-                </SwiperSlide>
-              </Swiper>
-            </>
+                <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+              </SwiperSlide>
+              <SwiperSlide
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+              </SwiperSlide>
+              <SwiperSlide
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+              </SwiperSlide>
+              <SwiperSlide
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+              </SwiperSlide>
+              <SwiperSlide
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+              </SwiperSlide>
+              <SwiperSlide
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                }}
+              >
+                <FavoriteMenuCard imgSrc={hazzelnatLatteImage} />
+              </SwiperSlide>
+            </Swiper>
           </div>
         </section>
         <section className={`${styles.section} ${styles.visit}`}>
