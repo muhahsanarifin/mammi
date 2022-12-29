@@ -58,7 +58,7 @@
 
 <p align="left">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=react,javascript,html,css,bootstrap" />
+    <img src="https://skillicons.dev/icons?i=react,javascript,html,css" />
   </a>
 </p>
 
@@ -69,26 +69,15 @@
 
 ## Features
 
-| Info          |       Status           |
-| :-----------  |:---------------------- |
-| Login         | `On going development` |
-| Logout        | `On going development` |
-| `ADMIN`                                |
-| Home          | `On going development` |
-| Profile       | `On going development` |
-| Product       | `On going development` |
-| Promo         | `On going development` |
-| Orders        | `On going development` |
-| Dashbord      | `On going development` |
-| Transactions  | `On going development` |
-| `Customer`                             |
-| Home          | `On going development` |
-| Profile       | `On going development` |
-| Product       | `On going development` |
-| Promo         | `On going development` |
-| YourChart     | `On going development` |
-| Transactions  | `On going development` |
-| History       | `On going development` |
+| `Main`        |`Admin`                    | `Customer`
+| :-----------  |:------------------------- | :-----------  
+| Login         | Edit Profile
+| Logout        | Change & Forgot Password               
+| Home          | Create & Edit Product     | Cart
+|               | Create & Edit Promo       | Order
+|               | Dashbord                  | Transaction (including history)
+|               | Handle Transaction        | 
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
