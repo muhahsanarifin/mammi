@@ -46,10 +46,20 @@ const Header = ({ value, onChange, onSubmit }) => {
           </span>
         </div>
         <nav className={`d-flex flex-row gap-4 ${styles.navbar}`}>
-          <Link to={`/`}>Home</Link>
-          <Link to={`/products`}>Product</Link>
-          <Link to={`/order`}>Orders</Link>
-          <Link to={`/dashboard`}>Dashboard</Link>
+          <ul className={styles["content-navbar"]}>
+            <li>
+              <Link to={`/`}>Home</Link>
+            </li>
+            <li>
+              <Link to={`/products`}>Product</Link>
+            </li>
+            <li>
+              <Link to={`/order`}>Orders</Link>
+            </li>
+            <li>
+              <Link to={`/dashboard`}>Dashboard</Link>
+            </li>
+          </ul>
         </nav>
         <div className="d-flex flex-row gap-4  align-items-center">
           <span className={styles.search} onSubmit={onSubmit}>
