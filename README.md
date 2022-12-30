@@ -75,7 +75,7 @@
 | Logout        | Change & Forgot Password               
 | Home          | Create & Edit Product     | Cart
 |               | Create & Edit Promo       | Order
-|               | Dasboard                  | Transaction (including history)
+|               | Dashboard                 | Transaction (including history)
 |               | Handle Transaction        | 
 
 
