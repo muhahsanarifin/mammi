@@ -1,12 +1,14 @@
 import React from "react";
 import Axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import CardMember from "../components/CardMember";
 import PasswordToggle from "../components/PasswordToggle";
+import LoaderBtn from "../components/LoaderBtn";
+import TitleBar from "../components/TitleBar";
 
 import eat from "../assets/images/eat.png";
 import mammiLogo from "../assets/images/mammi-logo.png";
@@ -17,10 +19,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [loaderButton, setLoaderBtn] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoaderBtn(true);
       const response = await Axios.post(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/login`,
         {
@@ -34,9 +38,12 @@ const Login = () => {
         localStorage.setItem("role", response.data.result.data.role); // ← Set role to lodalStorage
         localStorage.setItem("picture", response.data.result.data.picture); // ← Set picture to lodalStorage
         navigate("/products");
+        // return redirect("/products");
       }
     } catch (err) {
       console.log(err.response.data.result.msg);
+    } finally {
+      setLoaderBtn(false);
     }
   };
 
@@ -46,6 +53,7 @@ const Login = () => {
 
   return (
     <>
+      <TitleBar title={`MAMMI | Login`} />
       <main className={styles.main}>
         <aside className={`${styles["aside"]} ${styles["main__left-side"]}`}>
           <img src={eat} alt="Eat" />
@@ -101,8 +109,11 @@ const Login = () => {
                   <p>Forgot password?</p>
                 </Link>
               </span>
-              <button className={styles["btn-login"]} disabled={!email && !password}>
-                Login
+              <button
+                className={styles["btn-login"]}
+                disabled={!email && !password}
+              >
+                {loaderButton ? <LoaderBtn /> : <span>Login</span>}
               </button>
             </form>
             <span className={styles["btn-google"]}>

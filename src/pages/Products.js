@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper";
+import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import HeaderAdmin from "../components/admin/Header";
 import ProductAdmin from "../components/admin/Product";
+import TitleBar from "../components/TitleBar";
+
 import {
   Dropdown,
   DropdownToggle,
@@ -19,13 +22,14 @@ import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import styles from "../styles/Products.module.css";
 
 const Products = () => {
+  const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  // const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
   // TODO: Get Products
@@ -154,7 +158,7 @@ const Products = () => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
       );
       setLoading(false);
-      console.log(response.data.result);
+      // console.log(response.data.result);
       setPromos(response.data.result.data);
     } catch (error) {
       setLoading(true);
@@ -165,8 +169,13 @@ const Products = () => {
     getPromos();
   }, []);
 
+  useEffect(() => {
+    accessToken ? navigation("/products") : navigation("/products");
+  }, []);
+
   return (
     <>
+      <TitleBar title={`MAMMI | Products`} />
       {role === "Admin" ? (
         <HeaderAdmin
         // value = {}
@@ -233,23 +242,23 @@ const Products = () => {
         <section
           className={`${styles["main__right-side"]} ${styles["main__products"]}`}
         >
-          <span className={styles["main__products__header"]}>
-            <p className={styles["favor-products"]} onClick={favorProduct}>
+          <ul className={styles["main__products__header"]}>
+            <li className={styles["favor-products"]} onClick={favorProduct}>
               Favorite Product
-            </p>
-            <p className={styles["coffee-products"]} onClick={coffee}>
+            </li>
+            <li className={styles["coffee-products"]} onClick={coffee}>
               Coffee
-            </p>
-            <p className={styles["non-coffee-products"]} onClick={nonCofee}>
+            </li>
+            <li className={styles["non-coffee-products"]} onClick={nonCofee}>
               Non Coffee
-            </p>
-            <p className={styles.foods} onClick={foods}>
+            </li>
+            <li className={styles.foods} onClick={foods}>
               Foods
-            </p>
-            <p className={styles["Add-on"]} onClick={addOn}>
+            </li>
+            <li className={styles["Add-on"]} onClick={addOn}>
               Add-on
-            </p>
-          </span>
+            </li>
+          </ul>
           <span className={styles["sorting-and-pagination"]}>
             <span className={styles.sorting}>
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>

@@ -43,6 +43,12 @@ const History = () => {
     getHistoryTransactions();
   }, []);
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <Header />

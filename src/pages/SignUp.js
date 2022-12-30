@@ -7,14 +7,17 @@ import { useForm } from "react-hook-form";
 import PasswordToggle from "../components/PasswordToggle";
 import Footer from "../components/Footer";
 import CardMember from "../components/CardMember";
+import TitleBar from "../components/TitleBar";
 
 import styles from "../styles/SignUp.module.css";
 import mammiLogo from "../assets/images/mammi-logo.png";
 import eat from "../assets/images/eat.png";
+import LoaderBtn from "../components/LoaderBtn";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [loaderButton, setLoaderBtn] = useState(false);
 
   const {
     register,
@@ -27,6 +30,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     reset();
     try {
+      setLoaderBtn(true);
       const response = await Axios.post(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/register`,
         {
@@ -37,10 +41,12 @@ const SignUp = () => {
       );
       // console.log(response.data.result.data);
       if (response.status === 200) {
-        navigate("/Login");
+        navigate("/login");
       }
     } catch (err) {
       console.log(err.response.data.result.msg);
+    } finally {
+      setLoaderBtn(false);
     }
   };
 
@@ -50,6 +56,7 @@ const SignUp = () => {
 
   return (
     <>
+      <TitleBar title={`MAMMI | Sign Up`} />
       <main className={styles.main}>
         <aside className={`${styles["aside"]} ${styles["main__left-side"]}`}>
           <img src={eat} alt="Eat" />
@@ -151,7 +158,7 @@ const SignUp = () => {
               </span>
 
               <button className={styles["btn-sign-up"]} disabled={!isValid}>
-                Sign Up
+                {loaderButton ? <LoaderBtn /> : <span>Sign Up</span>}
               </button>
             </form>
             <span className={styles["btn-google"]}>

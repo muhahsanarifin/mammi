@@ -2,9 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+
 import Footer from "../components/Footer";
 import TestimonialCard from "../components/TestimonialCard";
 import FavoriteMenuCard from "../components/FavoriteMenuCard";
+import TitleBar from "../components/TitleBar";
+import WelcomeToast from "../components/WelcomeToast";
 
 import styles from "../styles/Home.module.css";
 import mammiLogo from "../assets/images/mammi-logo.png";
@@ -25,11 +29,22 @@ import discord from "../assets/images/discord.svg";
 import spotify from "../assets/images/spotify.svg";
 
 const Home = () => {
+  const [show, setshow] = useState(false);
   const accessToken = localStorage.getItem("token");
   const accessRole = localStorage.getItem("role");
 
+  useEffect(() => {
+    if (accessToken === null) {
+      setshow(true);
+      setTimeout(() => {
+        setshow(false);
+      }, 6000);
+    }
+  }, []);
+
   return (
     <>
+      <TitleBar title={`MAMMI | Home`} />
       <header className={styles.header}>
         <div className={styles["header__logo"]}>
           <span className={styles["header__logo__image"]}>
@@ -129,6 +144,7 @@ const Home = () => {
       </header>
 
       <main className={styles.main}>
+        {show && <WelcomeToast/>}
         <section className={`${styles.section} ${styles.introduction}`}>
           <span className={styles["introduction__text"]}>
             <h1>Start Your Day With Coffee and Good Meals</h1>
