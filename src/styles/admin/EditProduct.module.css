@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
-
 /* || Root Colors */
 :root {
   --confirm-product-qty-count-boder-color: #9f9f9f;
@@ -17,7 +14,7 @@
   --pa-btn-bg-color: #0b132a;
   --pa-border-color: #9f9f9f;
   --pa-bg--color: #bababa59;
-  --pa-font-third-color: #4F5665;
+  --pa-font-third-color: #4f5665;
 }
 
 /* || Views */
@@ -64,7 +61,7 @@
   color: var(--breadcrumb-font-color);
 }
 
-.breadcrumb-item:nth-child(2) a {
+.breadcrumb-item:nth-child(2) {
   color: var(--acent-breadcrumb--font-color);
   font-weight: 700;
 }
@@ -490,7 +487,6 @@ select {
   .identity-product {
     flex-direction: column;
   }
-
 
   .stock {
     padding: 0;

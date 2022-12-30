@@ -169,13 +169,18 @@
 }
 
 .main__products__header {
-  /* border: 1px solid darkblue; */
   position: relative;
-  padding: 0 4.5rem;
+  /* border: 1px solid darkblue; */
+  padding: 1rem 4.5rem;
   display: flex;
   flex-direction: row;
-  gap: 2rem;
-  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
+
+.main__products__header li {
+  /* border: 1px solid darkblue; */
+  list-style: none;
 }
 
 .favor-products,
@@ -183,12 +188,14 @@
 .non-coffee-products,
 .foods,
 .Add-on {
+  /* border: 1px solid darkblue; */
   position: relative;
   cursor: pointer;
   color: var(--product-font-third-color);
+  width: 136.95px;
 }
-
-.main__products .main__products__header > p:hover::after {
+/* 
+.main__products .main__products__header > li:hover::after {
   position: absolute;
   content: "";
   width: 100%;
@@ -198,9 +205,9 @@
   background: var(--product-acent-border-color);
   box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.67);
   cursor: pointer;
-}
+} */
 
-.main__products .main__products__header > p:hover {
+.main__products .main__products__header > li:hover {
   color: var(--product-font-color);
   font-weight: 700;
 }
@@ -385,20 +392,21 @@
   }
 
   .main__products__header {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 1rem;
     padding: 0;
-    /* margin: 1.5rem; */
-    margin: 1rem 0;
+    margin: 0.5rem 0;
+    /* flex-wrap: wrap; */
+    justify-content: center;
   }
 
-  .main__products__header p {
-    margin: 0;
+  .main__products__header li {
+    list-style: none;
+    text-align: left;
+    width: fit-content;
+    margin: 0.5rem;
+    font-size: 12px;
   }
 
   .main__products__content {
-    /* border: 1px solid darkblue; */
     margin: 0 !important;
     justify-content: center;
     display: grid;
