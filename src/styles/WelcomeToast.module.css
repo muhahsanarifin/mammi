@@ -1,0 +1,38 @@
+.toast {
+  position: absolute;
+  z-index: 1;
+  margin: 0.5rem;
+}
+
+.header p {
+  margin-bottom: 0;
+}
+.decs {
+  margin-bottom: 0;
+  width: fit-content;
+}
+
+.decs span {
+  cursor: pointer;
+  color: #6a4029;
+  font-weight: 800;
+}
+
+.title {
+  margin-bottom: 0;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.list {
+  margin-bottom: 0;
+  list-style: none;
+  padding-left: 0;
+  width: fit-content;
+}
+
+.decs,
+.title,
+.list {
+  font-size: 12px;
+}
