@@ -1,0 +1,51 @@
+.modal {
+  width: fit-content;
+}
+
+.body {
+  /* border: 1px solid darkblue; */
+  border: none;
+}
+
+.body p {
+  margin-bottom: 0;
+  font-weight: 700;
+  text-align: center;
+}
+
+.footer {
+  /* border: 1px solid darkblue; */
+  display: flex;
+  justify-content: space-evenly;
+  border: none;
+}
+.closeBtn {
+  border: 2px solid #6a4029;
+  color: #6a4029;
+  background: #ffffff;
+}
+
+.dynamicBtn {
+  background: #6a4029;
+}
+
+.closeBtn:hover {
+  background: red;
+  opacity: 0.7;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+.dynamicBtn:hover {
+  background: green;
+  opacity: 0.7;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+@media all and (max-width: 480px) {
+  .modal {
+    margin: 0 5rem;
+  }
+  .body p {
+    font-size: 14px;
+  }
+}

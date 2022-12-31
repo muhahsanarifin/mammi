@@ -5,6 +5,8 @@ import Axios from "axios";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Modal from "../components/Modal";
+
 import pen from "../assets/icons/pen.svg";
 import styles from "../styles/Profile.module.css";
 
@@ -12,9 +14,16 @@ const Profile = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [details, setDetails] = useState([]);
-  const [address, setAddress] = useState(null);
   const [disableInputContact, setDisableInputContact] = useState(true);
   const [disableInputDetail, setDisableInputDetail] = useState(true);
+  const [address, setAddress] = useState("");
+  const [modal, setModal] = useState(false);
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [display_name, displayName] = useState("");
+  const [gender, setgender] = useState("");
+  const [previewImage, setPreviewImage] = useState(null);
+  const [image, setImage] = useState();
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -87,6 +96,11 @@ const Profile = () => {
     setDisableInputDetail(!disableInputDetail);
   };
 
+  console.log(address);
+
+  // TODO: Modal
+  const handleModal = () => setModal(!modal);
+
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/login");
@@ -95,7 +109,17 @@ const Profile = () => {
 
   return (
     <>
+      {/* TODO: Modal */}
+      <Modal
+        toggle={handleModal}
+        isOpen={modal}
+        titleBtn={`Logout`}
+        decs={`Are you sure want to logout ?`}
+        onClick={handleLogOut}
+      />
+      {/* TODO: Header */}
       <Header />
+      {/* TODO: Main */}
       <main className={styles.main}>
         <h3 className={styles.title}>User Profile</h3>
         {details.map((detail) => (
@@ -267,10 +291,7 @@ const Profile = () => {
                 <button className={styles["btn-save"]}>Save Change</button>
                 <button className={styles["btn-cancel"]}>Cancel</button>
                 <button className={styles["btn-edit"]}>Edit Password</button>
-                <button
-                  onClick={handleLogOut}
-                  className={styles["btn-log-out"]}
-                >
+                <button onClick={handleModal} className={styles["btn-log-out"]}>
                   Log Out
                 </button>
               </section>
