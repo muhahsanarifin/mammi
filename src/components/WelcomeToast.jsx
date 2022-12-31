@@ -20,9 +20,9 @@ const WelcomeToast = () => {
         </p>
         <p className={styles["title"]}>Admin</p>
         <ul className={styles["list"]}>
-          <li>adminmammi@gmail.com | admin</li>
+          <li>adminmammi@gmail.com | admin01</li>
         </ul>
-        <p className={styles["title"]}>Cutomer</p>
+        <p className={styles["title"]}>Customer</p>
         <ul className={styles["list"]}>
           <li>customermammi@gmail.com | customer</li>
         </ul>
