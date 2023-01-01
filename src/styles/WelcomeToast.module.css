@@ -1,7 +1,9 @@
-.toast {
+.toast-section {
   position: absolute;
+  width: 100%;
   z-index: 1;
-  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .header p {

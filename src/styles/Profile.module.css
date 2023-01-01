@@ -30,6 +30,7 @@
   background-size: cover;
   padding-top: 0.5rem;
   padding-bottom: 2rem;
+  height: 891.6px;
 }
 
 .main .title {
@@ -482,11 +483,10 @@
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
-
   .profile .btn-profile {
     right: 2.8rem;
   }
-  
+
   .btn-profile input[type="file"]::after {
     right: 3rem;
   }
@@ -505,6 +505,10 @@
 }
 
 @media all and (max-width: 480px) {
+  .main {
+    height: auto;
+  }
+  
   .main .title {
     padding-top: 2.5rem;
     padding-left: 1rem;
