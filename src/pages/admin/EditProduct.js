@@ -1,17 +1,15 @@
-import React from 'react'
-
-import { CameraOutlined } from "@ant-design/icons";
-
+import React from "react";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 import HeaderAdmin from "../../components/admin/Header";
-
-import styles from "../../styles/admin/EditProduct.module.css"
+import { CameraOutlined } from "@ant-design/icons";
+import styles from "../../styles/admin/EditProduct.module.css";
 
 const EditProduct = () => {
   return (
     <>
-      <HeaderAdmin/>
+      <HeaderAdmin />
       <main className={styles.main}>
         <section className={styles.breadcrumb}>
           <nav className={styles["breadcrumb-nav"]}>
@@ -22,7 +20,7 @@ const EditProduct = () => {
               <li
                 className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
               >
-                <a href="">Edit product</a>
+                Edit product
               </li>
             </ul>
           </nav>
@@ -153,6 +151,6 @@ const EditProduct = () => {
       </main>
     </>
   );
-}
+};
 
-export default EditProduct
+export default EditProduct;

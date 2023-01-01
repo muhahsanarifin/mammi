@@ -17,9 +17,8 @@ const ProductDetail = () => {
   const [products, setProductDetail] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const accessToken = localStorage.getItem("access-token");
+  const accessRole = localStorage.getItem("access-role");
 
   // TODO: Get Product Detail
   const getProductDetail = async () => {
@@ -39,12 +38,12 @@ const ProductDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) navigate("/login");
+    if (!accessToken) navigate("/login");
   }, []);
 
   return (
     <>
-      {role === "Admin" ? <HeaderAdmin /> : <Header />}
+      {accessRole === "Admin" ? <HeaderAdmin /> : <Header />}
       <main className={styles.main}>
         {products.map((product) => (
           <>
@@ -131,7 +130,7 @@ const ProductDetail = () => {
               </span>
             </span>
             <span className={styles["confirm-product-btn"]}>
-              {role === "Admin" ? (
+              {accessRole === "Admin" ? (
                 <>
                   <button className={styles["confirm-product-btn__add"]}>
                     Add to Cart

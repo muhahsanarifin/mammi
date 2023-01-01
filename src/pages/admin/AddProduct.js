@@ -14,7 +14,7 @@ const AddProduct = () => {
   const [category_id, setCategory] = useState(1);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("access-token");
 
   const handleUploadeImage = (e) => {
     let uploaded = e.target.files[0];
@@ -38,7 +38,7 @@ const AddProduct = () => {
         body,
         {
           headers: {
-            "x-access-token": token,
+            "x-access-token": accessToken,
           },
         }
       );

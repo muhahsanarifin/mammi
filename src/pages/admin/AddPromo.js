@@ -1,17 +1,15 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
-import HeaderAdmin from "../../components/Header";
-
-import styles from "../../styles/admin/AddPromo.module.css";
-
+import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
+import styles from "../../styles/admin/AddPromo.module.css";
 
 const AddPromo = () => {
   return (
     <>
-      <HeaderAdmin/>
+      <HeaderAdmin />
       <main className={styles.main}>
         <section className={styles.breadcrumb}>
           <nav className={styles["breadcrumb-nav"]}>
@@ -168,6 +166,6 @@ const AddPromo = () => {
       </main>
     </>
   );
-}
+};
 
 export default AddPromo;

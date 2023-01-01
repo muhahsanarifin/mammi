@@ -24,9 +24,8 @@ const Profile = () => {
   const [gender, setgender] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const [image, setImage] = useState();
-
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const accessToken = localStorage.getItem("access-token");
+  const accessRole = localStorage.getItem("access-role");
 
   // TODO: Get Contact Profile
   const getContact = async () => {
@@ -35,7 +34,7 @@ const Profile = () => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/contact/id`,
         {
           headers: {
-            "x-access-token": token,
+            "x-access-token": accessToken,
           },
         }
       );
@@ -56,7 +55,7 @@ const Profile = () => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/detail/id`,
         {
           headers: {
-            "x-access-token": token,
+            "x-access-token": accessToken,
           },
         }
       );
@@ -77,7 +76,7 @@ const Profile = () => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/logout`,
         {
           headers: {
-            "x-access-token": token,
+            "x-access-token": accessToken,
           },
         }
       );
@@ -96,13 +95,11 @@ const Profile = () => {
     setDisableInputDetail(!disableInputDetail);
   };
 
-  console.log(address);
-
   // TODO: Modal
   const handleModal = () => setModal(!modal);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!accessToken) {
       navigate("/login");
     }
   }, []);
@@ -129,7 +126,7 @@ const Profile = () => {
                 <section
                   className={`d-flex flex-row gap-4 justify-content-center ${styles["identity-user"]}`}
                 >
-                  {role === "Admin" ? (
+                  {accessRole === "Admin" ? (
                     <span className={styles.profile}>
                       <img
                         src={`${process.env.REACT_APP_BACKEND_HOST}${detail.picture}`}

@@ -1,49 +1,39 @@
 import React from "react";
-
 import { useEffect } from "react";
-
 // import { useEffect, useState } from "react";
-
+// import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// import Axios from "axios";
-
 import HeaderAdmin from "../components/admin/Header";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import TitleBar from "../components/TitleBar";
 
 import styles from "../styles/Checkout.module.css";
-
-import Header from "../components/Header";
-
-import Footer from "../components/Footer";
-
 import creditCard from "../assets/icons/credit-card.svg";
-
 import bankAccount from "../assets/icons/bank.svg";
-
 import delivery from "../assets/icons/fast-delivery.svg";
-
 import huzelnutLatte from "../assets/images/products/hazelnut-latte-82-90.svg";
-
 import chikenFireWings from "../assets/images/products/chicken-fire-wings-82-90.svg";
 
 const Order = () => {
   const navigate = useNavigate();
-
-  // const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const accessToken = localStorage.getItem("access-token");
+  const accessRole = localStorage.getItem("access-role");
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!accessToken) {
       navigate("/login");
     }
   }, []);
 
   return (
     <>
-      {role === "Admin" ? <HeaderAdmin /> : <Header />}
+      <TitleBar title={`MAMMI | Orders`} />
+      {accessRole === "Admin" ? <HeaderAdmin /> : <Header />}
       <main className={styles.main}>
         <section className={styles.title}>
-          {role === "Admin" ? (
+          {accessRole === "Admin" ? (
             <h3>Finish your customer order now.</h3>
           ) : (
             <h3>Checkout your item now!</h3>
@@ -117,21 +107,21 @@ const Order = () => {
               </span>
               <span className={styles["right-side__payment-method__types"]}>
                 <span className={styles["payment-method__card"]}>
-                  <input type="radio" />
+                  <input type="radio" name="paymentMethod" />
                   <label>
                     <img src={creditCard} alt="Card" />
                     Card
                   </label>
                 </span>
                 <span className={styles["bank-account"]}>
-                  <input type="radio" />
+                  <input type="radio" name="paymentMethod" />
                   <label>
                     <img src={bankAccount} alt="Bank Account" />
                     Bank Account
                   </label>
                 </span>
                 <span className={styles["cash-on-delivery"]}>
-                  <input type="radio" />
+                  <input type="radio" name="paymentMethod" />
                   <label>
                     <img src={delivery} alt="Cash on Delivery" />
                     Cash on Delivery
@@ -139,7 +129,7 @@ const Order = () => {
                 </span>
               </span>
             </span>
-            {role === "Admin" ? (
+            {accessRole === "Admin" ? (
               <button className={styles["confirm-and-pay"]}>
                 Mark as done
               </button>

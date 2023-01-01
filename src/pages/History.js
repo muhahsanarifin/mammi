@@ -15,9 +15,11 @@ import styles from "../styles/History.module.css";
 const History = () => {
   const navigate = useNavigate();
   const [historyTransactions, setHistoryTransactions] = useState([]);
+  const accessToken = localStorage.getItem("access-token");
+  // const accessRole = localStorage.getItem("access-role");
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!accessToken) {
       navigate("/login");
     }
   }, []);
@@ -29,7 +31,7 @@ const History = () => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/transactions/history`,
         {
           headers: {
-            "x-access-token": localStorage.getItem("token"),
+            "x-access-token": accessToken,
           },
         }
       );
@@ -41,12 +43,6 @@ const History = () => {
 
   useEffect(() => {
     getHistoryTransactions();
-  }, []);
-
-  useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      navigate("/login");
-    }
   }, []);
 
   return (

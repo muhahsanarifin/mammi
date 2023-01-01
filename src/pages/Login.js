@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import { useState } from "react";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
@@ -33,12 +33,12 @@ const Login = () => {
         }
       );
       if (response.status === 200) {
-        localStorage.setItem("id", response.data.result.data.id); // ← Set id to LocalStorage
-        localStorage.setItem("token", response.data.result.data.token); // ← Set token to LocalStorage
-        localStorage.setItem("role", response.data.result.data.role); // ← Set role to lodalStorage
-        localStorage.setItem("picture", response.data.result.data.picture); // ← Set picture to lodalStorage
+        // const user = response.data.result.data;
+        // localStorage.setItem("user-data", JSON.stringify(user));
+        localStorage.setItem("access-role", response.data.result.data.role);
+        localStorage.setItem("access-token", response.data.result.data.token);
+        localStorage.setItem("access-picture", response.data.result.data.picture);
         navigate("/products");
-        // return redirect("/products");
       }
     } catch (err) {
       console.log(err.response.data.result.msg);

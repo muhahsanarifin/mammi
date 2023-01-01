@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -26,18 +26,21 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [promoLoading, setPromoLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-
-  const accessToken = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  // const [filter, setFilter] = useState([]);
+  // const [sort, setSort] = useState([]);
+  const [seacrh, setSearch] = useState([]);
+  const accessToken = localStorage.getItem("access-token");
+  const accessRole = localStorage.getItem("access-role");
 
   // TODO: Get Products
   const getProducts = async () => {
     try {
       setLoading(true);
       const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?page=1&limit=6`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?search=${seacrh}`
       );
       setProducts(response.data.result.data);
       setLoading(false);
@@ -49,119 +52,28 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [seacrh]);
 
-  const favorProduct = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?favorite=true`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const coffee = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Coffee`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const nonCofee = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Non Coffee`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const foods = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?category=Food`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const addOn = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const expensive = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?price=expensive`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const low = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?price=low`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const latest = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?post=latest`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const oldest = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/?post=oldest`
-      );
-      setProducts(response.data.result.data);
-    } catch (error) {
-      console.log(error.message);
-    }
+  // TODO: Search Product
+  const search = (e) => {
+    const delayDebounce = setTimeout(() => {
+      setSearch(e.target.value);
+    }, 500);
+    return () => clearTimeout(delayDebounce);
   };
 
   // TODO: Get Promos
   const getPromos = async () => {
     try {
-      setLoading(true);
+      setPromoLoading(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
       );
-      setLoading(false);
+      setPromoLoading(false);
       // console.log(response.data.result);
       setPromos(response.data.result.data);
     } catch (error) {
-      setLoading(true);
+      setPromoLoading(true);
       console.log(error.message);
     }
   };
@@ -176,18 +88,10 @@ const Products = () => {
   return (
     <>
       <TitleBar title={`MAMMI | Products`} />
-      {role === "Admin" ? (
-        <HeaderAdmin
-        // value = {}
-        // onChange = {}
-        // onSubmit = {}
-        />
+      {accessRole === "Admin" ? (
+        <HeaderAdmin onChange={search} />
       ) : (
-        <Header
-        // value={}
-        // onChange={}
-        // onSubmit={}
-        />
+        <Header onChange={search} />
       )}
       <main className={styles.main}>
         <aside
@@ -199,7 +103,7 @@ const Products = () => {
           </p>
           <span className={styles["promo__card-section"]}>
             <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
-              {loading ? (
+              {promoLoading ? (
                 <Loader styleSection={styles["sectionLoader"]} />
               ) : (
                 promos.map((promo) => (
@@ -233,7 +137,7 @@ const Products = () => {
             <p>4. Should make member card to apply coupon</p>
           </span>
 
-          {role === "Admin" ? (
+          {accessRole === "Admin" ? (
             <Link to={`/promo/add`}>
               <button className={styles["btn-add-promo"]}>Add new promo</button>
             </Link>
@@ -243,19 +147,27 @@ const Products = () => {
           className={`${styles["main__right-side"]} ${styles["main__products"]}`}
         >
           <ul className={styles["main__products__header"]}>
-            <li className={styles["favor-products"]} onClick={favorProduct}>
+            <li className={styles["favor-products"]} value={``} onClick={``}>
               Favorite Product
             </li>
-            <li className={styles["coffee-products"]} onClick={coffee}>
+            <li
+              className={styles["coffee-products"]}
+              value={`Cofee`}
+              onClick={``}
+            >
               Coffee
             </li>
-            <li className={styles["non-coffee-products"]} onClick={nonCofee}>
+            <li
+              className={styles["non-coffee-products"]}
+              value={``}
+              onClick={``}
+            >
               Non Coffee
             </li>
-            <li className={styles.foods} onClick={foods}>
+            <li className={styles.foods} value={``} onClick={``}>
               Foods
             </li>
-            <li className={styles["Add-on"]} onClick={addOn}>
+            <li className={styles["Add-on"]} value={``} onClick={``}>
               Add-on
             </li>
           </ul>
@@ -274,13 +186,13 @@ const Products = () => {
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={expensive}
+                    onClick={``}
                   >
                     Expensive
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={low}
+                    onClick={``}
                   >
                     Low
                   </DropdownItem>
@@ -292,13 +204,13 @@ const Products = () => {
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={latest}
+                    onClick={``}
                   >
                     Latest
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={oldest}
+                    onClick={``}
                   >
                     Oldest
                   </DropdownItem>
@@ -310,7 +222,7 @@ const Products = () => {
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
             {loading && <Loader />}
-            {role === "Admin"
+            {accessRole === "Admin"
               ? products.map((product) => (
                   <ProductAdmin
                     productKey={product.id}
@@ -337,7 +249,7 @@ const Products = () => {
                   </span>
                 ))}
           </span>
-          {role === "Admin" ? (
+          {accessRole === "Admin" ? (
             <Link
               to={`/product/add`}
               className={styles["link-btn-new-product"]}
