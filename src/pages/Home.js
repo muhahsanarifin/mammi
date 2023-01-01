@@ -30,11 +30,11 @@ import spotify from "../assets/images/spotify.svg";
 
 const Home = () => {
   const [show, setshow] = useState(false);
-  const accessToken = localStorage.getItem("token");
-  const accessRole = localStorage.getItem("role");
+  const accessToken = localStorage.getItem("access-token");
+  const accessRole = localStorage.getItem("access-role");
 
   useEffect(() => {
-    if (accessToken === null) {
+    if (!accessRole) {
       setshow(true);
       setTimeout(() => {
         setshow(false);
@@ -114,19 +114,6 @@ const Home = () => {
               </Link>
             </span>
           </div>
-        ) : accessRole === "Admin" ? (
-          <div className={styles["sign-in-up"]}>
-            <span className={styles["sign-in"]}>
-              <Link to={`/login`}>
-                <button>Login</button>
-              </Link>
-            </span>
-            <span className={styles["sign-up"]}>
-              <Link to={`/sign-up`}>
-                <button>Sign Up</button>
-              </Link>
-            </span>
-          </div>
         ) : (
           <div className={styles["sign-in-up"]}>
             <span className={styles["sign-in"]}>
@@ -144,7 +131,7 @@ const Home = () => {
       </header>
 
       <main className={styles.main}>
-        {show && <WelcomeToast/>}
+        {show && <WelcomeToast />}
         <section className={`${styles.section} ${styles.introduction}`}>
           <span className={styles["introduction__text"]}>
             <h1>Start Your Day With Coffee and Good Meals</h1>
