@@ -9,10 +9,10 @@ import mammiLogo from "../../assets/images/mammi-logo.png";
 import searchIcon from "../../assets/icons/search.svg";
 import chat from "../../assets/icons/chat.svg";
 
-const Header = ({ value, onChange, onSubmit }) => {
-  // TODO: Init
+const Header = ({ onChange }) => {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("access-token");
+  const accessRole = localStorage.getItem("access-role");
 
   // TODO: Handle logout
   const handleLogout = async () => {
@@ -21,7 +21,7 @@ const Header = ({ value, onChange, onSubmit }) => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/logout`,
         {
           headers: {
-            "x-access-token": localStorage.getItem("token"),
+            "x-access-token": accessToken,
           },
         }
       );
@@ -62,14 +62,9 @@ const Header = ({ value, onChange, onSubmit }) => {
           </ul>
         </nav>
         <div className="d-flex flex-row gap-4  align-items-center">
-          <span className={styles.search} onSubmit={onSubmit}>
+          <span className={styles.search}>
             <img src={searchIcon} alt="search" />
-            <input
-              type="text"
-              placeholder="Search"
-              value={value}
-              onChange={onChange}
-            />
+            <input type="text" placeholder="Search" onChange={onChange} />
           </span>
           <span className={styles.chat}>
             <img src={chat} alt="chat" />
