@@ -26,12 +26,10 @@ yarn-error.log*
 # .env
 .env
 
-# Admin
-Dashboard.js
-
 # Pages
 Chat.js
 EditPassword.js
+Dashboard.js
 
 ## API
 api
@@ -44,7 +42,5 @@ helpers
 
 # Components
 ValidationRegister.jsx
-Toast.jsx
-TitleBar.jsx
 ProductCard.jsx
 Promo.jsx
