@@ -19,10 +19,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [feedEmail, setFeedEmail] = useState("Email");
+  const [feedPassword, setFeedPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
   const [loaderButton, setLoaderBtn] = useState(false);
   const accessToken = localStorage.getItem("access-token");
-  PrivateRoute(accessToken, +1)
-
+  PrivateRoute(accessToken, +1);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -47,9 +50,22 @@ const Login = () => {
         navigation("/products");
       }
     } catch (err) {
-      console.log(err.response.data.result.msg);
+      if (err.response.data.result.msg === "Email is incorrect") {
+        setTimeout(() => {
+          setFeedEmail(err.response.data.result.msg);
+          setErrorEmail(true);
+        }, 100);
+      } else if (err.response.data.result.msg === "Password is incorrect") {
+        setErrorPassword(true);
+        setTimeout(() => {
+          setFeedPassword(err.response.data.result.msg);
+          setErrorPassword(true);
+        }, 1000);
+      }
     } finally {
       setLoaderBtn(false);
+      setErrorEmail(false);
+      setErrorPassword(false);
     }
   };
 
@@ -93,6 +109,13 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </span>
+              {errorEmail && (
+                <span
+                  style={{ fontSize: "12px", fontWeight: "800", color: "red" }}
+                >
+                  {feedEmail}
+                </span>
+              )}
               <label htmlFor="inputPassword">Password:</label>
               <span className={styles.sectionPassword}>
                 <input
@@ -107,6 +130,13 @@ const Login = () => {
                   stateParams={!show}
                 />
               </span>
+              {errorPassword && (
+                <span
+                  style={{ fontSize: "12px", fontWeight: "800", color: "red" }}
+                >
+                  {feedPassword}
+                </span>
+              )}
               <span className={styles["forgot-password"]}>
                 <Link
                   to={`/forgot-password`}
