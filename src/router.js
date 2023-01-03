@@ -13,7 +13,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 // import Chat from "./pages/Chat";
 
-// « Admin »
+// TODO: Admin
 import AddProduct from "./pages/admin/AddProduct";
 import AddPromo from "./pages/admin/AddPromo";
 import EditPromo from "./pages/admin/EditPromo";
