@@ -15,7 +15,7 @@ import eat from "../assets/images/eat.png";
 import LoaderBtn from "../components/LoaderBtn";
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   const [show, setShow] = useState(false);
   const [loaderButton, setLoaderBtn] = useState(false);
 
@@ -41,7 +41,7 @@ const SignUp = () => {
       );
       // console.log(response.data.result.data);
       if (response.status === 200) {
-        navigate("/login");
+        navigation("/login");
       }
     } catch (err) {
       console.log(err.response.data.result.msg);

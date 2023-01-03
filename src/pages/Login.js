@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -9,17 +8,21 @@ import CardMember from "../components/CardMember";
 import PasswordToggle from "../components/PasswordToggle";
 import LoaderBtn from "../components/LoaderBtn";
 import TitleBar from "../components/TitleBar";
+import PrivateRoute from "../utils/PrivateRoute";
 
 import eat from "../assets/images/eat.png";
 import mammiLogo from "../assets/images/mammi-logo.png";
 import styles from "../styles/Login.module.css";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [loaderButton, setLoaderBtn] = useState(false);
+  const accessToken = localStorage.getItem("access-token");
+  PrivateRoute(accessToken, +1)
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -37,8 +40,11 @@ const Login = () => {
         // localStorage.setItem("user-data", JSON.stringify(user));
         localStorage.setItem("access-role", response.data.result.data.role);
         localStorage.setItem("access-token", response.data.result.data.token);
-        localStorage.setItem("access-picture", response.data.result.data.picture);
-        navigate("/products");
+        localStorage.setItem(
+          "access-picture",
+          response.data.result.data.picture
+        );
+        navigation("/products");
       }
     } catch (err) {
       console.log(err.response.data.result.msg);

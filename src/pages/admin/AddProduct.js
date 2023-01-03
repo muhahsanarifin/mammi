@@ -6,6 +6,7 @@ import { useState } from "react";
 import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
 import styles from "../../styles/admin/AddProduct.module.css";
+import PrivateRoute from "../../utils/PrivateRoute";
 
 const AddProduct = () => {
   const [prevImage, setPrevImage] = useState(null);
@@ -15,6 +16,8 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const accessToken = localStorage.getItem("access-token");
+  // TODO: Private Route
+  PrivateRoute(!accessToken, -1);
 
   const handleUploadeImage = (e) => {
     let uploaded = e.target.files[0];
@@ -185,7 +188,7 @@ const AddProduct = () => {
               <span className={styles.size}>
                 <label htmlFor="#">Input product size:</label>
                 <p>click methods you want to use for this product</p>
-                <span className={styles["size_type"]}>
+                <span className={styles["size_type"]} disabled>
                   <ul>
                     <li>R</li>
                     <li>L</li>
@@ -199,7 +202,7 @@ const AddProduct = () => {
               <span className={styles["delivery-entity"]}>
                 <label htmlFor="#">Input delivery methods:</label>
                 <p>Click methods you want to use for this product</p>
-                <ul className={styles["delivery-methods"]}>
+                <ul className={styles["delivery-methods"]} disabled>
                   <li>Home Delivery</li>
                   <li>Dine in</li>
                   <li>Take away</li>

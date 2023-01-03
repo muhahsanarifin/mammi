@@ -5,8 +5,12 @@ import Axios from "axios";
 import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
 import styles from "../../styles/admin/AddPromo.module.css";
+import PrivateRoute from "../../utils/PrivateRoute";
 
 const AddPromo = () => {
+  const accessToken = localStorage.getItem("access-token");
+  // TODO: Private Route
+  PrivateRoute(!accessToken, -1);
   return (
     <>
       <HeaderAdmin />

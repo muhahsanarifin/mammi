@@ -8,6 +8,7 @@ import HeaderAdmin from "../components/admin/Header";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import TitleBar from "../components/TitleBar";
+import PrivateRoute from "../utils/PrivateRoute";
 
 import styles from "../styles/Checkout.module.css";
 import creditCard from "../assets/icons/credit-card.svg";
@@ -20,12 +21,8 @@ const Order = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate("/login");
-    }
-  }, []);
+  // TODO: Private Route
+  PrivateRoute(!accessToken, -1);
 
   return (
     <>

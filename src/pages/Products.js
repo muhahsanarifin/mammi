@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -32,7 +32,6 @@ const Products = () => {
   // const [filter, setFilter] = useState([]);
   // const [sort, setSort] = useState([]);
   const [seacrh, setSearch] = useState([]);
-  const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
 
   // TODO: Get Products
@@ -79,10 +78,6 @@ const Products = () => {
   };
   useEffect(() => {
     getPromos();
-  }, []);
-
-  useEffect(() => {
-    accessToken ? navigation("/products") : navigation("/products");
   }, []);
 
   return (

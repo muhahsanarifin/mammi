@@ -1,6 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
@@ -10,15 +9,17 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 import styles from "../styles/ProductDetail.module.css";
-import coldBrew from "../assets/images/products/cold-brew.svg";
 import arrowBrown from "../assets/icons/arrow-brown.svg";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const ProductDetail = () => {
   const [products, setProductDetail] = useState([]);
   const { id } = useParams();
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
+  // TODO: Private route
+  PrivateRoute(!accessToken, "/login");
 
   // TODO: Get Product Detail
   const getProductDetail = async () => {
@@ -37,55 +38,55 @@ const ProductDetail = () => {
     getProductDetail();
   }, []);
 
-  useEffect(() => {
-    if (!accessToken) navigate("/login");
-  }, []);
-
   return (
     <>
       {accessRole === "Admin" ? <HeaderAdmin /> : <Header />}
       <main className={styles.main}>
-        {products.map((product) => (
-          <>
-            <section className={styles.breadcrumb}>
-              <nav className={styles["breadcrumb-nav"]}>
-                <ul className={styles["breadcrumb-list"]}>
-                  <li className={styles["breadcrumb-item"]}>
-                    <Link to={`/products`}>Favorite & Promo</Link>
-                  </li>
+        <>
+          <section className={styles.breadcrumb}>
+            <nav className={styles["breadcrumb-nav"]}>
+              <ul className={styles["breadcrumb-list"]}>
+                <li className={styles["breadcrumb-item"]}>
+                  <Link to={`/products`}>Favorite & Promo</Link>
+                </li>
+                {products.map((product) => (
                   <li
                     className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
                   >
                     {product.product_name}
                   </li>
-                </ul>
-              </nav>
-            </section>
-            <section
-              className={`${styles["first-main"]} ${styles["identity-product"]}`}
-            >
-              <span className={styles["identity-product_image"]}>
-                <img src={product.image} alt="Cold Brew" />
-              </span>
+                ))}
+              </ul>
+            </nav>
+          </section>
+          <section
+            className={`${styles["first-main"]} ${styles["identity-product"]}`}
+          >
+            <span className={styles["identity-product_image"]}>
+              {products.map((product) => (
+                <img src={product.image} alt={product.product_name} />
+              ))}
+            </span>
 
-              <span className={styles["identity-product__description"]}>
+            <span className={styles["identity-product__description"]}>
+              {products.map((product) => (
                 <h3 className={styles["identity-product__description__title"]}>
                   {product.product_name}
                 </h3>
+              ))}
+              {products.map((product) => (
                 <article
                   className={styles["identity-product__description__article"]}
                 >
                   {product.description}
                 </article>
-                <p
-                  className={styles["identity-product__description__delivery"]}
-                >
-                  Delivery only on Monday to Friday at 1-7pm
-                </p>
-              </span>
-            </section>
-          </>
-        ))}
+              ))}
+              <p className={styles["identity-product__description__delivery"]}>
+                Delivery only on Monday to Friday at 1-7pm
+              </p>
+            </span>
+          </section>
+        </>
         <section className={styles["second-main"]}>
           <span className={styles["delivery-and-time"]}>
             <p className={styles["delivery-and-time__title"]}>
@@ -168,11 +169,17 @@ const ProductDetail = () => {
           </ul>
         </span>
         <span className={styles["checkout"]}>
-          <span className={styles["checkout__image"]}>
-            <img src={coldBrew} alt="Cold Brew" />
-          </span>
+          {products.map((product) => (
+            <span className={styles["checkout__image"]}>
+              <img src={product.image} alt={product.product_name} />
+            </span>
+          ))}
           <span className={styles["checkout__identify"]}>
-            <p className={styles["checkout__identify__title"]}> COLD BREW</p>
+            {products.map((product) => (
+              <p className={styles["checkout__identify__title"]}>
+                {product.product_name}
+              </p>
+            ))}
             <ul className={styles["checkout__identify__size"]}>
               <li>
                 <p>x1</p>(Large)

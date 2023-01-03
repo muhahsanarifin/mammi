@@ -1,15 +1,11 @@
 import React from "react";
-
 import { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import Axios from "axios";
 
 import Header from "../components/Header";
-
 import Footer from "../components/Footer";
-
+import PrivateRoute from "../utils/PrivateRoute";
 import styles from "../styles/History.module.css";
 
 const History = () => {
@@ -17,12 +13,8 @@ const History = () => {
   const [historyTransactions, setHistoryTransactions] = useState([]);
   const accessToken = localStorage.getItem("access-token");
   // const accessRole = localStorage.getItem("access-role");
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate("/login");
-    }
-  }, []);
+  // TODO: Private route
+  PrivateRoute(!accessToken, -1);
 
   // TODO: Get History Transaction
   const getHistoryTransactions = async () => {
