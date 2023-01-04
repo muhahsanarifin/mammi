@@ -14,9 +14,9 @@ const Header = ({ onChange }) => {
 
   const accessToken = localStorage.getItem("access-token");
   const accessPicture = localStorage.getItem("access-picture");
-
+  
   useEffect(() => {
-    if (accessPicture) {
+    if (accessPicture === "null") {
       setAlert(true);
       setTimeout(() => {
         setAlert(false);
@@ -50,7 +50,7 @@ const Header = ({ onChange }) => {
             </li>
             <li>
               {" "}
-              <Link to={`/order`}>Orders</Link>
+              <Link to={`/order`}>Your Chart</Link>
             </li>
             <li>
               <Link to={`/history`}>History</Link>
@@ -76,7 +76,7 @@ const Header = ({ onChange }) => {
           ) : null}
         </div>
       </header>
-      {accessToken && (
+      {accessPicture && (
         <>
           {alert && (
             <AlertProfile
