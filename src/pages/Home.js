@@ -84,19 +84,47 @@ const Home = () => {
               </>
             ) : (
               <>
-                <li>
-                  <Link to={"/order"} className={styles["content-navbar-text"]}>
-                    YourCart
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={"/history"}
-                    className={styles["content-navbar-text"]}
-                  >
-                    History
-                  </Link>
-                </li>
+                {accessToken ? (
+                  <li>
+                    <Link
+                      to={"/order"}
+                      className={styles["content-navbar-text"]}
+                    >
+                      YourCart
+                    </Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link
+                      to={"/order"}
+                      className={styles["content-navbar-text"]}
+                      style={{ cursor: "not-allowed" }}
+                    >
+                      YourCart
+                    </Link>
+                  </li>
+                )}
+
+                {accessToken ? (
+                  <li>
+                    <Link
+                      to={"/history"}
+                      className={styles["content-navbar-text"]}
+                    >
+                      History
+                    </Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link
+                      to={"/history"}
+                      className={styles["content-navbar-text"]}
+                      style={{ cursor: "not-allowed" }}
+                    >
+                      History
+                    </Link>
+                  </li>
+                )}
               </>
             )}
           </ul>
@@ -142,7 +170,9 @@ const Home = () => {
           </span>
           <span className={styles["btn-start"]}>
             <Link to={`/sign-up`}>
-              <button>Get Started</button>
+              {accessRole === "Admin" || accessRole === "Customer" ? null : (
+                <button>Get Started</button>
+              )}
             </Link>
           </span>
           <span className={styles.search}>

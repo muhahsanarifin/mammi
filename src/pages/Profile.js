@@ -6,6 +6,7 @@ import Axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Modal from "../components/Modal";
+import TitleBar from "../components/TitleBar";
 
 import pen from "../assets/icons/pen.svg";
 import styles from "../styles/Profile.module.css";
@@ -64,7 +65,6 @@ const Profile = () => {
         }
       );
       setDetails(response.data.result);
-      console.log(response.data.result);
     } catch (error) {
       console.log(error.message);
     }
@@ -131,7 +131,6 @@ const Profile = () => {
           },
         }
       );
-      console.log(response.data.result);
       if (response.status === 200) {
         console.log("updated success");
         window.location.reload();
@@ -159,6 +158,7 @@ const Profile = () => {
 
   return (
     <>
+      <TitleBar title={`MAMMI | Profile`} />
       {/* TODO: Modal */}
       <Modal
         toggle={handleModal}
