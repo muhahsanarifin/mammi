@@ -9,11 +9,12 @@ import chat from "../assets/icons/chat.svg";
 import styles from "../styles/Header.module.css";
 
 const Header = ({ onChange }) => {
-  const [alert, setAlert] = useState(false);
-  const navigation = useNavigate();
-
   const accessToken = localStorage.getItem("access-token");
   const accessPicture = localStorage.getItem("access-picture");
+  const [alert, setAlert] = useState(false);
+  // const [updatedPicture, setUpdatedPicture] = useState(accessPicture);
+  const navigation = useNavigate();
+
   
   useEffect(() => {
     if (accessPicture === "null") {
@@ -23,6 +24,11 @@ const Header = ({ onChange }) => {
       }, 5000);
     }
   }, [accessPicture]);
+
+  // TODO: Research
+  // useEffect(() => {
+  //   setUpdatedPicture(accessPicture)
+  // },[accessPicture])
 
   const onDismiss = () => setAlert(false);
 
