@@ -112,15 +112,15 @@
 .product-image {
   position: relative;
   /* border: 1px solid darkblue; */
+  border-radius: 100%;
   background: var(--background-delivery-and-time);
   width: 100px;
   height: 100px;
-  border-radius: 100%;
 }
 
 .product-image img {
-  width: 45px;
-  height: 45px;
+  width: 100px;
+  height: 100px;
   background: var(--confirm-product-qty-count-boder-color);
   border-radius: 100%;
 }
@@ -144,36 +144,30 @@
   height: 4rem;
 }
 
-.picture::before {
-  content: "Take a Picture";
+.picture::before,
+.galery::before {
   position: absolute;
   width: 12rem;
   height: 3rem;
   border-radius: 8px;
-  background: var(--pa-btn-bg-color);
-  color: var(--pa-font-second-color);
   text-align: center;
   padding-top: 0.75rem;
   visibility: visible;
   font-weight: 700;
-  margin-left: 4.5rem;
+  margin-left: 4rem;
   cursor: pointer;
+}
+
+.picture::before {
+  content: "Take a Picture";
+  background: var(--pa-btn-bg-color);
+  color: var(--pa-font-second-color);
 }
 
 .galery::before {
   content: "Choose From Galery";
-  position: absolute;
-  width: 12rem;
-  height: 3rem;
-  border-radius: 8px;
   background: var(--pa-btn-second-color);
   color: var(--pa-btn-color);
-  text-align: center;
-  padding-top: 0.75rem;
-  visibility: visible;
-  font-weight: 700;
-  margin-left: 4.5rem;
-  cursor: pointer;
 }
 
 .description-products {
@@ -200,7 +194,7 @@
   font-size: 14px;
 }
 
-.delivery-size-btn-section {
+.compact-components-section {
   /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: row;
@@ -208,40 +202,24 @@
   gap: 1rem;
 }
 
-.main-delivery {
-  /* border: 1px solid darkgoldenrod; */
+.left-side-compact-component {
   position: relative;
   right: 5.5rem;
   display: flex;
   flex-direction: column;
 }
 
-.delivery {
-  /* border: 1px solid darkblue; */
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.delivery__components {
-  /* border: 1px solid darkblue; */
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 20rem;
-}
-
+.category,
 .stock {
-  /* border: 1px solid darkred; */
+  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   gap: 1rem;
+  padding: 1rem;
 }
 
-.delivery label,
-.stock label {
+.stock label,
+.category label {
   color: var(--pa-font-color);
   font-weight: 700;
 }
@@ -257,18 +235,25 @@ select {
   color: var(--pa-font-third-color);
 }
 
-.stock-component {
+.stock-component,
+.category-component {
   /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: row;
   width: 20rem;
 }
 
-.stock-component select {
+.stock-component select,
+.category-component select {
   flex: 1;
+  cursor: pointer;
 }
 
-.compact-component {
+.stock-component select {
+  cursor: not-allowed;
+}
+
+.right-side-compact-component {
   /* border: 1px solid darkorchid; */
   display: flex;
   flex-direction: column;
@@ -320,6 +305,7 @@ select {
   cursor: pointer;
   z-index: 1;
   font-family: "Poppins", sans-serif;
+  cursor: not-allowed;
 }
 
 .size_type ul li::before {
@@ -349,10 +335,6 @@ select {
   color: var(--pa-font-third-color);
 }
 
-.delivery-entity {
-  /* border: 1px solid darkblue; */
-}
-
 .delivery-entity label {
   color: var(--pa-font-color);
   font-weight: 700;
@@ -379,6 +361,7 @@ select {
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
+  cursor: not-allowed;
 }
 
 .delivery-methods li:nth-child(3) {
@@ -431,7 +414,7 @@ select {
     padding: 1rem;
   }
 
-  .main-delivery {
+  .left-side-compact-component {
     right: 0;
   }
 
@@ -439,7 +422,7 @@ select {
     flex: 1;
   }
 
-  .delivery-size-btn-section {
+  .compact-components-section {
     gap: 1rem;
   }
 }
@@ -450,13 +433,13 @@ select {
     padding: 0 1rem;
   }
 
-  .delivery-size-btn-section {
+  .compact-components-section {
     /* border: 1px solid red; */
     padding: 0;
     flex-direction: column;
   }
 
-  .main-delivery {
+  .left-side-compact-component {
     right: 0;
   }
 }
@@ -470,25 +453,22 @@ select {
     padding: 1rem;
   }
 
-  .delivery-size-btn-section {
+  .compact-components-section {
     /* border: 1px solid darkblue; */
     flex-direction: column;
     padding: 0;
   }
 
-  .main-delivery {
+  .left-side-compact-component {
     right: 0;
-  }
-
-  .delivery {
-    padding: 0;
   }
 
   .identity-product {
     flex-direction: column;
   }
 
-  .stock {
+  .stock,
+  .category {
     padding: 0;
   }
 
@@ -502,7 +482,7 @@ select {
   }
 
   .delivery-methods {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .delivery-methods li {
