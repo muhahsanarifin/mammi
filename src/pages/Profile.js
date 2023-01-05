@@ -27,6 +27,7 @@ const Profile = () => {
   const [birth, setBirth] = useState("");
   const [previewImage, setPrevImage] = useState(null);
   const [picture, setPicture] = useState();
+  const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
   // TODO: Private route
@@ -35,6 +36,7 @@ const Profile = () => {
   // TODO: Get Contact Profile
   const getContact = async () => {
     try {
+      setLoading(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/contact/id`,
         {
@@ -46,6 +48,8 @@ const Profile = () => {
       setContacts(response.data.result);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,6 +60,7 @@ const Profile = () => {
   // TODO: Get Detail Profile
   const getDetail = async () => {
     try {
+      setLoading(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/detail/id`,
         {
@@ -67,6 +72,8 @@ const Profile = () => {
       setDetails(response.data.result);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,7 +111,6 @@ const Profile = () => {
   const handleUploadImage = (e) => {
     let uploaded = e.target.files[0];
     setPrevImage(URL.createObjectURL(uploaded));
-    // console.log(uploaded);
     setPicture(uploaded);
   };
 
@@ -138,9 +144,6 @@ const Profile = () => {
     } catch (error) {
       console.log(error.message);
     }
-    // console.log(
-    //   ` Address: ${address} Display Name: ${display_name} First Name: ${first_name} Last Name: ${last_name} Birth: ${birth} Gender: ${gender} `
-    // );
   };
 
   const handleCancelForm = () => {
@@ -179,7 +182,7 @@ const Profile = () => {
             <span className={styles.profile}>
               {details.map((detail) => (
                 <img
-                  src={`${process.env.REACT_APP_BACKEND_HOST}${detail.picture}`}
+                  src={detail.picture}
                   alt="Profile"
                   className={styles["profile__image"]}
                 />
@@ -196,6 +199,21 @@ const Profile = () => {
             </span>
           ) : (
             <span className={styles.profile}>
+              {loading && (
+                <span
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: "600",
+                    width: "117px",
+                    height: "117px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <p style={{ marginBottom: "0" }}>Loading...</p>
+                </span>
+              )}
               {details.map((detail) => (
                 <img
                   src={previewImage ? previewImage : detail.picture}
@@ -211,9 +229,19 @@ const Profile = () => {
                   onChange={handleUploadImage}
                 />
               </span>
+              {loading && (
+                <span style={{ fontSize: "12px", fontWeight: "600" }}>
+                  Loading...
+                </span>
+              )}
               {details.map((detail) => (
                 <p className={styles["display-name"]}>{detail.display_name}</p>
               ))}
+              {loading && (
+                <span style={{ fontSize: "12px", fontWeight: "600" }}>
+                  Loading...
+                </span>
+              )}
               {contacts.map((contact) => (
                 <p className={styles.email}>{contact.email}</p>
               ))}
@@ -233,6 +261,11 @@ const Profile = () => {
             <form className={styles.forms}>
               <span className={styles.email}>
                 <label htmlFor="emailAddress">Email address:</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {contacts.map((contact) => (
                   <input
                     type="text"
@@ -244,6 +277,11 @@ const Profile = () => {
               </span>
               <span className={styles["mobile-number"]}>
                 <label htmlFor="mobileNumber">Mobile number:</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {contacts.map((contact) => (
                   <input
                     type="text"
@@ -255,6 +293,11 @@ const Profile = () => {
               </span>
               <span className={styles["delivery"]}>
                 <label htmlFor="deliveryAddress">Delivery address:</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {details.map((detail) => (
                   <input
                     name="address"
@@ -284,6 +327,11 @@ const Profile = () => {
             <span className={styles["details__left-side"]}>
               <span className={styles["display-name"]}>
                 <label htmlFor="displayName">Display name:</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {details.map((detail) => (
                   <input
                     name="display_name"
@@ -298,6 +346,11 @@ const Profile = () => {
               </span>
               <span className={styles["first-name"]}>
                 <label htmlFor="firstName">First name:</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {details.map((detail) => (
                   <input
                     name="first_name"
@@ -312,6 +365,11 @@ const Profile = () => {
               </span>
               <span className={styles["last-name"]}>
                 <label htmlFor="lastName">Last name:</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {details.map((detail) => (
                   <input
                     name="last_name"
@@ -328,6 +386,11 @@ const Profile = () => {
             <span className={styles["details__right-side"]}>
               <span className={styles.date}>
                 <label htmlFor="birth">DD/MM/YY</label>
+                {loading && (
+                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
+                    Loading...
+                  </span>
+                )}
                 {details.map((detail) => (
                   <input
                     name="birth"
