@@ -73,7 +73,6 @@
 }
 
 .main__contents {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -88,7 +87,6 @@
 }
 
 .identity-product-picture {
-  /* border: 1px solid darkgoldenrod; */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -97,19 +95,16 @@
 }
 
 .product-input {
-  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: row;
 }
 
 .galery {
-  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: column;
 }
 
 .product-image {
-  /* border: 1px solid darkblue; */
   position: relative;
   width: 100px;
   height: 100px;
@@ -124,7 +119,6 @@
 }
 
 .product-input {
-  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -142,36 +136,32 @@
   height: 4rem;
 }
 
-.picture::before {
-  content: "Take a Picture";
+.picture::before,
+.galery::before {
   position: absolute;
   width: 12rem;
   height: 3rem;
   border-radius: 8px;
-  background: var(--pa-btn-bg-color);
-  color: var(--pa-font-second-color);
   text-align: center;
   padding-top: 0.75rem;
   visibility: visible;
   font-weight: 700;
-  margin-left: 4.5rem;
+  margin-left: 4rem;
   cursor: pointer;
+}
+
+.picture::before {
+  content: "Take a Picture";
+
+  background: var(--pa-btn-bg-color);
+  color: var(--pa-font-second-color);
 }
 
 .galery::before {
   content: "Choose From Galery";
-  position: absolute;
-  width: 12rem;
-  height: 3rem;
-  border-radius: 8px;
+
   background: var(--pa-btn-second-color);
   color: var(--pa-btn-color);
-  text-align: center;
-  padding-top: 0.75rem;
-  visibility: visible;
-  font-weight: 700;
-  margin-left: 4.5rem;
-  cursor: pointer;
 }
 
 .description-products {
@@ -254,6 +244,10 @@ select {
   cursor: pointer;
 }
 
+.stock-component select {
+  cursor: not-allowed;
+}
+
 .right-side-compact-component {
   /* border: 1px solid darkorchid; */
   display: flex;
@@ -306,6 +300,7 @@ select {
   cursor: pointer;
   z-index: 1;
   font-family: "Poppins", sans-serif;
+  cursor: not-allowed;
 }
 
 .size_type ul li::before {
@@ -360,7 +355,7 @@ select {
   border-radius: 8px;
   font-weight: 700;
   font-size: 14px;
-  cursor: pointer;
+  cursor: not-allowed;
 }
 
 .delivery-methods li:nth-child(3) {
