@@ -18,10 +18,9 @@ const EditProduct = () => {
   const [description, setDescription] = useState("");
   const accessToken = localStorage.getItem("access-token");
   const [products, setProductDetail] = useState([]);
+  const { id } = useParams();
   // TODO: Private Route
   PrivateRoute(!accessToken, -1);
-  const { id } = useParams();
-  // console.log(id);
 
   const getProductDetail = async () => {
     try {
