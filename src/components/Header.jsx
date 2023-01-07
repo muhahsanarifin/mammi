@@ -15,7 +15,6 @@ const Header = ({ onChange }) => {
   // const [updatedPicture, setUpdatedPicture] = useState(accessPicture);
   const navigation = useNavigate();
 
-  
   useEffect(() => {
     if (accessPicture === "null") {
       setAlert(true);
@@ -31,6 +30,7 @@ const Header = ({ onChange }) => {
   // },[accessPicture])
 
   const onDismiss = () => setAlert(false);
+  console.log(typeof accessToken);
 
   return (
     <>
@@ -51,16 +51,30 @@ const Header = ({ onChange }) => {
               <Link to={`/`}>Home</Link>
             </li>
             <li>
-              {" "}
               <Link to={`/products`}>Product</Link>
             </li>
-            <li>
-              {" "}
-              <Link to={`/order`}>Your Chart</Link>
-            </li>
-            <li>
-              <Link to={`/history`}>History</Link>
-            </li>
+            {accessToken ? (
+              <li>
+                <Link to={`/order`}>Your Chart</Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={`/order`} style={{ cursor: "not-allowed" }}>
+                  Your Chart
+                </Link>
+              </li>
+            )}
+            {accessToken ? (
+              <li>
+                <Link to={`/history`}>History</Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={`/history`} style={{ cursor: "not-allowed" }}>
+                  History
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
         <div className="d-flex flex-row gap-4  align-items-center">
