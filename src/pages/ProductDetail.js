@@ -15,7 +15,8 @@ import PrivateRoute from "../utils/PrivateRoute";
 const ProductDetail = () => {
   const [products, setProductDetail] = useState([]);
   const { id } = useParams();
-  const navigation = useNavigate();
+  const [loader, setLoader] = useState(false);
+  // const navigation = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
   // TODO: Private route
@@ -24,6 +25,7 @@ const ProductDetail = () => {
   // TODO: Get Product Detail
   const getProductDetail = async () => {
     try {
+      setLoader(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`
       );
@@ -31,6 +33,8 @@ const ProductDetail = () => {
       setProductDetail(response.data.result);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -49,6 +53,13 @@ const ProductDetail = () => {
                 <li className={styles["breadcrumb-item"]}>
                   <Link to={`/products`}>Favorite & Promo</Link>
                 </li>
+                {loader && (
+                  <li
+                    className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
+                  >
+                    Loading...
+                  </li>
+                )}
                 {products.map((product) => (
                   <li
                     className={`${styles["breadcrumb-item"]} ${styles["breadcrumb-divider"]}`}
@@ -63,17 +74,30 @@ const ProductDetail = () => {
             className={`${styles["first-main"]} ${styles["identity-product"]}`}
           >
             <span className={styles["identity-product_image"]}>
+              {loader && <span>Loading...</span>}
               {products.map((product) => (
                 <img src={product.image} alt={product.product_name} />
               ))}
             </span>
-
             <span className={styles["identity-product__description"]}>
+              {loader && (
+                <h3 className={styles["identity-product__description__title"]}>
+                  Loading...
+                </h3>
+              )}
               {products.map((product) => (
                 <h3 className={styles["identity-product__description__title"]}>
                   {product.product_name}
                 </h3>
               ))}
+
+              {loader && (
+                <article
+                  className={styles["identity-product__description__article"]}
+                >
+                  Loading...
+                </article>
+              )}
               {products.map((product) => (
                 <article
                   className={styles["identity-product__description__article"]}
@@ -169,12 +193,20 @@ const ProductDetail = () => {
           </ul>
         </span>
         <span className={styles["checkout"]}>
+          {loader && (
+            <span className={styles["checkout__image"]}>Loading...</span>
+          )}
           {products.map((product) => (
             <span className={styles["checkout__image"]}>
               <img src={product.image} alt={product.product_name} />
             </span>
           ))}
           <span className={styles["checkout__identify"]}>
+            {loader && (
+              <p className={styles["checkout__identify__title"]}>
+                Loading...
+              </p>
+            )}
             {products.map((product) => (
               <p className={styles["checkout__identify__title"]}>
                 {product.product_name}
