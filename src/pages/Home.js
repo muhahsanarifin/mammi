@@ -97,8 +97,7 @@ const Home = () => {
                   <li>
                     <Link
                       to={"/order"}
-                      className={styles["content-navbar-text"]}
-                      style={{ cursor: "not-allowed" }}
+                      className={styles["content-navbar-text__disallowed"]}
                     >
                       YourCart
                     </Link>
@@ -118,8 +117,7 @@ const Home = () => {
                   <li>
                     <Link
                       to={"/history"}
-                      className={styles["content-navbar-text"]}
-                      style={{ cursor: "not-allowed" }}
+                      className={styles["content-navbar-text__disallowed"]}
                     >
                       History
                     </Link>
