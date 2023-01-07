@@ -67,7 +67,8 @@
   color: var(--home-font-second-color);
 }
 
-.content-navbar-text:hover {
+.content-navbar-text:hover,
+.content-navbar-text__disallowed:hover {
   color: var(--home-font-fourth-color);
 }
 
@@ -86,6 +87,12 @@
   border-bottom: 3px solid var(--home-acent-border-color);
   left: 0;
   bottom: 0;
+}
+
+.content-navbar-text__disallowed {
+  cursor: not-allowed;
+  text-decoration: none;
+  color: var(--home-font-second-color);
 }
 
 .sign-in-up {
