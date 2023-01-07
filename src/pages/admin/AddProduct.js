@@ -55,6 +55,13 @@ const AddProduct = () => {
     }
   };
 
+  const handleCancelInput = () => {
+    setProductName("");
+    setPrevImage(null);
+    setPrice("");
+    setDescription("");
+  };
+
   return (
     <>
       <HeaderAdmin />
@@ -98,17 +105,18 @@ const AddProduct = () => {
               <span className={styles["product-input"]}>
                 <input
                   type="file"
+                  capture="camera"
                   name="picture"
                   accept="image/*"
                   className={styles.picture}
-                  onChange={handleUploadeImage}
+                  disabled
                 />
                 <input
                   type="file"
-                  name="picture"
-                  capture="camera"
+                  name="image"
+                  accept="image/*"
                   className={styles.galery}
-                  disabled
+                  onChange={handleUploadeImage}
                 />
               </span>
             </span>
@@ -120,6 +128,7 @@ const AddProduct = () => {
                   name="product_name"
                   id="name"
                   placeholder="Type product name min. 50 characters"
+                  value={product_name}
                   onChange={(e) => setProductName(e.target.value)}
                 />
               </label>
@@ -130,6 +139,7 @@ const AddProduct = () => {
                   name="price"
                   id="price"
                   placeholder="Type the price"
+                  value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </label>
@@ -140,6 +150,7 @@ const AddProduct = () => {
                   name="description"
                   id="description"
                   placeholder="Describe your product min. 150 characters"
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </label>
@@ -215,7 +226,10 @@ const AddProduct = () => {
                 >
                   Save Product
                 </button>
-                <button className={styles["btn-products__cancel"]}>
+                <button
+                  className={styles["btn-products__cancel"]}
+                  onClick={handleCancelInput}
+                >
                   Cancel
                 </button>
               </span>
