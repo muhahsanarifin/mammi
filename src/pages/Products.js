@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -20,12 +20,13 @@ import {
 } from "reactstrap";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import styles from "../styles/Products.module.css";
+import Skeleton from "../components/Skeleton";
 
 const Products = () => {
-  const navigation = useNavigate();
+  // const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState([]);
   const [promoLoading, setPromoLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -37,18 +38,18 @@ const Products = () => {
   // TODO: Get Products
   const getProducts = async () => {
     try {
-      setLoading(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?search=${seacrh}`
       );
-      setProducts(response.data.result.data);
-      setLoading(false);
+      setLoading(response.data.result.data);
+      setTimeout(() => {
+        setProducts(response.data.result.data);
+      }, 1000);
     } catch (error) {
-      setLoading(true);
+      setLoading(loading);
       console.log(error.message);
     }
   };
-
   useEffect(() => {
     getProducts();
   }, [seacrh]);
@@ -181,13 +182,13 @@ const Products = () => {
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={``}
+                    // onClick={}
                   >
                     Expensive
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={``}
+                    // onClick={}
                   >
                     Low
                   </DropdownItem>
@@ -199,13 +200,13 @@ const Products = () => {
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={``}
+                    // onClick={}
                   >
                     Latest
                   </DropdownItem>
                   <DropdownItem
                     className={styles["dropdown-item-products"]}
-                    onClick={``}
+                    // onClick={}
                   >
                     Oldest
                   </DropdownItem>
@@ -216,7 +217,8 @@ const Products = () => {
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
-            {loading && <Loader />}
+            {!products.length && <Skeleton products={loading} />}
+
             {accessRole === "Admin"
               ? products.map((product) => (
                   <ProductAdmin
