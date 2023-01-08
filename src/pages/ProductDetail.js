@@ -74,7 +74,7 @@ const ProductDetail = () => {
             className={`${styles["first-main"]} ${styles["identity-product"]}`}
           >
             <span className={styles["identity-product_image"]}>
-              {loader && <span>Loading...</span>}
+              {loader && <div></div>}
               {products.map((product) => (
                 <img src={product.image} alt={product.product_name} />
               ))}
@@ -194,7 +194,7 @@ const ProductDetail = () => {
         </span>
         <span className={styles["checkout"]}>
           {loader && (
-            <span className={styles["checkout__image"]}>Loading...</span>
+            <div></div>
           )}
           {products.map((product) => (
             <span className={styles["checkout__image"]}>
@@ -203,9 +203,7 @@ const ProductDetail = () => {
           ))}
           <span className={styles["checkout__identify"]}>
             {loader && (
-              <p className={styles["checkout__identify__title"]}>
-                Loading...
-              </p>
+              <p className={styles["checkout__identify__title"]}>Loading...</p>
             )}
             {products.map((product) => (
               <p className={styles["checkout__identify__title"]}>
