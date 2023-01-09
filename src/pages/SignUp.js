@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 import PasswordToggle from "../components/PasswordToggle";
 import Footer from "../components/Footer";
-import CardMember from "../components/CardMember";
+import CardMember from "../components/MemberCard";
 import TitleBar from "../components/TitleBar";
 
 import styles from "../styles/SignUp.module.css";

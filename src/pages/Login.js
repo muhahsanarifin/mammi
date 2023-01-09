@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
-import CardMember from "../components/CardMember";
+import CardMember from "../components/MemberCard";
 import PasswordToggle from "../components/PasswordToggle";
 import LoaderBtn from "../components/LoaderBtn";
 import TitleBar from "../components/TitleBar";

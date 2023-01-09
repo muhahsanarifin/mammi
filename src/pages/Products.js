@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCards } from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { EffectCards } from "swiper";
 // import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Loader from "../components/Loader";
+// import Loader from "../components/Loader";
 import HeaderAdmin from "../components/admin/Header";
-import ProductAdmin from "../components/admin/Product";
+import ProductCard from "../components/ProductCard";
 import TitleBar from "../components/TitleBar";
+import PromoCard from "../components/PromoCard";
+import { ProductCardSkeleton, PromoCardSkeleton } from "../components/Skeleton";
 
 import {
   Dropdown,
@@ -20,16 +22,16 @@ import {
 } from "reactstrap";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import styles from "../styles/Products.module.css";
-import Skeleton from "../components/Skeleton";
 
 const Products = () => {
-  // const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
-  const [loading, setLoading] = useState([]);
-  const [promoLoading, setPromoLoading] = useState(false);
+  const [loadProduct, setLoadProduct] = useState([]);
+  const [loadPromo, setLoadPromo] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+  // const navigation = useNavigate();
+  // const [loading, setLoading] = useState(false);
   // const [filter, setFilter] = useState([]);
   // const [sort, setSort] = useState([]);
   const [seacrh, setSearch] = useState([]);
@@ -41,12 +43,12 @@ const Products = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?search=${seacrh}`
       );
-      setLoading(response.data.result.data);
+      setLoadProduct(response.data.result.data);
       setTimeout(() => {
         setProducts(response.data.result.data);
       }, 1000);
     } catch (error) {
-      setLoading(loading);
+      setLoadProduct(loadProduct);
       console.log(error.message);
     }
   };
@@ -65,16 +67,19 @@ const Products = () => {
   // TODO: Get Promos
   const getPromos = async () => {
     try {
-      setPromoLoading(true);
+      setLoadPromo(true);
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
       );
-      setPromoLoading(false);
-      // console.log(response.data.result);
-      setPromos(response.data.result.data);
+      // console.log(response.data.result
+      setTimeout(() => {
+        setPromos(response.data.result.data);
+      }, 1000);
     } catch (error) {
-      setPromoLoading(true);
+      setLoadPromo(true);
       console.log(error.message);
+    } finally {
+      setLoadPromo(false);
     }
   };
   useEffect(() => {
@@ -97,33 +102,9 @@ const Products = () => {
           <p className={styles["promo__announcement"]}>
             Coupon will updated every weeks. Check them out
           </p>
-          <span className={styles["promo__card-section"]}>
-            <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
-              {promoLoading ? (
-                <Loader styleSection={styles["sectionLoader"]} />
-              ) : (
-                promos.map((promo) => (
-                  <SwiperSlide>
-                    <span className={styles["promo__card"]} key={promo.id}>
-                      <img src={promo.image} alt="Product Promo" />
-                      <p>
-                        {promo.product_name} {promo.discount}% OFF
-                      </p>
-                      <span className={styles["promo__card__decs"]}>
-                        Buy 1 Choco Oreo and get 20% off for Beff Spaghetti
-                      </span>
-                      <span className={styles.coupon}>
-                        <p className={styles["coupon__title"]}>COUPON CODE</p>
-                        <h3>{promo.code}</h3>
-                        <p className={styles.description}>{``}</p>
-                      </span>
-                    </span>
-                  </SwiperSlide>
-                ))
-              )}
-            </Swiper>
-          </span>
-
+          {loadPromo && <PromoCardSkeleton />}
+          {/* TODO: Promo card */}
+          <PromoCard promos={promos} />
           <button className={styles["btn-coupon"]}>Apply Coupon</button>
           <span className={styles["terms-and-condition"]}>
             <h3>Terms and Condition</h3>
@@ -217,34 +198,16 @@ const Products = () => {
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
-            {!products.length && <Skeleton products={loading} />}
-
-            {accessRole === "Admin"
-              ? products.map((product) => (
-                  <ProductAdmin
-                    productKey={product.id}
-                    productId={`/product/${product.id}`}
-                    productImage={product.image}
-                    productName={product.product_name}
-                    prodcutPrice={product.price}
-                  />
-                ))
-              : products.map((product) => (
-                  <span
-                    className={`col my-3 ${styles.product}`}
-                    key={product.id}
-                  >
-                    <Link to={`/product/${product.id}`}>
-                      <img src={product.image} alt={product.product_name} />
-                    </Link>
-                    <p className={styles["product__name"]}>
-                      {product.product_name}
-                    </p>
-                    <p
-                      className={styles["product__price"]}
-                    >{`IDR ${product.price}`}</p>
-                  </span>
-                ))}
+            {!products.length && <ProductCardSkeleton products={loadProduct} />}
+            {/* TODO: Product card */}
+            {products.map((product) => (
+              <ProductCard
+                productId={product.id}
+                productImage={product.image}
+                productName={product.product_name}
+                prodcutPrice={product.price}
+              />
+            ))}
           </span>
           {accessRole === "Admin" ? (
             <Link
