@@ -1,0 +1,69 @@
+/* || Root Colors */
+:root {
+  --product-font-color: #6a4029;
+}
+
+.product {
+  box-shadow: 0px 30px 60px rgba(57, 57, 57, 0.1);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 8.1859rem;
+  height: 200.07px;
+  filter: drop-shadow(0px 40px 40px rgba(0, 0, 0, 0.07));
+}
+
+.image-product {
+  position: relative;
+  bottom: 1rem;
+  width: 105.98px;
+  height: 105.98px;
+  border-radius: 100%;
+  filter: drop-shadow(0px 40px 40px rgba(0, 0, 0, 0.07));
+}
+
+.image-product:hover {
+  position: relative;
+  transition: all 0.65s;
+  transform: rotateY(180deg);
+}
+
+.product .product__name {
+  position: relative;
+  top: 0.4rem;
+  max-width: 6rem;
+  text-align: center;
+  font-weight: 900;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  min-height: 74px;
+}
+
+.product .product__price {
+  position: relative;
+  bottom: 2rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--product-font-color);
+}
+
+.btn-product {
+  position: absolute;
+  bottom: -0.5rem;
+  right: -0.5rem;
+  background: var(--profile-font-color);
+  border-radius: 100%;
+  padding: 1rem;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.btn-product .btn-product-icon {
+  position: relative;
+  right: 0.5rem;
+  bottom: 0.8rem;
+  width: 16px;
+  height: 16px;
+}

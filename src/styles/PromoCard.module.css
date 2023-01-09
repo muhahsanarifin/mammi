@@ -1,0 +1,93 @@
+/* || Root Colors */
+:root {
+  --promo-card-color: #ffcb65;
+  --first-promo-card-layer: #000000;
+}
+
+.promo__card {
+  position: relative;
+  background: var(--promo-card-color);
+  height: 29.5rem;
+  width: 17.75rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.promo__card-section {
+  width: 100%;
+  height: 100%;
+}
+
+.sectionLoader {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.promo__card .promo__card__image {
+  position: relative;
+  width: 100.98px;
+  height: 100.98px;
+  border-radius: 100%;
+}
+
+.promo__card p,
+.promo__card__decs,
+.coupon,
+.btn-coupon {
+  font-family: "Poppins", sans-serif;
+}
+
+.promo__card p {
+  font-size: 22px;
+  font-weight: 700;
+  max-width: 11.25rem;
+  text-align: center;
+}
+
+.promo__card__decs {
+  border-bottom: 2px dashed var(--first-promo-card-layer);
+  font-size: 14px;
+  text-align: center;
+  padding-bottom: 1.5rem;
+}
+
+.coupon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 0;
+}
+
+.coupon .coupon__title {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.coupon .description {
+  font-size: 12px;
+}
+
+.btn-product {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--profile-font-color);
+  border-radius: 100%;
+  padding: 1rem;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.btn-product .btn-product-icon {
+  position: relative;
+  right: 0.5rem;
+  bottom: 0.8rem;
+  width: 16px;
+  height: 16px;
+}
