@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "../styles/Skeleton.module.css";
 
-const Skeleton = ({ products }) => {
+const ProductCardSkeleton = ({ products }) => {
   return (
     <>
       {products.map((product) => (
@@ -18,4 +18,20 @@ const Skeleton = ({ products }) => {
   );
 };
 
-export default Skeleton;
+const PromoCardSkeleton = () => {
+  return (
+    <>
+      <span className={styles["promo__card"]}>
+        <div className={styles["promo__image"]}></div>
+        <div className={styles["title__promo"]}></div>
+        <div className={styles["promo__card__decs"]}></div>
+        <div className={styles.coupon}>
+          <div className={styles["coupon__title"]}></div>
+          <div className={styles.description}></div>
+        </div>
+      </span>
+    </>
+  );
+};
+
+export { ProductCardSkeleton, PromoCardSkeleton };
