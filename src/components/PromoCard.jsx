@@ -9,13 +9,14 @@ import styles from "../styles/PromoCard.module.css";
 
 const PromoCard = ({ promos }) => {
   const navigation = useNavigate()
+  const accessRole = localStorage.getItem("access-role");
   return (
     <span className={styles["promo__card-section"]}>
       <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
         {promos.map((promo) => (
           <SwiperSlide>
             <span className={styles["promo__card"]} key={promo.id}>
-              <span
+              {accessRole === "Admin" ? <span
                 className={styles["btn-product"]}
                 onClick={() => navigation(`/promo/${promo.id}/edit`)}
               >
@@ -24,7 +25,7 @@ const PromoCard = ({ promos }) => {
                   alt="btn-product"
                   className={styles["btn-product-icon"]}
                 />
-              </span>
+              </span> : null}
               <img
                 src={promo.image}
                 alt="Product Promo"
