@@ -16,16 +16,18 @@ const PromoCard = ({ promos }) => {
         {promos.map((promo) => (
           <SwiperSlide>
             <span className={styles["promo__card"]} key={promo.id}>
-              {accessRole === "Admin" ? <span
-                className={styles["btn-product"]}
-                onClick={() => navigation(`/promo/${promo.id}/edit`)}
-              >
-                <img
-                  src={pen}
-                  alt="btn-product"
-                  className={styles["btn-product-icon"]}
-                />
-              </span> : null}
+              {accessRole === "Admin" ? (
+                <span
+                  className={styles["btn-product"]}
+                  onClick={() => navigation(`/promo/${promo.id}/edit`)}
+                >
+                  <img
+                    src={pen}
+                    alt="btn-product"
+                    className={styles["btn-product-icon"]}
+                  />
+                </span>
+              ) : null}
               <img
                 src={promo.image}
                 alt="Product Promo"
@@ -41,7 +43,9 @@ const PromoCard = ({ promos }) => {
               <span className={styles.coupon}>
                 <p className={styles["coupon__title"]}>COUPON CODE</p>
                 <h3>{promo.code}</h3>
-                <p className={styles.description}>{``}</p>
+                <p className={styles.description}>
+                  Valid untill October 10th 2020
+                </p>
               </span>
             </span>
           </SwiperSlide>
