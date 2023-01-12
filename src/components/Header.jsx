@@ -58,22 +58,14 @@ const Header = ({ onChange }) => {
                 <Link to={`/order`}>Your Chart</Link>
               </li>
             ) : (
-              <li>
-                <Link to={`/order`} style={{ cursor: "not-allowed" }}>
-                  Your Chart
-                </Link>
-              </li>
+              <li style={{ cursor: "no-drop" }}>Your Chart</li>
             )}
             {accessToken ? (
               <li>
                 <Link to={`/history`}>History</Link>
               </li>
             ) : (
-              <li>
-                <Link to={`/history`} style={{ cursor: "not-allowed" }}>
-                  History
-                </Link>
-              </li>
+              <li style={{ cursor: "no-drop" }}>History</li>
             )}
           </ul>
         </nav>
