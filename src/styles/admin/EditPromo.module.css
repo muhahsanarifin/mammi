@@ -61,7 +61,7 @@
   color: var(--breadcrumb-font-color);
 }
 
-.breadcrumb-item:nth-child(2)  {
+.breadcrumb-item:nth-child(2) {
   color: var(--acent-breadcrumb--font-color);
   font-weight: 700;
 }
@@ -77,7 +77,7 @@
   margin-left: auto;
   color: var(--pa-btn-color);
   font-weight: 800;
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .main__contents {
@@ -187,12 +187,12 @@
   font-size: 12px;
 }
 
-.btn-profile input[type="file"] {
+/* .btn-profile input[type="file"] {
   visibility: hidden;
   max-width: 6.5rem;
-}
+} */
 
-.btn-profile input[type="file"]::after {
+/* .btn-profile input[type="file"]::after {
   visibility: visible;
   background: var(--profile-font-color);
   content: "";
@@ -207,7 +207,7 @@
   background-repeat: no-repeat;
   background-size: 16px;
   background-position: center;
-}
+} */
 
 .btn-coupon {
   /* border: 1px solid darkblue; */
@@ -349,6 +349,7 @@
   right: 5.5rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .delivery {
@@ -356,7 +357,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
 }
 
 .delivery__components {
@@ -371,7 +371,6 @@
   /* border: 1px solid darkred; */
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   gap: 1rem;
   width: 20rem;
 }
@@ -382,12 +381,15 @@
   font-weight: 700;
 }
 
-.stock input[type="text"] {
+.stock input[type="text"],
+.start-date,
+.expire-date {
   /* border: 1px solid darkblue; */
   outline: none;
   border: 1px solid var(--pa-border-color);
   height: 3rem;
   border-radius: 8px;
+  padding: 0 0.5rem;
 }
 
 select {
@@ -461,7 +463,8 @@ select {
   position: relative;
   list-style: none;
   font-weight: 700;
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: not-allowed;
   z-index: 1;
   font-family: "Poppins", sans-serif;
 }
@@ -493,9 +496,9 @@ select {
   color: var(--pa-font-third-color);
 }
 
-.delivery-entity {
-  /* border: 1px solid darkblue; */
-}
+/* .delivery-entity {
+  border: 1px solid darkblue;
+} */
 
 .delivery-entity label {
   color: var(--pa-font-color);
@@ -522,7 +525,8 @@ select {
   border-radius: 8px;
   font-weight: 700;
   font-size: 14px;
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: not-allowed;
 }
 
 .delivery-methods li:nth-child(3) {
@@ -646,7 +650,7 @@ select {
   }
 
   .delivery-methods {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .delivery-methods li {
