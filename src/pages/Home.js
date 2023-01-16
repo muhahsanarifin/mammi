@@ -94,13 +94,8 @@ const Home = () => {
                     </Link>
                   </li>
                 ) : (
-                  <li>
-                    <Link
-                      to={"/order"}
-                      className={styles["content-navbar-text__disallowed"]}
-                    >
-                      YourCart
-                    </Link>
+                  <li className={styles["content-navbar-text__disallowed"]}>
+                    YourCart
                   </li>
                 )}
 
@@ -114,13 +109,8 @@ const Home = () => {
                     </Link>
                   </li>
                 ) : (
-                  <li>
-                    <Link
-                      to={"/history"}
-                      className={styles["content-navbar-text__disallowed"]}
-                    >
-                      History
-                    </Link>
+                  <li className={styles["content-navbar-text__disallowed"]}>
+                    History
                   </li>
                 )}
               </>
