@@ -8,8 +8,9 @@ import pen from "../assets/icons/pen.svg";
 import styles from "../styles/PromoCard.module.css";
 
 const PromoCard = ({ promos }) => {
-  const navigation = useNavigate()
+  const navigation = useNavigate();
   const accessRole = localStorage.getItem("access-role");
+
   return (
     <span className={styles["promo__card-section"]}>
       <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
@@ -37,14 +38,13 @@ const PromoCard = ({ promos }) => {
                 {promo.product_name} {promo.discount}% OFF
               </p>
               <span className={styles["promo__card__decs"]}>
-                Buy {promo.product_name} get {promo.discount}% off{" "}
-                {promo.product_name}
+                {promo.description}
               </span>
               <span className={styles.coupon}>
                 <p className={styles["coupon__title"]}>COUPON CODE</p>
                 <h3>{promo.code}</h3>
                 <p className={styles.description}>
-                  Valid untill October 10th 2020
+                  Valid untill {promo.expiry_date}
                 </p>
               </span>
             </span>
