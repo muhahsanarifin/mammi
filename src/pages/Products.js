@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { EffectCards } from "swiper";
 // import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
@@ -86,7 +84,7 @@ const Products = () => {
     getPromos();
   }, []);
 
-  return (
+return (
     <>
       <TitleBar title={`MAMMI | Products`} />
       {accessRole === "Admin" ? (
