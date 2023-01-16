@@ -10,12 +10,13 @@ import { useState } from "react";
 
 const EditProduct = () => {
   const [prevImage, setPrevImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [product_name, setProductName] = useState("");
-  const [category_id, setCategoryId] = useState(1);
+  const [category_id, setCategoryId] = useState(0);
   const [price, setPrice] = useState("");
-  const [imageLoading, setImageLoading] = useState(false);
   const [description, setDescription] = useState("");
+  const [stock, setStock] = useState(0);
   const accessToken = localStorage.getItem("access-token");
   const [products, setProductDetail] = useState([]);
   const { id } = useParams();
@@ -28,6 +29,7 @@ const EditProduct = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`
       );
+      console.log(response.data.result[0]);
       setProductDetail(response.data.result[0]);
     } catch (error) {
       console.log(error.message);
@@ -40,6 +42,21 @@ const EditProduct = () => {
     getProductDetail();
   }, []);
 
+  // TODO: Default input values
+  useEffect(() => {
+    setProductName(products.product_name);
+    setPrice(products.price);
+    setCategoryId(products.category_id);
+    setDescription(products.description);
+    setStock(products.stock);
+  }, [
+    products.product_name,
+    products.price,
+    products.category_id,
+    products.description,
+    products.stock,
+  ]);
+
   const handleUploadeImage = (e) => {
     let uploaded = e.target.files[0];
     setPrevImage(URL.createObjectURL(uploaded));
@@ -48,11 +65,11 @@ const EditProduct = () => {
 
   const handleSaveProduct = async () => {
     if (
-      product_name.length <= 0 ||
-      price.length <= 0 ||
-      description.length <= 0
+      product_name.length === 0 ||
+      price.length === 0 ||
+      description.length === 0
     ) {
-      return console.log("Plis, fill data completed");
+      return console.log("Please, fill in data completely!");
     }
     let formData = new FormData();
     formData.append("category_id", category_id);
@@ -60,6 +77,7 @@ const EditProduct = () => {
     formData.append("image", image);
     formData.append("price", price);
     formData.append("description", description);
+    formData.append("stock", stock);
 
     let body = formData;
 
@@ -75,12 +93,20 @@ const EditProduct = () => {
       );
       console.log(response.data.resul);
       if (response.status === 200) {
-        console.log("success");
+        console.log(response.data.result.msg);
         window.location.reload();
       }
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleCancleInput = () => {
+    setProductName(products.product_name);
+    setPrice(products.price);
+    setCategoryId(products.category_id);
+    setDescription(products.description);
+    setStock(products.stock);
   };
 
   return (
@@ -148,9 +174,8 @@ const EditProduct = () => {
                   type="text"
                   name="name"
                   id="name"
-                  placeholder={products.product_name}
                   // placeholder="Type product name min. 50 characters"
-                  valude={product_name}
+                  value={product_name}
                   onChange={(e) => setProductName(e.target.value)}
                 />
               </label>
@@ -160,7 +185,6 @@ const EditProduct = () => {
                   type="text"
                   name="price"
                   id="price"
-                  placeholder={products.price}
                   // placeholder="Type the price"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
@@ -172,8 +196,8 @@ const EditProduct = () => {
                   type="text"
                   name="description"
                   id="description"
-                  placeholder="Describe your product min. 150 characters"
-                  valuse={description}
+                  // placeholder="Describe your product min. 150 characters"
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </label>
@@ -204,17 +228,13 @@ const EditProduct = () => {
               <span className={styles.stock}>
                 <label htmlFor="#">Input stock:</label>
                 <span className={styles["stock-component"]}>
-                  <select name="" id="" disabled>
-                    <option
-                      disabled
-                      style={{ fontWeight: 800, fontSize: "14px" }}
-                    >
-                      Input stock
-                    </option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                  </select>
+                  <input
+                    type="number"
+                    name="stock"
+                    id="stock"
+                    value={stock}
+                    onChange={(e) => setStock(e.target.value)}
+                  />
                 </span>
               </span>
             </span>
@@ -244,12 +264,38 @@ const EditProduct = () => {
               </span>
               <span className={styles["btn-product"]}>
                 <button
-                  className={styles["btn-product__save"]}
+                  className={
+                    !product_name ||
+                    !price ||
+                    !description ||
+                    !category_id ||
+                    !stock
+                      ? styles["btn-product__save"]
+                      : styles["btn-product__save-active"]
+                  }
+                  disabled={
+                    !product_name ||
+                    !price ||
+                    !description ||
+                    !category_id ||
+                    !stock
+                  }
                   onClick={handleSaveProduct}
                 >
                   Save Product
                 </button>
-                <button className={styles["btn-products__cancel"]} onClick={``}>
+                <button
+                  className={
+                    !product_name ||
+                    !price ||
+                    !description ||
+                    !category_id ||
+                    !stock
+                      ? styles["btn-products__cancel"]
+                      : styles["btn-products__cancel-active"]
+                  }
+                  onClick={handleCancleInput}
+                >
                   Cancel
                 </button>
               </span>

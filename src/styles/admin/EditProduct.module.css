@@ -130,18 +130,15 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  gap: 1rem;
 }
 
-.picture {
-  visibility: hidden;
-  position: relative;
-  height: 4rem;
-}
-
+.picture,
 .galery {
+  /* border: 1px solid darkblue; */
   visibility: hidden;
   position: relative;
-  height: 4rem;
+  height: 3.1rem;
 }
 
 .picture::before,
@@ -154,14 +151,16 @@
   padding-top: 0.75rem;
   visibility: visible;
   font-weight: 700;
-  margin-left: 4rem;
+  margin-left: 4.5rem;
   cursor: pointer;
+  /* border: 1px solid darkblue; */
 }
 
 .picture::before {
   content: "Take a Picture";
   background: var(--pa-btn-bg-color);
   color: var(--pa-font-second-color);
+  cursor: no-drop;
 }
 
 .galery::before {
@@ -224,7 +223,8 @@
   font-weight: 700;
 }
 
-select {
+select,
+.stock-component input[type="number"] {
   outline: none;
   border: none;
   accent-color: none;
@@ -233,6 +233,7 @@ select {
   border-radius: 10px;
   height: 3rem;
   color: var(--pa-font-third-color);
+  padding: 0 0.5rem;
 }
 
 .stock-component,
@@ -243,14 +244,10 @@ select {
   width: 20rem;
 }
 
-.stock-component select,
-.category-component select {
+.category-component select,
+.stock-component input[type="number"] {
   flex: 1;
   cursor: pointer;
-}
-
-.stock-component select {
-  cursor: not-allowed;
 }
 
 .right-side-compact-component {
@@ -379,6 +376,11 @@ select {
 }
 
 .btn-product__save {
+  cursor: no-drop;
+}
+
+.btn-product__save-active,
+.btn-product__save {
   /* border: 1px solid darkgoldenrod; */
   background: var(--pa-btn-color);
   border: none;
@@ -387,7 +389,6 @@ select {
   border-radius: 8px;
   width: 15rem;
   font-weight: 700;
-  box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.4);
   color: var(--pa-font-second-color);
 }
 
@@ -400,6 +401,17 @@ select {
   width: 15rem;
   font-weight: 700;
   color: var(--pa-font-third-color);
+}
+
+.btn-products__cancel-active {
+  background: var(--pa-btn-color);
+  border: none;
+  padding: 0.5rem 0;
+  outline: none;
+  border-radius: 8px;
+  width: 15rem;
+  font-weight: 700;
+  color: var(--pa-font-second-color);
 }
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
