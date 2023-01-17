@@ -15,6 +15,7 @@ const AddProduct = () => {
   const [category_id, setCategory] = useState(1);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [stock, setStock] = useState(0);
   const accessToken = localStorage.getItem("access-token");
   // TODO: Private Route
   PrivateRoute(!accessToken, -1);
@@ -26,12 +27,16 @@ const AddProduct = () => {
   };
 
   const handleSaveProduct = async () => {
+    if(product_name.length === 0 || price.length === 0 || description.length === 0 || stock.length === 0 ) {
+      return console.log("Please, fill in data completely!");
+    }
     let formData = new FormData();
     formData.append("category_id", category_id);
     formData.append("product_name", product_name);
     formData.append("image", image);
     formData.append("price", price);
     formData.append("description", description);
+    formData.append("stock", stock);
 
     let body = formData;
 
@@ -47,7 +52,7 @@ const AddProduct = () => {
       );
       console.log(response.data.result);
       if (response.status === 200) {
-        console.log("success");
+        console.log(response.data.result.msg);
         window.location.reload();
       }
     } catch (error) {
@@ -60,6 +65,7 @@ const AddProduct = () => {
     setPrevImage(null);
     setPrice("");
     setDescription("");
+    setStock(0);
   };
 
   return (
@@ -159,7 +165,7 @@ const AddProduct = () => {
           <span className={styles["compact-components-section"]}>
             <span className={styles["left-side-compact-component"]}>
               <span className={styles.category}>
-                <label htmlFor="#">Input Category:</label>
+                <label htmlFor="category_id">Input Category:</label>
                 <span className={styles["category-component"]}>
                   <select
                     name="category_id}"
@@ -179,19 +185,15 @@ const AddProduct = () => {
                 </span>
               </span>
               <span className={styles.stock}>
-                <label htmlFor="#">Input stock:</label>
+                <label htmlFor="stock">Input stock:</label>
                 <span className={styles["stock-component"]}>
-                  <select name="" id="" disabled>
-                    <option
-                      disabled
-                      style={{ fontWeight: 800, fontSize: "14px" }}
-                    >
-                      Input stock
-                    </option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                  </select>
+                  <input
+                    type="number"
+                    name="stock"
+                    id="stock"
+                    value={stock}
+                    onChange={(e) => setStock(e.target.value)}
+                  />
                 </span>
               </span>
             </span>
@@ -221,13 +223,36 @@ const AddProduct = () => {
               </span>
               <span className={styles["btn-product"]}>
                 <button
-                  className={styles["btn-product__save"]}
+                  className={
+                    !product_name ||
+                    !price ||
+                    !description ||
+                    !category_id ||
+                    !stock
+                      ? styles["btn-product__save"]
+                      : styles["btn-product__save-active"]
+                  }
+                  disabled={
+                    !product_name ||
+                    !price ||
+                    !description ||
+                    !category_id ||
+                    !stock
+                  }
                   onClick={handleSaveProduct}
                 >
                   Save Product
                 </button>
                 <button
-                  className={styles["btn-products__cancel"]}
+                  className={
+                    !product_name ||
+                    !price ||
+                    !description ||
+                    !category_id ||
+                    !stock
+                      ? styles["btn-products__cancel"]
+                      : styles["btn-products__cancel-active"]
+                  }
                   onClick={handleCancelInput}
                 >
                   Cancel
