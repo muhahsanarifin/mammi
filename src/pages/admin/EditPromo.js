@@ -33,7 +33,7 @@ const EditPromo = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos/${id}`
       );
-      // console.log(response.data.result[0]);
+      console.log(response.data.result[0]);
       setPromo(response.data.result[0]);
     } catch (error) {
       // setLoadPromo(true);
@@ -46,31 +46,18 @@ const EditPromo = () => {
     getPromos();
   }, []);
 
-  // const handleSave = () => {
-  //   if (code.length === 0) {
-  //     return console.log("Please, Input code!");
-  //   }
-  //   if (discount.length === 0) {
-  //     return console.log("Please, Input code");
-  //   }
-  //   console.log(code === null || code === undefined ? id : code);
-  //   console.log(code);
-  //   console.log(discount);
-  //   console.log(start_active_date);
-  //   console.log(description);
-  //   console.log(expiry_date);
-  // };
-
   useEffect(() => {
     setCode(promo.code);
     setStartActiveDate(promo.start_active_date);
     setExpiryDate(promo.expiry_date);
     setDescription(promo.description);
+    setDiscount(promo.discount);
   }, [
     promo.code,
     promo.start_active_date,
     promo.expiry_date,
     promo.description,
+    promo.discount,
   ]);
 
   const handleSave = async () => {
@@ -82,7 +69,7 @@ const EditPromo = () => {
     }
     try {
       const response = await Axios.patch(
-        `${process.env.REACT_APP_BACKEND_HOST}/api/v1/promos/edit/${id}`,
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos/edit/${id}`,
         {
           code,
           discount,
@@ -104,6 +91,8 @@ const EditPromo = () => {
       console.log(error.message);
     }
   };
+
+  console.log(discount);
 
   return (
     <>
@@ -256,6 +245,19 @@ const EditPromo = () => {
                     >
                       Enter the discount
                     </option>
+                    {discount && (
+                      <option
+                        value={discount}
+                        style={{
+                          color: "red",
+                          fontWeight: "600",
+                          fontSize: "10px",
+                        }}
+                        disabled
+                      >
+                        {discount}% {`<-`} Recent discount
+                      </option>
+                    )}
                     {persentDiscounts.map((persentDiscount) => (
                       <option value={persentDiscount}>
                         {persentDiscount}%
@@ -266,14 +268,18 @@ const EditPromo = () => {
               </span>
               <span className={styles["btn-product"]}>
                 <button
-                  className={styles["btn-product__save"]}
+                  className={
+                    !code || !start_active_date || !expiry_date || !description
+                      ? styles["btn-product__save"]
+                      : styles["btn-product__save-active"]
+                  }
+                  disabled={
+                    !code || !start_active_date || !expiry_date || !description
+                  }
                   onClick={handleSave}
                 >
                   Save Change
                 </button>
-                {/* <button className={styles["btn-products__cancel"]}>
-                  Cancel
-                </button> */}
               </span>
             </span>
           </span>
