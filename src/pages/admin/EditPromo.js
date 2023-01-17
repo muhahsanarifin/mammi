@@ -33,7 +33,7 @@ const EditPromo = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos/${id}`
       );
-      console.log(response.data.result[0]);
+      // console.log(response.data.result[0]);
       setPromo(response.data.result[0]);
     } catch (error) {
       // setLoadPromo(true);
@@ -91,8 +91,6 @@ const EditPromo = () => {
       console.log(error.message);
     }
   };
-
-  console.log(discount);
 
   return (
     <>
