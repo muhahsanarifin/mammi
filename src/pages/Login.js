@@ -139,7 +139,7 @@ const Login = () => {
               )}
               <span className={styles["forgot-password"]}>
                 <Link
-                  to={`/forgot-password`}
+                  to={`/password/forgot`}
                   style={{ textDecoration: "none" }}
                 >
                   <p>Forgot password?</p>
