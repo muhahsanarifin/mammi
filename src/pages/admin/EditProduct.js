@@ -197,7 +197,7 @@ const EditProduct = () => {
                   name="description"
                   id="description"
                   // placeholder="Describe your product min. 150 characters"
-                  value={description}
+                  value={description ?? ""}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </label>
