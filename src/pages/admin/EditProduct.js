@@ -14,6 +14,7 @@ const EditProduct = () => {
   const [image, setImage] = useState(null);
   const [product_name, setProductName] = useState("");
   const [category_id, setCategoryId] = useState(0);
+  const [category_name, setCategoryName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
@@ -49,12 +50,14 @@ const EditProduct = () => {
     setCategoryId(products.category_id);
     setDescription(products.description);
     setStock(products.stock);
+    setCategoryName(products.category_name);
   }, [
     products.product_name,
     products.price,
     products.category_id,
     products.description,
     products.stock,
+    products.category_name,
   ]);
 
   const handleUploadeImage = (e) => {
@@ -91,7 +94,7 @@ const EditProduct = () => {
           },
         }
       );
-      // console.log(response.data.resul);
+      // console.log(response.data.result);
       if (response.status === 200) {
         console.log(response.data.result.msg);
         window.location.reload();
@@ -209,19 +212,32 @@ const EditProduct = () => {
                 <label htmlFor="#">Input Category:</label>
                 <span className={styles["category-component"]}>
                   <select
-                    name="category_id}"
-                    value={category_id}
+                    name="category_id"
                     onChange={(e) => setCategoryId(e.target.value)}
                   >
-                    <option
-                      disabled
-                      style={{ fontWeight: 800, fontSize: "14px" }}
-                    >
-                      Input category
+                    <option style={{ fontWeight: 800, fontSize: "14px" }}>
+                      Chosee category
                     </option>
-                    <option value={1}>Food</option>
-                    <option value={2}>Coffee</option>
-                    <option value={3}>NonCofee</option>
+                    <option
+                      value={category_name}
+                      style={{
+                        color: "#ffba33",
+                        fontWeight: "800",
+                        fontSize: "12px",
+                      }}
+                      disabled
+                    >
+                      {category_name} (Recent category)
+                    </option>
+                    <option value={category_id === 1 ? category_id : 1}>
+                      Food
+                    </option>
+                    <option value={category_id === 2 ? category_id : 2}>
+                      Coffee
+                    </option>
+                    <option value={category_id === 3 ? category_id : 3}>
+                      NonCofee
+                    </option>
                   </select>
                 </span>
               </span>
