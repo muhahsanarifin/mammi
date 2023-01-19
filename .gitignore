@@ -30,17 +30,21 @@ yarn-error.log*
 Chat.js
 EditPassword.js
 Dashboard.js
-
-## API
-api
+RoomChat.js
 
 ## Redux
-redux
+auth.js
+profile.js
+transactions.js
+users.js
 
 # helpers 
 helpers
 
 # Components
 ValidationRegister.jsx
-ProductCard.jsx
-Promo.jsx
+AboutUs.jsx
+FAQ.jsx
+
+# Notes
+notes.txt
