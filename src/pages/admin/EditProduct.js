@@ -91,7 +91,7 @@ const EditProduct = () => {
           },
         }
       );
-      console.log(response.data.resul);
+      // console.log(response.data.resul);
       if (response.status === 200) {
         console.log(response.data.result.msg);
         window.location.reload();
