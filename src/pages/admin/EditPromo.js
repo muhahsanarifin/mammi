@@ -13,11 +13,10 @@ const EditPromo = () => {
   const [promo, setPromo] = useState([]);
   const accessToken = localStorage.getItem("access-token");
   const [code, setCode] = useState("");
-  const [discount, setDiscount] = useState("");
+  const [discount, setDiscount] = useState(0);
   const [start_active_date, setStartActiveDate] = useState("");
   const [expiry_date, setExpiryDate] = useState("");
   const [description, setDescription] = useState("");
-
   // TODO: Private Route
   PrivateRoute(!accessToken, -1);
 
@@ -65,7 +64,7 @@ const EditPromo = () => {
       return console.log("Please, Input code!");
     }
     if (discount.length === 0) {
-      return console.log("Please, Input code");
+      return console.log("Please, Input discount!");
     }
     try {
       const response = await Axios.patch(
@@ -238,22 +237,25 @@ const EditPromo = () => {
                 <span className={styles["stock-component"]}>
                   <select onChange={(e) => setDiscount(e.target.value)}>
                     <option
-                      disabled
-                      style={{ fontWeight: 800, fontSize: "14px" }}
+                      style={{
+                        color: "#6a4029",
+                        fontWeight: 800,
+                        fontSize: "14px",
+                      }}
                     >
-                      Enter the discount
+                      Choose the discount :
                     </option>
                     {discount && (
                       <option
                         value={discount}
                         style={{
-                          color: "red",
-                          fontWeight: "600",
-                          fontSize: "10px",
+                          color: "#ffba33",
+                          fontWeight: "800",
+                          fontSize: "12px",
                         }}
                         disabled
                       >
-                        {discount}% {`<-`} Recent discount
+                        {discount}% (Recent discount)
                       </option>
                     )}
                     {persentDiscounts.map((persentDiscount) => (
