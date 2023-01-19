@@ -4,7 +4,7 @@
   --pa-btn-second-color: #ffba33;
   --pa-font-second-color: #ffffff;
   --pa-btn-color: #6a4029;
-  --background-delivery-and-time: #f4f4f8;
+  /* --background-delivery-and-time: #f4f4f8; */
   --font-delivery-and-time: #9f9f9f;
   --border-delivery-and-time: #bababa59;
   --breadcrumb-icon-color: #6a4029;
@@ -15,6 +15,7 @@
   --pa-border-color: #9f9f9f;
   --pa-bg--color: #bababa59;
   --pa-font-third-color: #4f5665;
+  --pa-card-bg-color: #ffcb65;
 }
 
 /* || Views */
@@ -95,7 +96,7 @@
   justify-content: center;
 }
 
-/* || Under maintanance */
+/* || Research */
 .main__left-side {
   /* border: 1px solid darkgreen; */
   display: flex;
@@ -123,7 +124,7 @@
 .main__promo .promo__card {
   /* border: 1px solid darkgoldenrod; */
   position: relative;
-  background: var(--product-promo-card-color);
+  background: var(--pa-card-bg-color);
   height: 29.5rem;
   width: 17.75rem;
   border-radius: 20px;
@@ -552,7 +553,7 @@ select {
   width: 15rem;
   font-weight: 700;
   color: var(--pa-font-third-color);
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 
 .btn-product__save-active {
