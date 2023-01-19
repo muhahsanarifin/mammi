@@ -12,7 +12,7 @@ const AddProduct = () => {
   const [prevImage, setPrevImage] = useState(null);
   const [image, setImage] = useState(null);
   const [product_name, setProductName] = useState("");
-  const [category_id, setCategory] = useState(1);
+  const [category_id, setCategory] = useState(0);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
@@ -27,7 +27,12 @@ const AddProduct = () => {
   };
 
   const handleSaveProduct = async () => {
-    if(product_name.length === 0 || price.length === 0 || description.length === 0 || stock.length === 0 ) {
+    if (
+      product_name.length === 0 ||
+      price.length === 0 ||
+      description.length === 0 ||
+      stock.length === 0
+    ) {
       return console.log("Please, fill in data completely!");
     }
     let formData = new FormData();
@@ -50,7 +55,7 @@ const AddProduct = () => {
           },
         }
       );
-      console.log(response.data.result);
+      // console.log(response.data.result);
       if (response.status === 200) {
         console.log(response.data.result.msg);
         window.location.reload();
@@ -172,11 +177,8 @@ const AddProduct = () => {
                     value={category_id}
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option
-                      disabled
-                      style={{ fontWeight: 800, fontSize: "14px" }}
-                    >
-                      Input category
+                    <option style={{ fontWeight: 800, fontSize: "14px" }}>
+                      Choose category :
                     </option>
                     <option value={1}>Food</option>
                     <option value={2}>Coffee</option>
