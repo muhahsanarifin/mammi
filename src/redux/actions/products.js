@@ -28,7 +28,7 @@ const getProductsThunk = (cbPending, cbFulfilled, cbError, cbFinally) => {
       const result = await getProducts();
       // console.log(result.data.result.data);
       dispatch(getProductsFulfilled(result.data));
-      typeof cbFulfilled === "function" && cbFulfilled();
+      typeof cbFulfilled === "function" && cbFulfilled(result.data.result.data);
     } catch (error) {
       dispatch(getProductsRejected(error));
       typeof cbError === "function" && cbError();
