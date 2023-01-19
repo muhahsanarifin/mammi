@@ -30,7 +30,6 @@ const Header = ({ onChange }) => {
   // },[accessPicture])
 
   const onDismiss = () => setAlert(false);
-  console.log(typeof accessToken);
 
   return (
     <>
