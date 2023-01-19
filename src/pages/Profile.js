@@ -14,12 +14,12 @@ import PrivateRoute from "../utils/PrivateRoute";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [contacts, setContacts] = useState([]);
-  const [details, setDetails] = useState([]);
+  const [contact, setContact] = useState([]);
+  const [detail, setDetail] = useState([]);
   const [disableInputContact, setDisableInputContact] = useState(true);
   const [disableInputDetail, setDisableInputDetail] = useState(true);
-  const [address, setAddress] = useState("");
   const [modal, setModal] = useState(false);
+  const [address, setAddress] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [display_name, setDisplayName] = useState("");
@@ -45,17 +45,13 @@ const Profile = () => {
           },
         }
       );
-      setContacts(response.data.result);
+      setContact(response.data.result[0]);
     } catch (error) {
       console.log(error.message);
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    getContact();
-  }, []);
 
   // TODO: Get Detail Profile
   const getDetail = async () => {
@@ -69,7 +65,7 @@ const Profile = () => {
           },
         }
       );
-      setDetails(response.data.result);
+      setDetail(response.data.result[0]);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -78,8 +74,27 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    getContact();
     getDetail();
-  }, []);
+
+    //TODO: Default Contacts input values
+    setAddress(detail.address);
+
+    //TODO: Default Details input values
+    setDisplayName(detail.display_name);
+    setFirstName(detail.first_name);
+    setLastName(detail.last_name);
+    setGender(detail.gender);
+    setBirth(detail.birth);
+    setPicture(detail.picture);
+  }, [
+    detail.address,
+    detail.display_name,
+    detail.first_name,
+    detail.last_name,
+    detail.gender,
+    detail.birth,
+  ]);
 
   // TODO: Handle Logout
   const handleLogOut = async () => {
@@ -147,16 +162,14 @@ const Profile = () => {
   };
 
   const handleCancelForm = () => {
-    console.log(
-      `Addres: ${setAddress("")} Display Name: ${setDisplayName(
-        ""
-      )} First Name: ${setFirstName("")} Last Name: ${setLastName(
-        ""
-      )} Birth: ${setBirth("")} Gender: ${setGender("")} `
-    );
+    setDisplayName(detail.display_name);
+    setFirstName(detail.first_name);
+    setLastName(detail.last_name);
+    setGender(detail.gender);
+    setBirth(detail.birth);
   };
 
-  // TODO: Modal
+  // TODO: Handle Modal
   const handleModal = () => setModal(!modal);
 
   return (
@@ -180,22 +193,16 @@ const Profile = () => {
         >
           {accessRole === "Admin" ? (
             <span className={styles.profile}>
-              {details.map((detail) => (
-                <img
-                  src={detail.picture}
-                  alt="Profile"
-                  className={styles["profile__image"]}
-                />
-              ))}
+              <img
+                src={detail.picture}
+                alt="Profile"
+                className={styles["profile__image"]}
+              />
               <span className={styles["btn-profile"]}>
                 <input type="file" />
               </span>
-              {details.maps((detail) => (
-                <p className={styles["display-name"]}>{detail.display_name}</p>
-              ))}
-              {contacts.map((contact) => (
-                <p className={styles.email}>{contact.email}</p>
-              ))}
+              <p className={styles["display-name"]}>{detail.display_name}</p>
+              <p className={styles.email}>{contact.email}</p>
             </span>
           ) : (
             <span className={styles.profile}>
@@ -214,13 +221,11 @@ const Profile = () => {
                   <p style={{ marginBottom: "0" }}>Loading...</p>
                 </span>
               )}
-              {details.map((detail) => (
-                <img
-                  src={previewImage ? previewImage : detail.picture}
-                  alt="Profile"
-                  className={styles["profile__image"]}
-                />
-              ))}
+              <img
+                src={previewImage ? previewImage : detail.picture}
+                alt="Profile"
+                className={styles["profile__image"]}
+              />
               <span className={styles["btn-profile"]}>
                 <input
                   type="file"
@@ -234,17 +239,13 @@ const Profile = () => {
                   Loading...
                 </span>
               )}
-              {details.map((detail) => (
-                <p className={styles["display-name"]}>{detail.display_name}</p>
-              ))}
+              <p className={styles["display-name"]}>{detail.display_name}</p>
               {loading && (
                 <span style={{ fontSize: "12px", fontWeight: "600" }}>
                   Loading...
                 </span>
               )}
-              {contacts.map((contact) => (
-                <p className={styles.email}>{contact.email}</p>
-              ))}
+              <p className={styles.email}>{contact.email}</p>
               <p className={styles.status}>Has been ordered 15 products</p>
             </span>
           )}
@@ -266,14 +267,12 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {contacts.map((contact) => (
-                  <input
-                    type="text"
-                    id="emailAddress"
-                    value={`${contact.email}`}
-                    disabled
-                  />
-                ))}
+                <input
+                  type="text"
+                  id="emailAddress"
+                  value={contact.email}
+                  disabled
+                />
               </span>
               <span className={styles["mobile-number"]}>
                 <label htmlFor="mobileNumber">Mobile number:</label>
@@ -282,14 +281,12 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {contacts.map((contact) => (
-                  <input
-                    type="text"
-                    id="mobileNumber"
-                    value={`${contact.phone_number}`}
-                    disabled
-                  />
-                ))}
+                <input
+                  type="text"
+                  id="mobileNumber"
+                  value={contact.phone_number}
+                  disabled
+                />
               </span>
               <span className={styles["delivery"]}>
                 <label htmlFor="deliveryAddress">Delivery address:</label>
@@ -298,17 +295,14 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {details.map((detail) => (
-                  <input
-                    name="address"
-                    type="text"
-                    id="deliveryAddress"
-                    placeholder={`${detail.address}`}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    disabled={disableInputContact}
-                  />
-                ))}
+                <input
+                  name="address"
+                  type="text"
+                  id="deliveryAddress"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  disabled={disableInputContact}
+                />
               </span>
             </form>
           </span>
@@ -332,17 +326,14 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {details.map((detail) => (
-                  <input
-                    name="display_name"
-                    type="text"
-                    id="displayName"
-                    placeholder={`${detail.display_name}`}
-                    value={display_name}
-                    disabled={disableInputDetail}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                  />
-                ))}
+                <input
+                  name="display_name"
+                  type="text"
+                  id="displayName"
+                  value={display_name}
+                  disabled={disableInputDetail}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                />
               </span>
               <span className={styles["first-name"]}>
                 <label htmlFor="firstName">First name:</label>
@@ -351,17 +342,14 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {details.map((detail) => (
-                  <input
-                    name="first_name"
-                    type="text"
-                    id="firstName"
-                    placeholder={`${detail.first_name}`}
-                    value={first_name}
-                    disabled={disableInputDetail}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                ))}
+                <input
+                  name="first_name"
+                  type="text"
+                  id="firstName"
+                  value={first_name}
+                  disabled={disableInputDetail}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </span>
               <span className={styles["last-name"]}>
                 <label htmlFor="lastName">Last name:</label>
@@ -370,17 +358,14 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {details.map((detail) => (
-                  <input
-                    name="last_name"
-                    type="text"
-                    id="lastName"
-                    placeholder={`${detail.last_name}`}
-                    value={last_name}
-                    disabled={disableInputDetail}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                ))}
+                <input
+                  name="last_name"
+                  type="text"
+                  id="lastName"
+                  value={last_name}
+                  disabled={disableInputDetail}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
               </span>
             </span>
             <span className={styles["details__right-side"]}>
@@ -391,38 +376,37 @@ const Profile = () => {
                     Loading...
                   </span>
                 )}
-                {details.map((detail) => (
-                  <input
-                    name="birth"
-                    type="text"
-                    id="birth"
-                    placeholder={`${detail.birth}`}
-                    value={birth}
-                    disabled={disableInputDetail}
-                    onChange={(e) => setBirth(e.target.value)}
-                  />
-                ))}
+                <input
+                  name="birth"
+                  type="text"
+                  id="birth"
+                  value={birth}
+                  disabled={disableInputDetail}
+                  onChange={(e) => setBirth(e.target.value)}
+                />
               </span>
               <span className={styles.gender}>
                 <span>
                   <input
                     type="radio"
-                    id="male"
-                    value={"Male"}
+                    id={gender}
+                    value={gender === "Male" ? gender : "Male"}
                     disabled={disableInputDetail}
-                    name="gender"
+                    name={gender}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "Male" && true}
                   />
                   <label htmlFor="male">Male</label>
                 </span>
                 <span>
                   <input
                     type="radio"
-                    id="female"
-                    value={"Female"}
+                    id={gender}
+                    value={gender === "Female" ? gender : "Female"}
                     disabled={disableInputDetail}
-                    name="gender"
+                    name={gender}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "Female" && true}
                   />
                   <label htmlFor="male">Female</label>
                 </span>
@@ -431,10 +415,27 @@ const Profile = () => {
           </section>
           <section className={styles.buttons}>
             <p>Do you want to save the change?</p>
-            <button className={styles["btn-save"]} onClick={handleSaveForm}>
+            <button
+              className={
+                !display_name || !first_name || !last_name || !gender || !birth
+                  ? styles["btn-save"]
+                  : styles["btn-save-active"]
+              }
+              onClick={handleSaveForm}
+              disabled={
+                !display_name || !first_name || !last_name || !gender || !birth
+              }
+            >
               Save Change
             </button>
-            <button className={styles["btn-cancel"]} onClick={handleCancelForm}>
+            <button
+              className={
+                !display_name && !first_name && !last_name && !gender && !birth
+                  ? styles["btn-cancel"]
+                  : styles["btn-cancel-active"]
+              }
+              onClick={handleCancelForm}
+            >
               Cancel
             </button>
             <button className={styles["btn-edit"]}>Edit Password</button>

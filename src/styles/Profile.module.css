@@ -394,12 +394,27 @@
 }
 
 .btn-save {
+  color: var(--profile-font-second-color);
+  background: var(--profile-btn-second-color);
+  font-weight: 700;
+  background-color: #F0F0F0;
+  cursor: no-drop;
+}
+
+.btn-save-active {
   color: var(--profile-font-fifth-color);
   background: var(--profile-btn-second-color);
   font-weight: 700;
 }
 
 .btn-cancel {
+  background: var(--profile-btn-color);
+  color: var(--profile-font-color);
+  font-weight: 700;
+  visibility: hidden;
+}
+
+.btn-cancel-active {
   background: var(--profile-btn-color);
   color: var(--profile-font-color);
   font-weight: 700;
