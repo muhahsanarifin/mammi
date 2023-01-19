@@ -173,8 +173,7 @@ const AddProduct = () => {
                 <label htmlFor="category_id">Input Category:</label>
                 <span className={styles["category-component"]}>
                   <select
-                    name="category_id}"
-                    value={category_id}
+                    name="category_id"
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     <option style={{ fontWeight: 800, fontSize: "14px" }}>
