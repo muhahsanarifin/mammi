@@ -294,7 +294,7 @@ select,
   cursor: pointer;
   z-index: 1;
   font-family: "Poppins", sans-serif;
-  cursor: not-allowed;
+  cursor: no-drop;
 }
 
 .size_type ul li::before {
@@ -349,7 +349,7 @@ select,
   border-radius: 8px;
   font-weight: 700;
   font-size: 14px;
-  cursor: not-allowed;
+  cursor: no-drop;
 }
 
 .delivery-methods li:nth-child(3) {
