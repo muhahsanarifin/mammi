@@ -45,6 +45,10 @@ helpers
 ValidationRegister.jsx
 AboutUs.jsx
 FAQ.jsx
+Offline.jsx
+Pagination.jsx
+Sorter.jsx
+Filter.jsx
 
 # Notes
 notes.txt
