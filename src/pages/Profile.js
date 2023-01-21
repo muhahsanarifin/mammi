@@ -94,6 +94,7 @@ const Profile = () => {
     detail.last_name,
     detail.gender,
     detail.birth,
+    detail.picture,
   ]);
 
   // TODO: Handle Logout
@@ -152,8 +153,11 @@ const Profile = () => {
           },
         }
       );
+      console.log(response)
       if (response.status === 200) {
-        console.log("updated success");
+        localStorage.removeItem("access-picture");
+        localStorage.setItem("access-picture", response.data.result[0].picture);
+        // console.log(response.data.msg);
         window.location.reload();
       }
     } catch (error) {
@@ -162,6 +166,7 @@ const Profile = () => {
   };
 
   const handleCancelForm = () => {
+    setAddress(detail.address);
     setDisplayName(detail.display_name);
     setFirstName(detail.first_name);
     setLastName(detail.last_name);
@@ -417,20 +422,35 @@ const Profile = () => {
             <p>Do you want to save the change?</p>
             <button
               className={
-                !display_name || !first_name || !last_name || !gender || !birth
+                !address ||
+                !display_name ||
+                !first_name ||
+                !last_name ||
+                !gender ||
+                !birth
                   ? styles["btn-save"]
                   : styles["btn-save-active"]
               }
               onClick={handleSaveForm}
               disabled={
-                !display_name || !first_name || !last_name || !gender || !birth
+                !address ||
+                !display_name ||
+                !first_name ||
+                !last_name ||
+                !gender ||
+                !birth
               }
             >
               Save Change
             </button>
             <button
               className={
-                !display_name && !first_name && !last_name && !gender && !birth
+                !address &&
+                !display_name &&
+                !first_name &&
+                !last_name &&
+                !gender &&
+                !birth
                   ? styles["btn-cancel"]
                   : styles["btn-cancel-active"]
               }
