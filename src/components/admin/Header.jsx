@@ -9,7 +9,7 @@ import mammiLogo from "../../assets/images/mammi-logo.png";
 import searchIcon from "../../assets/icons/search.svg";
 import chat from "../../assets/icons/chat.svg";
 
-const Header = ({ onChange }) => {
+const Header = ({ onChange, value }) => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
@@ -64,7 +64,7 @@ const Header = ({ onChange }) => {
         <div className="d-flex flex-row gap-4  align-items-center">
           <span className={styles.search}>
             <img src={searchIcon} alt="search" />
-            <input type="text" placeholder="Search" onChange={onChange} />
+            <input type="text" placeholder="Search" value={value} onChange={onChange} />
           </span>
           <span className={styles.chat}>
             <img src={chat} alt="chat" />

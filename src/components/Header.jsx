@@ -8,11 +8,10 @@ import searchIcon from "../assets/icons/search.svg";
 import chat from "../assets/icons/chat.svg";
 import styles from "../styles/Header.module.css";
 
-const Header = ({ onChange }) => {
+const Header = ({ onChange, value }) => {
   const accessToken = localStorage.getItem("access-token");
   const accessPicture = localStorage.getItem("access-picture");
   const [alert, setAlert] = useState(false);
-  // const [updatedPicture, setUpdatedPicture] = useState(accessPicture);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -23,11 +22,6 @@ const Header = ({ onChange }) => {
       }, 5000);
     }
   }, [accessPicture]);
-
-  // TODO: Research
-  // useEffect(() => {
-  //   setUpdatedPicture(accessPicture)
-  // },[accessPicture])
 
   const onDismiss = () => setAlert(false);
 
@@ -71,7 +65,12 @@ const Header = ({ onChange }) => {
         <div className="d-flex flex-row gap-4  align-items-center">
           <span className={styles.search}>
             <img src={searchIcon} alt="search" />
-            <input type="text" placeholder="Search" onChange={onChange} />
+            <input
+              type="text"
+              placeholder="Search"
+              value={value}
+              onChange={onChange}
+            />
           </span>
           {accessToken ? (
             <>
@@ -80,14 +79,14 @@ const Header = ({ onChange }) => {
               </span>
               <span className={styles.avatar}>
                 <Link to={`/profile`}>
-                  <img src={accessPicture} alt={accessPicture} />
+                  <img src={accessPicture} alt="profile" />
                 </Link>
               </span>
             </>
           ) : null}
         </div>
       </header>
-      {accessPicture && (
+      {/* {updatedPicture && (
         <>
           {alert && (
             <AlertProfile
@@ -97,6 +96,13 @@ const Header = ({ onChange }) => {
             />
           )}
         </>
+      )} */}
+      {alert && (
+        <AlertProfile
+          toggle={onDismiss}
+          onClick={() => navigation("/profile")}
+          decs={`Hi, update your profile`}
+        />
       )}
     </>
   );
