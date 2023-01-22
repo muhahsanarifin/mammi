@@ -14,9 +14,9 @@ const PromoCard = ({ promos }) => {
   return (
     <span className={styles["promo__card-section"]}>
       <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
-        {promos.map((promo) => (
+        {promos.map((promo, idx) => (
           <SwiperSlide>
-            <span className={styles["promo__card"]} key={promo.id}>
+            <span className={styles["promo__card"]} key={idx}>
               {accessRole === "Admin" ? (
                 <span
                   className={styles["btn-product"]}
