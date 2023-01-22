@@ -11,56 +11,70 @@ import ProductCard from "../components/ProductCard";
 import TitleBar from "../components/TitleBar";
 import PromoCard from "../components/PromoCard";
 import { ProductCardSkeleton, PromoCardSkeleton } from "../components/Skeleton";
+import Paginations from "../components/Pagination";
+import Sorter from "../components/Sorter";
+import Filter from "../components/Filter";
 
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import styles from "../styles/Products.module.css";
 
 const Products = () => {
+  // const [loading, setLoading] = useState(false);
+  // const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
   const [loadProduct, setLoadProduct] = useState([]);
   const [loadPromo, setLoadPromo] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
-  // const navigation = useNavigate();
-  // const [loading, setLoading] = useState(false);
-  // const [filter, setFilter] = useState([]);
-  // const [sort, setSort] = useState([]);
-  const [seacrh, setSearch] = useState([]);
+  const [post, setPost] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(8);
+  const [price, setPrice] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [search, setSearch] = useState("");
   const accessRole = localStorage.getItem("access-role");
+
+  // Research
+  const [handlePage, setHandlePage] = useState("");
 
   // TODO: Get Products
   const getProducts = async () => {
     try {
       const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?search=${seacrh}`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?post=${post}&price=${price}&category=${category}&search=${search}&page=${page}&limit=${limit}`
       );
       setLoadProduct(response.data.result.data);
+      console.log(response);
       setTimeout(() => {
         setProducts(response.data.result.data);
+        setHandlePage(response.data.result);
       }, 1000);
     } catch (error) {
       setLoadProduct(loadProduct);
-      console.log(error.message);
+      console.log(error.response.data.result.msg);
     }
   };
   useEffect(() => {
     getProducts();
-  }, [seacrh]);
+    // setLimit(5);
+    // setPost("oldest");
+    // setPage(2);
+  }, [search, post, price, category, limit, page]);
 
   // TODO: Search Product
-  const search = (e) => {
+  const handleSearch = (e) => {
     const delayDebounce = setTimeout(() => {
       setSearch(e.target.value);
     }, 500);
     return () => clearTimeout(delayDebounce);
   };
+
+  console.log(search);
+  console.log(products);
+  console.log(typeof limit);
+  console.log(typeof post);
+  console.log(page);
+
+  // Research
+  console.log(typeof handlePage.next);
 
   // TODO: Get Promos
   const getPromos = async () => {
@@ -84,13 +98,13 @@ const Products = () => {
     getPromos();
   }, []);
 
-return (
+  return (
     <>
       <TitleBar title={`MAMMI | Products`} />
       {accessRole === "Admin" ? (
-        <HeaderAdmin onChange={search} />
+        <HeaderAdmin onChange={handleSearch} />
       ) : (
-        <Header onChange={search} />
+        <Header onChange={handleSearch} />
       )}
       <main className={styles.main}>
         <aside
@@ -121,86 +135,20 @@ return (
         <section
           className={`${styles["main__right-side"]} ${styles["main__products"]}`}
         >
-          <ul className={styles["main__products__header"]}>
-            <li className={styles["favor-products"]} value={``} onClick={``}>
-              Favorite Product
-            </li>
-            <li
-              className={styles["coffee-products"]}
-              value={`Cofee`}
-              onClick={``}
-            >
-              Coffee
-            </li>
-            <li
-              className={styles["non-coffee-products"]}
-              value={``}
-              onClick={``}
-            >
-              Non Coffee
-            </li>
-            <li className={styles.foods} value={``} onClick={``}>
-              Foods
-            </li>
-            <li className={styles["Add-on"]} value={``} onClick={``}>
-              Add-on
-            </li>
-          </ul>
+          {/* Filter */}
+          <Filter onCategory={setCategory} />
           <span className={styles["sorting-and-pagination"]}>
-            <span className={styles.sorting}>
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle caret className={styles["dropdown-products"]}>
-                  <p>Sort</p>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem
-                    header
-                    className={styles["dropdown-item-products"]}
-                  >
-                    Price
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    // onClick={}
-                  >
-                    Expensive
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    // onClick={}
-                  >
-                    Low
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    header
-                  >
-                    post
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    // onClick={}
-                  >
-                    Latest
-                  </DropdownItem>
-                  <DropdownItem
-                    className={styles["dropdown-item-products"]}
-                    // onClick={}
-                  >
-                    Oldest
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </span>
+            <Sorter onPrice={setPrice} onPost={setPost} />
           </span>
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
             {!products.length && <ProductCardSkeleton products={loadProduct} />}
             {/* TODO: Product card */}
-            {products.map((product) => (
+            {products.map((product, idx) => (
               <ProductCard
-                productId={product.id}
+                productIdx={idx}
+                productId={product}
                 productImage={product.image}
                 productName={product.product_name}
                 prodcutPrice={product.price}
@@ -218,53 +166,11 @@ return (
             </Link>
           ) : (
             <span className={styles["sorting-and-pagination"]}>
-              <span className={styles.pagination}>
-                <Pagination>
-                  <PaginationItem style={{ color: "red" }}>
-                    <PaginationLink
-                      first
-                      href="#"
-                      style={{ color: "#6a4029" }}
-                    />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink
-                      href="#"
-                      previous
-                      style={{ color: "#6a4029" }}
-                    />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" style={{ color: "#6a4029" }}>
-                      1
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" style={{ color: "#6a4029" }}>
-                      2
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" style={{ color: "#6a4029" }}>
-                      3
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink
-                      href="#"
-                      next
-                      style={{ color: "#6a4029" }}
-                    />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink
-                      href="#"
-                      last
-                      style={{ color: "#6a4029" }}
-                    />
-                  </PaginationItem>
-                </Pagination>
-              </span>
+              {/* Pagination */}
+              <Paginations
+                next={handlePage.next}
+                previous={handlePage.previous}
+              />
             </span>
           )}
         </section>
