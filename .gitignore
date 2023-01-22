@@ -46,9 +46,8 @@ ValidationRegister.jsx
 AboutUs.jsx
 FAQ.jsx
 Offline.jsx
-Pagination.jsx
-Sorter.jsx
-Filter.jsx
+Notification.jsx
+Refresher.jsx
 
 # Notes
 notes.txt
