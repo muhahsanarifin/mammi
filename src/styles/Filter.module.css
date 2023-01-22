@@ -1,0 +1,71 @@
+/* || Root Colors */
+:root {
+  --product-font-color: #6a4029;
+  --product-font-third-color: #afb5c0;
+}
+
+.main__products__header {
+  position: relative;
+  /* border: 1px solid darkblue; */
+  padding: 1rem 4.5rem;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  z-index: 1;
+}
+
+.favor-products,
+.coffee-products,
+.non-coffee-products,
+.foods,
+.add-on {
+  /* border: 1px solid darkblue; */
+  border: none;
+  position: relative;
+  cursor: pointer;
+  color: var(--product-font-third-color);
+  width: 136.95px;
+  outline: none;
+  background: none;
+}
+
+.main__products__header > button:active {
+  color: var(--product-font-color);
+  font-weight: 700;
+}
+
+/* || Responsive */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .main__products__header {
+    justify-content: center;
+  }
+
+  .main__products__header li {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .main__products__header p {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .main__products__header {
+    padding: 0;
+    margin: 0.5rem 0;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+  }
+
+  .main__products__header li {
+    list-style: none;
+    text-align: left;
+    width: fit-content;
+    margin: 0.5rem;
+    font-size: 12px;
+  }
+}

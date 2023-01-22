@@ -1,0 +1,46 @@
+/* || Root Colors */
+:root {
+  --product-btn-color: #6a4029;
+}
+
+.dropdown-products {
+  width: fit-content;
+  border: none;
+  background: var(--product-btn-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.dropdown-products p {
+  margin-bottom: 0;
+}
+
+.dropdown-products:hover,
+.dropdown-products:active {
+  background: var(--product-btn-color) !important;
+}
+
+.dropdown-item-products:active {
+  background: var(--product-btn-color) !important;
+}
+
+/* || Responsive */
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .sorting {
+    display: none;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .sorting {
+    display: none;
+  }
+}
