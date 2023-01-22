@@ -8,13 +8,14 @@ const Product = ({
   productImage,
   productName,
   prodcutPrice,
+  productIdx
 }) => {
   const navigation =useNavigate()
   const accessRole = localStorage.getItem("access-role");
   return (
     <>
       {
-        <span className={`col my-3 ${styles.product}`} key={productId}>
+        <span className={`col my-3 ${styles.product}`} key={productIdx}>
           <Link to={`/product/${productId}`}>
             <img
               src={productImage}
