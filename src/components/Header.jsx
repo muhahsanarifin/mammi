@@ -8,7 +8,7 @@ import searchIcon from "../assets/icons/search.svg";
 import chat from "../assets/icons/chat.svg";
 import styles from "../styles/Header.module.css";
 
-const Header = ({ onChange, value }) => {
+const Header = ({ onChange }) => {
   const accessToken = localStorage.getItem("access-token");
   const accessPicture = localStorage.getItem("access-picture");
   const [alert, setAlert] = useState(false);
@@ -65,12 +65,7 @@ const Header = ({ onChange, value }) => {
         <div className="d-flex flex-row gap-4  align-items-center">
           <span className={styles.search}>
             <img src={searchIcon} alt="search" />
-            <input
-              type="text"
-              placeholder="Search"
-              value={value}
-              onChange={onChange}
-            />
+            <input type="text" placeholder="Search" onChange={onChange} />
           </span>
           {accessToken ? (
             <>
