@@ -89,7 +89,7 @@
 }
 
 .main__products__content {
-  border: 1px solid darkblue;
+  /* border: 1px solid darkblue; */
   display: grid;
   grid-template-columns: auto auto auto auto;
   justify-content: center;
