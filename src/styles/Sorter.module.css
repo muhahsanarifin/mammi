@@ -34,13 +34,13 @@
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
-  .sorting {
+  /* .sorting {
     display: none;
-  }
+  } */
 }
 
 @media all and (max-width: 480px) {
-  .sorting {
+  /* .sorting {
     display: none;
-  }
+  } */
 }
