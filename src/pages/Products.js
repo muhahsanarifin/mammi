@@ -34,7 +34,7 @@ const Products = () => {
   const accessRole = localStorage.getItem("access-role");
 
   // || Research
-  const [handlePage, setHandlePage] = useState("");
+  const [totalPages, setTotalPages] = useState("");
 
   // TODO: Get Products
   const getProducts = async () => {
@@ -45,8 +45,11 @@ const Products = () => {
       setLoadProduct(response.data.result.data);
       setTimeout(() => {
         setProducts(response.data.result.data);
-        setHandlePage(response.data.result);
-        // console.log(response.data.result);
+        console.log(response.data.result.data);
+
+        // Research
+        setTotalPages(response.data.result.totalPages);
+        console.log(response.data.result);
       }, 1000);
     } catch (error) {
       setLoadProduct(loadProduct);
@@ -75,7 +78,7 @@ const Products = () => {
   // console.log(page);
 
   // || Research
-  // console.log(typeof handlePage.next);
+  // console.log(typeof totalPage.next);
 
   // TODO: Get Promos
   const getPromos = async () => {
@@ -170,8 +173,10 @@ const Products = () => {
             <span className={styles["sorting-and-pagination"]}>
               {/* Pagination */}
               <Paginations
-                next={handlePage.next}
-                previous={handlePage.previous}
+                limitPage={limit}
+                currentPage={page}
+                setcurrentPage={setPage}
+                totalPages={totalPages}
               />
             </span>
           )}
