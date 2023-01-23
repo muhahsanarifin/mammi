@@ -196,6 +196,13 @@
   cursor: pointer;
 } */
 
+/* || Loader button */
+.loader-btn {
+  color: var(--login-font-color);
+  width: 24px;
+  height: 24px;
+}
+
 /* || Responsive */
 @media all and (min-width: 768px) and (max-width: 1024px) {
   .header {

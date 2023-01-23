@@ -148,7 +148,11 @@ const Login = () => {
                 className={styles["btn-login"]}
                 disabled={!email || !password}
               >
-                {loaderButton ? <LoaderBtn /> : <span>Login</span>}
+                {loaderButton ? (
+                  <LoaderBtn loaderStyle={styles["loader-btn"]} />
+                ) : (
+                  <span>Login</span>
+                )}
               </button>
             </form>
             <span className={styles["btn-google"]}>
