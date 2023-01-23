@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
+import LoaderBtn from "../LoaderBtn";
 import styles from "../../styles/admin/Header.module.css";
 
 import mammiLogo from "../../assets/images/mammi-logo.png";
@@ -10,6 +11,7 @@ import searchIcon from "../../assets/icons/search.svg";
 import chat from "../../assets/icons/chat.svg";
 
 const Header = ({ onChange }) => {
+  const [loaderButton, setLoaderBtn] = useState(false);
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
@@ -17,6 +19,7 @@ const Header = ({ onChange }) => {
   // TODO: Handle logout
   const handleLogout = async () => {
     try {
+      setLoaderBtn(true);
       await Axios.delete(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/logout`,
         {
@@ -29,6 +32,8 @@ const Header = ({ onChange }) => {
       navigate("/login");
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoaderBtn(false);
     }
   };
 
@@ -72,7 +77,11 @@ const Header = ({ onChange }) => {
           {accessToken ? (
             <span className={styles["btn-logout"]}>
               <p className={styles["btn-logout-init"]} onClick={handleLogout}>
-                Logout
+                {loaderButton ? (
+                  <LoaderBtn loaderStyle={styles["loader-btn"]} />
+                ) : (
+                  "Logout"
+                )}
               </p>
             </span>
           ) : null}

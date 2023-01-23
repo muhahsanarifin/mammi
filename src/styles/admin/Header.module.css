@@ -103,13 +103,21 @@
   border-radius: 8px;
   background: var(--header-admin-btn-logout);
   display: flex;
-  width: fit-content;
   cursor: pointer;
+  width: 78.25px;
+  justify-content: center;
 }
 
 .btn-logout-init {
   color: var(--header-second-font-color);
   margin-bottom: 0;
+}
+
+/* || Loader button */
+.loader-btn {
+  color: var(--header-second-font-color);
+  width: 18px;
+  height: 18px;
 }
 
 /* || Responsive */
