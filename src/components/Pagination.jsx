@@ -17,7 +17,8 @@ const Paginations = ({
   let pages = [];
 
   for (let idx = 1; idx <= totalPages; idx++) {
-    console.log(pages.push(idx));
+    // console.log(pages.push(idx));
+    pages.push(idx);
   }
 
   return (
