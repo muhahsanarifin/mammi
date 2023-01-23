@@ -19,7 +19,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  const [feedEmail, setFeedEmail] = useState("Email");
+  const [feedEmail, setFeedEmail] = useState("");
   const [feedPassword, setFeedPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
@@ -54,13 +54,12 @@ const Login = () => {
         setTimeout(() => {
           setFeedEmail(err.response.data.result.msg);
           setErrorEmail(true);
-        }, 100);
+        }, 500);
       } else if (err.response.data.result.msg === "Password is incorrect") {
-        setErrorPassword(true);
         setTimeout(() => {
           setFeedPassword(err.response.data.result.msg);
           setErrorPassword(true);
-        }, 1000);
+        }, 500);
       }
     } finally {
       setLoaderBtn(false);
