@@ -1,23 +1,51 @@
 import React from "react";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+// import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 import styles from "../styles/Pagination.module.css";
 
-const Paginations = ({ next, previous }) => {
-  // console.log("Next: " + next);
-  // console.log("Previous: " + previous);
+const Paginations = ({
+  totalPages,
+  // limitPage,
+  currentPage,
+  setcurrentPage,
+}) => {
+  // console.log("currentPage: " + currentPage);
+  // console.log("totalPages: " + totalPages);
+  // console.log("limitPage: " + limitPage);
+  // console.log("securrentPage:" + setcurrentPage);
+
+  let pages = [];
+
+  for (let idx = 1; idx <= totalPages; idx++) {
+    console.log(pages.push(idx));
+  }
 
   return (
     <>
       <span className={styles.pagination}>
-        <Pagination>
+        {/* || Research */}
+        {/* <Pagination>
           <PaginationItem>
             <PaginationLink href={previous} previous style={{ color: "#6a4029" }} />
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href={next} next style={{ color: "#6a4029" }} />
           </PaginationItem>
-        </Pagination>
+        </Pagination> */}
+
+        {pages.map((page, idx) => (
+          <button
+            key={idx}
+            className={
+              page === currentPage
+                ? styles["active-pagination-btn"]
+                : styles["pagination-btn"]
+            }
+            onClick={() => setcurrentPage(page)}
+          >
+            {page}
+          </button>
+        ))}
       </span>
     </>
   );

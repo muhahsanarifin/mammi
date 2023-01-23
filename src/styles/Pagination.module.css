@@ -1,41 +1,41 @@
 /* || Root Colors */
 :root {
   --product-font-color: #6a4029;
+  --product-font-fourth-color: #ffffff;
+  --product-border-color: #dddddd;
 }
 
 .pagination {
-  padding-top: 0.8rem;
   /* border: 1px solid red; */
 }
 
-.pagination-component .pagination-link {
-  color: var(--product-font-color) !important;
+.active-pagination-btn {
+  margin: 0 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  outline: none;
+  background: var(--product-font-color);
+  font-weight: 400;
+  border-radius: 4px;
+  color: var(--product-font-fourth-color);
+}
+
+.pagination-btn {
+  margin: 0 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  outline: none;
+  background: var(--product-font-fourth-color);
+  font-weight: 400;
+  border-radius: 4px;
+  color: var(--product-font-color);
+  border: 1px solid var(--product-border-color)
 }
 
 /* || Responsive */
 @media all and (min-width: 768px) and (max-width: 1024px) {
-  .main {
-    justify-content: center;
-    padding: 1rem;
-  }
-
-  .main__left-side {
-    display: none;
-  }
-
-  .main__products__header {
-    justify-content: center;
-  }
-
-  .main__products__header p {
-    text-align: center;
-    margin: 0;
-  }
-
-  .main__products__content {
-    margin: 0 !important;
-    justify-content: center;
-  }
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
