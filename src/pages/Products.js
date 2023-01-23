@@ -45,11 +45,11 @@ const Products = () => {
       setLoadProduct(response.data.result.data);
       setTimeout(() => {
         setProducts(response.data.result.data);
-        console.log(response.data.result.data);
+        // console.log(response.data.result.data);
 
         // Research
         setTotalPages(response.data.result.totalPages);
-        console.log(response.data.result);
+        // console.log(response.data.result);
       }, 1000);
     } catch (error) {
       setLoadProduct(loadProduct);
