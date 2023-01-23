@@ -30,9 +30,10 @@ const Products = () => {
   const [price, setPrice] = useState([]);
   const [category, setCategory] = useState([]);
   const [search, setSearch] = useState("");
+  // const [errorMsg, setErrorMsg] = useState(false);
   const accessRole = localStorage.getItem("access-role");
 
-  // Research
+  // || Research
   const [handlePage, setHandlePage] = useState("");
 
   // TODO: Get Products
@@ -42,10 +43,10 @@ const Products = () => {
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?post=${post}&price=${price}&category=${category}&search=${search}&page=${page}&limit=${limit}`
       );
       setLoadProduct(response.data.result.data);
-      console.log(response);
       setTimeout(() => {
         setProducts(response.data.result.data);
         setHandlePage(response.data.result);
+        // console.log(response.data.result);
       }, 1000);
     } catch (error) {
       setLoadProduct(loadProduct);
@@ -67,14 +68,14 @@ const Products = () => {
     return () => clearTimeout(delayDebounce);
   };
 
-  console.log(search);
-  console.log(products);
-  console.log(typeof limit);
-  console.log(typeof post);
-  console.log(page);
+  // console.log(search);
+  // console.log(products);
+  // console.log(typeof limit);
+  // console.log(typeof post);
+  // console.log(page);
 
-  // Research
-  console.log(typeof handlePage.next);
+  // || Research
+  // console.log(typeof handlePage.next);
 
   // TODO: Get Promos
   const getPromos = async () => {
@@ -143,12 +144,13 @@ const Products = () => {
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
+            {/* {errorMsg ? <p>{errorMsg}</p>: null} */}
             {!products.length && <ProductCardSkeleton products={loadProduct} />}
             {/* TODO: Product card */}
             {products.map((product, idx) => (
               <ProductCard
                 productIdx={idx}
-                productId={product}
+                productId={product.id}
                 productImage={product.image}
                 productName={product.product_name}
                 prodcutPrice={product.price}
