@@ -161,14 +161,22 @@ const Products = () => {
             ))}
           </span>
           {accessRole === "Admin" ? (
-            <Link
-              to={`/product/add`}
-              className={styles["link-btn-new-product"]}
-            >
-              <span className={styles["btn-new-product"]}>
-                <button> Add new Product</button>
-              </span>
-            </Link>
+            <>
+              <Paginations
+                limitPage={limit}
+                currentPage={page}
+                setcurrentPage={setPage}
+                totalPages={totalPages}
+              />
+              <Link
+                to={`/product/add`}
+                className={styles["link-btn-new-product"]}
+              >
+                <span className={styles["btn-new-product"]}>
+                  <button> Add new Product</button>
+                </span>
+              </Link>
+            </>
           ) : (
             <span className={styles["sorting-and-pagination"]}>
               {/* Pagination */}
