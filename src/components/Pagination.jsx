@@ -12,10 +12,10 @@ const Paginations = ({ next, previous }) => {
       <span className={styles.pagination}>
         <Pagination>
           <PaginationItem>
-            <PaginationLink href={next} previous style={{ color: "#6a4029" }} />
+            <PaginationLink href={previous} previous style={{ color: "#6a4029" }} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href={previous} next style={{ color: "#6a4029" }} />
+            <PaginationLink href={next} next style={{ color: "#6a4029" }} />
           </PaginationItem>
         </Pagination>
       </span>
