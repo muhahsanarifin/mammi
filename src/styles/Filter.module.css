@@ -40,14 +40,14 @@
     justify-content: center;
   }
 
-  .main__products__header li {
+  .main__products__header button {
     text-align: center;
     margin: 0;
   }
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
-  .main__products__header p {
+  .main__products__header button {
     text-align: center;
     margin: 0;
   }
@@ -61,7 +61,7 @@
     justify-content: center;
   }
 
-  .main__products__header li {
+  .main__products__header button {
     list-style: none;
     text-align: left;
     width: fit-content;
