@@ -97,12 +97,14 @@ const AddPromo = () => {
   };
 
   const handleCancleInput = () => {
-    setProductId("");
-    setCode("");
-    setDiscount("");
-    setExpiryDate("");
-    setStartActiveDate("");
-    setDescription("");
+    // setProductId("");
+    // setCode("");
+    // setDiscount("");
+    // setExpiryDate("");
+    // setStartActiveDate("");
+    // setDescription("");
+    
+    window.location.reload()
   };
 
   return (
