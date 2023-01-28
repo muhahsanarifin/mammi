@@ -146,7 +146,6 @@
 }
 
 .second-main {
-  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -157,27 +156,25 @@
 }
 
 .delivery-and-time {
-  /* border: 1px solid darkolivegreen; */
   border-radius: 10px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.35);
   gap: 1.2rem;
+  width: 306.925px;
 }
 
 .delivery-and-time__title {
-  /* border: 1px solid darkblue; */
   font-weight: 700;
   font-family: "Poppins", sans-serif;
 }
 
-/* .delivery-types {
-  border: 1px solid darkblue;
-} */
+.delivery-types {
+  height: 29px;
+}
 
-.delivery-types ul {
-  /* border: 1px solid darkred; */
+.delivery-types .section-method {
   padding-left: 0;
   display: flex;
   flex-direction: row;
@@ -186,27 +183,29 @@
   margin-bottom: 0;
 }
 
-.delivery-types ul li {
-  /* border: 1px solid darkorange; */
+.delivery-types .section-method button {
   border: 1px solid var(--border-delivery-and-time);
   list-style: none;
-  padding: 0.2rem 0.5rem;
+  padding: 0.35rem 0.5rem;
   border-radius: 6px;
   color: var(--font-delivery-and-time);
   background: var(--background-delivery-and-time);
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
+  height: 29px;
+  width: fit-content;
+  text-align: center;
 }
 
-.delivery-types ul li:hover {
+.delivery-types .section-method button:focus {
   background: var(--pdc-btn-color);
-  font-weight: 700;
   padding: 0.2rem 0.5rem;
   color: var(--pdc-font-second-color);
   box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
   border-radius: 6px;
   cursor: pointer;
+  padding: 0.35rem 0.5rem;
 }
 
 .delivery-time {
@@ -247,7 +246,6 @@
 
 .delivery-time ul li:hover {
   background: var(--pdc-btn-color);
-  font-weight: 700;
   padding: 0.1rem 1.2rem;
   border-radius: 6px;
   color: var(--pdc-font-second-color);
@@ -256,7 +254,6 @@
 }
 
 .delivery-set-time {
-  /* border: 1px solid darkorange; */
   font-size: 10px;
   display: flex;
   flex-direction: row;
@@ -279,19 +276,19 @@
 }
 
 .confirm-product {
+  /* border: 1px solid darkblue; */
   align-self: flex-end;
-  /* border: 1px solid darkmagenta; */
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 337.484px;
 }
 
 .confirm-product__qty {
-  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  gap: 10rem;
+  justify-content: space-between;
+  width: 337.484px;
 }
 
 .confirm-product__qty__count {
@@ -302,8 +299,18 @@
   align-items: center;
 }
 
+/* .discount {
+  border: 1px solid darkblue;
+} */
+
+.discount-element {
+  /* border: 1px solid red; */
+  height: 29px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
 .confirm-product__qty__count span {
-  /* border: 1px solid darkblue; */
   padding: 0.2rem 0.8rem;
 }
 
@@ -329,17 +336,33 @@
 }
 
 .confirm-product__price {
-  /* border: 1px solid darkkhaki; */
+  /* border: 1px solid rebeccapurple; */
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
 }
 
-.confirm-product__price p {
-  /* border: 1px solid darkkhaki; */
+.confirm-product__price .sub-total-price {
   font-weight: 700;
   margin-bottom: 0;
   font-family: "Poppins", sans-serif;
+}
+.info-price {
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: column;
+}
+.size-fee {
+  margin-bottom: 0;
+  font-size: 10px;
+  color: #38e54d;
+  font-weight: 600;
+}
+
+.discount-price {
+  margin-bottom: 0;
+  font-size: 10px;
+  color: #cc3636;
+  font-weight: 600;
 }
 
 .confirm-product-btn {
@@ -411,22 +434,24 @@
   height: fit-content;
   width: fit-content;
   padding: 0.5rem 1.5rem;
+  row-gap: 0.5rem;
 }
 
 .size_type p {
   font-weight: 700;
   font-family: "Poppins", sans-serif;
+  margin-bottom: 0;
 }
 
-.size_type ul {
+.size_type .size-sections {
   /* border: 1px solid darkcyan; */
   display: flex;
   flex-direction: row;
-  gap: 2.5rem;
-  padding-left: 0;
+  gap: 2rem;
+  padding: 0.5rem;
 }
 
-.size_type ul li {
+.size_type .size-sections button {
   position: relative;
   list-style: none;
   font-weight: 700;
@@ -435,7 +460,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-.size_type ul li::before {
+.size_type .size-sections button::before {
   content: "";
   position: absolute;
   background: var(--pdc-btn-second-color);
@@ -569,6 +594,7 @@
   }
 
   .second-main {
+    /* border: 1px solid darkblue; */
     padding-left: 0;
     padding-right: 0;
     flex-wrap: wrap;
