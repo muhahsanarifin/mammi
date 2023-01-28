@@ -1,8 +1,10 @@
-import React from "react";
-import { useEffect } from "react";
-// import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+import cart from "../redux/actions/cart";
+import { CartSingleProduct } from "../components/Cart";
+import TransactionsAction from "../redux/actions/transactions";
 
 import HeaderAdmin from "../components/admin/Header";
 import Header from "../components/Header";
@@ -14,15 +16,107 @@ import styles from "../styles/Checkout.module.css";
 import creditCard from "../assets/icons/credit-card.svg";
 import bankAccount from "../assets/icons/bank.svg";
 import delivery from "../assets/icons/fast-delivery.svg";
-import huzelnutLatte from "../assets/images/products/hazelnut-latte-82-90.svg";
-import chikenFireWings from "../assets/images/products/chicken-fire-wings-82-90.svg";
 
 const Order = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
   // TODO: Private Route
   PrivateRoute(!accessToken, -1);
+  const dispatch = useDispatch();
+  const checkout = useSelector((state) => state.cart.checkout);
+  const orderSummaryOfCheckout = useSelector(
+    (state) => state.cart.orderSummaryOfCheckout
+  );
+
+  const detail = useSelector((state) => state.profiles.resultProfileDetail[0]); // <= Convert to object result from state
+  const contact = useSelector(
+    (state) => state.profiles.resultProfileContact[0]
+  );
+
+  // Value Input Form
+  const [address, setAddress] = useState(detail.address);
+  const [telp, setTelp] = useState(contact.phone_number);
+  const [payment_id, setPayment] = useState("");
+  const [body, setBody] = useState({});
+
+  // console.log(detail.address);
+  // console.log(contact.phone_number);
+  // console.log(payment_id);
+  // console.log("checkout: ", checkout);
+  // console.log("Order Summary  OfCheckout: ", orderSummaryOfCheckout);
+
+  // const clearObj = (obj) => {
+  //   Object.keys(obj).forEach((property) => {
+  //     delete obj[property];
+  //   });
+  // };
+
+  // const clearObj = (obj) => {
+  //   for (const key in obj) {
+  //     delete obj[key];
+  //   }
+  // };
+
+  const clearObj = (obj) => {
+    obj = {};
+  };
+
+  const handleDeleteProductForCheckout = () => {
+    console.log("Accan");
+    const deletedCeckout = clearObj(checkout);
+    const deletedOrderSummaryOfCheckout = clearObj(orderSummaryOfCheckout);
+
+    dispatch(cart.checkoutProductThunk(deletedCeckout));
+    dispatch(cart.orderSummaryThunkOfCheckout(deletedOrderSummaryOfCheckout));
+
+    setTimeout(() => {
+      console.log("Deleted success.");
+    }, 2500);
+
+    window.location.replace("/products");
+  };
+
+  useEffect(() => {
+    setBody({ address, telp, payment_id });
+  }, [payment_id, telp, address]);
+
+  console.log("Other Body: ", body);
+
+  const resFullfilled = () => {
+    setTimeout(() => {
+      console.log("Transaction successfully");
+    }, 2500);
+
+    window.location.replace("/history");
+  };
+
+  const handleConfirmAndDelivery = () => {
+    const combineChecoutOfSingleProduct = {
+      ...checkout,
+      ...body,
+    };
+
+    // console.log("Body of checkout", checkout);
+    // console.log(
+    //   "Body checout of single product",
+    //   combineChecoutOfSingleProduct
+    // );
+
+    dispatch(
+      TransactionsAction.createTransactionThunk(
+        combineChecoutOfSingleProduct,
+        accessToken,
+        resFullfilled
+      )
+    );
+
+    const deletedCeckout = clearObj(checkout);
+    const deletedOrderSummaryOfCheckout = clearObj(orderSummaryOfCheckout);
+
+    dispatch(cart.checkoutProductThunk(deletedCeckout));
+    dispatch(cart.orderSummaryThunkOfCheckout(deletedOrderSummaryOfCheckout));
+  };
 
   return (
     <>
@@ -39,99 +133,102 @@ const Order = () => {
         <section className={styles.sides}>
           <span className={styles["left-side"]}>
             <span className={styles["order-summary"]}>
-              <h3>Order Summary</h3>
-              <ul className={styles["order-summary__products"]}>
-                <li className={styles["order-summary__product"]}>
-                  <img src={huzelnutLatte} alt="Hazelnut Latte" />
-                  <span className={styles["order-summary__product__entity"]}>
-                    <p className={styles["product__item"]}>Hazelnut Latte</p>
-                    <p className={styles["product__qty"]}>x1</p>
-                    <p className={styles["product__size"]}>Reguler</p>
-                  </span>
-                  <span className={styles["order-summary__product__price"]}>
-                    <p className={styles["product__price"]}>IDR 24000</p>
-                  </span>
-                </li>
-                <li className={styles["order-summary__product"]}>
-                  <img src={chikenFireWings} alt="Chicken Wings" />
-                  <span className={styles["order-summary__product__entity"]}>
-                    <p className={styles["product__item"]}>Hazelnut Latte</p>
-                    <p className={styles["product__qty"]}>x1</p>
-                    <p className={styles["product__size"]}>Reguler</p>
-                  </span>
-                  <span className={styles["order-summary__product__price"]}>
-                    <p className={styles["product__price"]}>IDR 24000</p>
-                  </span>
-                </li>
-              </ul>
-              <span className={styles.total}>
-                <span className={styles.subtotal}>
-                  <p>SUBTOTAL</p>
-                  <p>IDR 124000</p>
+              {/* Order Summary Of Checkout Single */}
+              {orderSummaryOfCheckout?.product_name ? (
+                <CartSingleProduct
+                  orderSummaryOfCheckout={orderSummaryOfCheckout}
+                  handleDeleteProduct={handleDeleteProductForCheckout}
+                />
+              ) : (
+                <span className={styles["cart-empty-section"]}>
+                  <p className={styles["cart-empty-section__font"]}>
+                    Your cart is empty
+                  </p>
                 </span>
-                <span className={styles["tax-and-fee"]}>
-                  <p>TAX & FEE</p>
-                  <p>IDR 20000</p>
-                </span>
-                <span className={styles.shipping}>
-                  <p>SHIPPING</p>
-                  <p>IDR 20000</p>
-                </span>
-              </span>
-              <span className={styles.totals}>
-                <p>Total</p>
-                <p>IDR 150.000</p>
-              </span>
+              )}
             </span>
           </span>
           <span className={styles["right-side"]}>
-            <span className={styles["right-side__address-details"]}>
-              <span className={styles["address-detail-top"]}>
-                <p>Address details</p>
-                <p className={styles["address-btn-edit"]}>Edit</p>
-              </span>
-              <span className={styles["address-detail-bottom"]}>
-                <p>Delivery to Iskandar Street</p>
-                <p>
-                  Km 5 refinery road oppsite re public road, effurun, Jakarta
-                </p>
-                <p>+62 81348287878</p>
-              </span>
-            </span>
-            <span className={styles["right-side__payment-method"]}>
-              <span className={styles["right-side__payment-method__title"]}>
-                <p>Payment Method</p>
-              </span>
-              <span className={styles["right-side__payment-method__types"]}>
-                <span className={styles["payment-method__card"]}>
-                  <input type="radio" name="paymentMethod" />
-                  <label>
-                    <img src={creditCard} alt="Card" />
-                    Card
-                  </label>
+            {accessRole === "Customer" && (
+              <span className={styles["right-side__address-details"]}>
+                <span className={styles["address-detail-top"]}>
+                  <p>Address details</p>
+                  <p className={styles["address-btn-edit"]}>Edit</p>
                 </span>
-                <span className={styles["bank-account"]}>
-                  <input type="radio" name="paymentMethod" />
-                  <label>
-                    <img src={bankAccount} alt="Bank Account" />
-                    Bank Account
-                  </label>
-                </span>
-                <span className={styles["cash-on-delivery"]}>
-                  <input type="radio" name="paymentMethod" />
-                  <label>
-                    <img src={delivery} alt="Cash on Delivery" />
-                    Cash on Delivery
-                  </label>
+                <span className={styles["address-detail-bottom"]}>
+                  <input
+                    type="text"
+                    name="address"
+                    id="address"
+                    value={address}
+                    className={styles["address"]}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    name="telp"
+                    id="telp"
+                    value={telp}
+                    className={styles["telp"]}
+                    onChange={(e) => setTelp(e.target.value)}
+                  />
                 </span>
               </span>
-            </span>
+            )}
+            {accessRole === "Customer" && (
+              <span className={styles["right-side__payment-method"]}>
+                <span className={styles["right-side__payment-method__title"]}>
+                  <p>Payment Method</p>
+                </span>
+                <span className={styles["right-side__payment-method__types"]}>
+                  <span className={styles["payment-method__card"]}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value={1}
+                      onChange={(e) => setPayment(e.target.value)}
+                    />
+                    <label>
+                      <img src={creditCard} alt="Card" />
+                      Card
+                    </label>
+                  </span>
+                  <span className={styles["bank-account"]}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value={2}
+                      onChange={(e) => setPayment(e.target.value)}
+                    />
+                    <label>
+                      <img src={bankAccount} alt="Bank Account" />
+                      Bank Account
+                    </label>
+                  </span>
+                  <span className={styles["cash-on-delivery"]}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value={3}
+                      onChange={(e) => setPayment(e.target.value)}
+                    />
+                    <label>
+                      <img src={delivery} alt="Cash on Delivery" />
+                      Cash on Delivery
+                    </label>
+                  </span>
+                </span>
+              </span>
+            )}
             {accessRole === "Admin" ? (
               <button className={styles["confirm-and-pay"]}>
                 Mark as done
               </button>
             ) : (
-              <button className={styles["confirm-and-pay"]}>
+              <button
+                className={styles["confirm-and-pay"]}
+                onClick={handleConfirmAndDelivery}
+              >
                 Confirm and Pay
               </button>
             )}
