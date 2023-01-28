@@ -7,7 +7,6 @@
   --pad-border-color: #dddddd;
   --pad-bg-color: #ffffff;
   --pad-font-color: #ffffff;
-  --pad-font-second-color: #362115;
 }
 
 /* || Views */
@@ -55,6 +54,7 @@
   /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
 .order-summary {
@@ -67,89 +67,27 @@
   gap: 1rem;
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.35);
   width: fit-content;
+  /* height: 473.734px; */
+}
+
+.cart-empty-section {
+  /* border: 1px solid darkgoldenrod; */
+  display: flex;
+  justify-content: center;
+}
+
+.cart-empty-section__font {
+  /* border: 1px solid darkblue; */
+  margin-bottom: 0;
+  color: #dd5353;
+  font-weight: 600;
+  text-shadow: 0px 4px 4px rgba(165, 165, 165, 0.8);
 }
 
 .order-summary h3 {
   font-size: 24px;
   text-align: center;
   font-family: "Poppins", sans-serif;
-}
-
-.order-summary__products {
-  /* border: 1px solid darkblue; */
-  padding-left: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.order-summary__product {
-  /* border: 1px solid darkred; */
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: flex-start;
-}
-
-.order-summary__product__entity {
-  /* border: 1px solid darkgreen; */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.order-summary__product__entity p {
-  /* border: 1px solid darkmagenta; */
-  margin-bottom: 0;
-  font-size: 12px;
-  font-family: "Poppins", sans-serif;
-}
-
-.order-summary__product__price {
-  align-self: center;
-}
-
-.product__price {
-  align-self: center;
-  font-size: 12px;
-}
-
-.total {
-  /* border: 1px solid darkblue; */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.total span p {
-  font-size: 12px;
-}
-
-.total span p,
-.totals p {
-  margin-bottom: 0;
-  font-family: "Poppins", sans-serif;
-}
-
-.subtotal,
-.tax-and-fee,
-.shipping {
-  /* border: 1px solid darkgoldenrod; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.totals {
-  /* border: 1px solid darkgoldenrod; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.totals p {
-  color: var(--pad-font-second-color);
-  font-weight: 700;
 }
 
 .right-side {
@@ -190,16 +128,18 @@
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.address-detail-bottom p {
+.address,
+.telp {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--pad-border-color);
   font-family: "Poppins", sans-serif;
   font-size: 12px;
-}
-
-.address-detail-bottom p:nth-child(1),
-.address-detail-bottom p:nth-child(2) {
-  border-bottom: 0.5px solid var(--pad-border-color);
 }
 
 .right-side__payment-method {
@@ -253,13 +193,13 @@
   height: 18px;
 }
 
-.payment-method__card input,
+/* .payment-method__card input,
 .bank-account input,
 .cash-on-delivery input {
   cursor: pointer;
   outline: none;
   accent-color: var(--label-cash-on-delivery-color);
-}
+} */
 
 /* .payment-method__card input:checked,
 .bank-account input:checked,
