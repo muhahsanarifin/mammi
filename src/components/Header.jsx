@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import ProfilesAction from "../redux/actions/profile";
 
 import AlertProfile from "../components/Alert";
 import mammiLogo from "../assets/images/mammi-logo.png";
@@ -9,6 +11,7 @@ import chat from "../assets/icons/chat.svg";
 import styles from "../styles/Header.module.css";
 
 const Header = ({ onChange }) => {
+  const dispatch = useDispatch();
   const accessToken = localStorage.getItem("access-token");
   const accessPicture = localStorage.getItem("access-picture");
   const [alert, setAlert] = useState(false);
@@ -24,6 +27,16 @@ const Header = ({ onChange }) => {
   }, [accessPicture]);
 
   const onDismiss = () => setAlert(false);
+
+  // Get Address Customer
+  useEffect(() => {
+    dispatch(ProfilesAction.getProfileDetailThunk(accessToken));
+  }, [accessToken, dispatch]);
+
+  // Get Detail Profile
+  useEffect(() => {
+    dispatch(ProfilesAction.getProfileContactThunk(accessToken));
+  }, [accessToken, dispatch]);
 
   return (
     <>
@@ -48,10 +61,10 @@ const Header = ({ onChange }) => {
             </li>
             {accessToken ? (
               <li>
-                <Link to={`/order`}>Your Chart</Link>
+                <Link to={`/order`}>Your Cart</Link>
               </li>
             ) : (
-              <li style={{ cursor: "no-drop" }}>Your Chart</li>
+              <li style={{ cursor: "no-drop" }}>Your Cart</li>
             )}
             {accessToken ? (
               <li>
