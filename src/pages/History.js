@@ -1,15 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import TitleBar from "../components/TitleBar";
 import PrivateRoute from "../utils/PrivateRoute";
 import styles from "../styles/History.module.css";
 
 const History = () => {
-  const navigate = useNavigate();
+  // const navigation = useNavigate();
   const [historyTransactions, setHistoryTransactions] = useState([]);
   const accessToken = localStorage.getItem("access-token");
   // const accessRole = localStorage.getItem("access-role");
@@ -39,6 +40,7 @@ const History = () => {
 
   return (
     <>
+      <TitleBar title={`MAMMI | History`} />
       <Header />
       <main className={styles.main}>
         <section className={styles["history-customer"]}>
