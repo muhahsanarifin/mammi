@@ -19,6 +19,6 @@ const deleteProduct = (id, accessToken) =>
   Axios.delete(`${BASE_URL}/products/delete${id}`, config(accessToken));
 
 const createProduct = (body, accessToken) =>
-  Axios.post(`${BASE_URL}products`, body, config(accessToken));
+  Axios.post(`${BASE_URL}/products/create`, body, config(accessToken));
 
 export { getProducts, editProduct, deleteProduct, createProduct };
