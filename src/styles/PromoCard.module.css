@@ -48,6 +48,10 @@
   text-align: center;
 }
 
+.promo__card h3 {
+  cursor: pointer;
+}
+
 .promo__card__decs {
   border-bottom: 2px dashed var(--first-promo-card-layer);
   font-size: 14px;
