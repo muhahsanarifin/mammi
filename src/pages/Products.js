@@ -121,7 +121,7 @@ const Products = () => {
           {loadPromo && <PromoCardSkeleton />}
           {/* TODO: Promo card */}
           <PromoCard promos={promos} />
-          <button className={styles["btn-coupon"]}>Apply Coupon</button>
+          <button className={styles["btn-coupon"]}> Apply Coupon</button>
           <span className={styles["terms-and-condition"]}>
             <h3>Terms and Condition</h3>
             <p>1. You can only apply 1 coupon per day</p>
@@ -178,15 +178,12 @@ const Products = () => {
               </Link>
             </>
           ) : (
-            <span className={styles["sorting-and-pagination"]}>
-              {/* Pagination */}
-              <Paginations
-                limitPage={limit}
-                currentPage={page}
-                setcurrentPage={setPage}
-                totalPages={totalPages}
-              />
-            </span>
+            <Paginations
+              limitPage={limit}
+              currentPage={page}
+              setcurrentPage={setPage}
+              totalPages={totalPages}
+            />
           )}
         </section>
       </main>
