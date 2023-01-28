@@ -42,7 +42,9 @@ const PromoCard = ({ promos }) => {
               </span>
               <span className={styles.coupon}>
                 <p className={styles["coupon__title"]}>COUPON CODE</p>
-                <h3>{promo.code}</h3>
+                <h3 onClick={() => navigation(`/product/${promo.product_id}`)}>
+                  {promo.code}
+                </h3>
                 <p className={styles.description}>
                   Valid untill {promo.expiry_date}
                 </p>
