@@ -13,10 +13,10 @@ const config = (accessToken) => {
 const editProfile = (body, accessToken) =>
   Axios.patch(`${BASE_URL}/users/profile/edit`, body, config(accessToken));
 
-const getProfileContact = (id, accessToken) =>
-  Axios.get(`${BASE_URL}/users/acc/profile/contact/${id}`, config(accessToken));
+const getProfileContact = (accessToken) =>
+  Axios.get(`${BASE_URL}/users/acc/profile/contact/id`, config(accessToken));
 
-const getProfileDetail = (id, accessToken) =>
-  Axios.get(`${BASE_URL}users/acc/profile/detail/${id}`, config(accessToken));
+const getProfileDetail = (accessToken) =>
+  Axios.get(`${BASE_URL}/users/acc/profile/detail/id`, config(accessToken));
 
 export { editProfile, getProfileContact, getProfileDetail };
