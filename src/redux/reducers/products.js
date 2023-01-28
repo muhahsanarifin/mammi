@@ -23,8 +23,8 @@ const initialState = {
   },
   isLoading: false,
   isError: false,
+  isFulfilled: false,
   err: null,
-  // confirms: false,
 };
 
 const productsReducer = (prevState = initialState, { payload, type }) => {
@@ -41,6 +41,7 @@ const productsReducer = (prevState = initialState, { payload, type }) => {
     case getProducts.concat("-", Fulfilled):
       return {
         ...prevState,
+        err: null,
         isLoading: false,
         isError: false,
         isFulfilled: true,
