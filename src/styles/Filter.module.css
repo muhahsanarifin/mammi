@@ -29,7 +29,7 @@
   background: none;
 }
 
-.main__products__header > button:active {
+.main__products__header > button:focus {
   color: var(--product-font-color);
   font-weight: 700;
 }
