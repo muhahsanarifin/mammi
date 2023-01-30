@@ -140,7 +140,7 @@
 
 @media all and (max-width: 480px) {
   .search-section {
-    border: 1px solid darkgoldenrod;
+    /* border: 1px solid darkgoldenrod; */
     width: 128px;
   }
   .search {
@@ -148,7 +148,7 @@
   }
 
   .search-input-active {
-    border: 1px solid darkgreen;
+    /* border: 1px solid darkgreen; */
     width: 5rem;
   }
 
@@ -161,7 +161,7 @@
     position: relative;
     justify-content: space-between !important;
     padding: 0 1rem;
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 
   .navbar {
