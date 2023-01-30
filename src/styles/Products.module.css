@@ -51,6 +51,15 @@
 
 .btn-coupon {
   /* border: 1px solid darkblue; */
+  padding: 0.8rem 5rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: no-drop;
+}
+
+.btn-coupon-active {
+  /* border: 1px solid darkblue; */
   background: var(--product-btn-color);
   color: var(--product-font-fourth-color);
   padding: 0.8rem 5rem;
