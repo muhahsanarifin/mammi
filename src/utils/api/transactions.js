@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const BASE_URL = `${process.env.REACT_APP_BACKEND_HOST}api/v1/`;
+const BASE_URL = `${process.env.REACT_APP_BACKEND_HOST}api/v1`;
 
 const config = (accessToken) => {
   return {
@@ -10,14 +10,14 @@ const config = (accessToken) => {
   };
 };
 
-const getTransactions = (accessToken) =>
-  Axios.get(`${BASE_URL}transactions`, config(accessToken));
+const getTransactions = (accessToken, queryParams) =>
+  Axios.get(`${BASE_URL}/transactions?${queryParams}`, config(accessToken));
 
 const createTransaction = (body, accessToken) =>
-  Axios.post(`${BASE_URL}transactions/create`, body, config(accessToken));
+  Axios.post(`${BASE_URL}/transactions/create`, body, config(accessToken));
 
 const editTransaction = (id, body, accessToken) =>
-  Axios.post(`${BASE_URL}transactions/edit${id}`, body, config(accessToken));
+  Axios.post(`${BASE_URL}/transactions/edit${id}`, body, config(accessToken));
 
 const updateStatusTransaction = (id, body, accessToken) =>
   Axios.patch(
@@ -27,10 +27,10 @@ const updateStatusTransaction = (id, body, accessToken) =>
   );
 
 const deleteTransaction = (id, accessToken) =>
-  Axios.delete(`${BASE_URL}transactions/delete/${id}`, config(accessToken));
+  Axios.delete(`${BASE_URL}/transactions/delete/${id}`, config(accessToken));
 
 const getHistoryTransaction = (accessToken) =>
-  Axios.get(`${BASE_URL}transactions/history`, config(accessToken));
+  Axios.get(`${BASE_URL}/transactions/history`, config(accessToken));
 
 export {
   getTransactions,

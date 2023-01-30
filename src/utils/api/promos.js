@@ -12,7 +12,15 @@ const config = (accessToken) => {
 
 const getPromos = () => Axios.get(`${BASE_URL}/promos`);
 
-const createPromo = (body, accessToken) =>
-  Axios.post(`${BASE_URL}/promos`, body, config(accessToken));
+const getPromo = (id) => Axios.get(`${BASE_URL}/promos/${id}`);
 
-export { getPromos, createPromo };
+const createPromo = (body, accessToken) =>
+  Axios.post(`${BASE_URL}/promos/create`, body, config(accessToken));
+
+const deletePromo = (id, accessToken) =>
+  Axios.delete(`${BASE_URL}/promos/delete/${id}`, config(accessToken));
+
+const editPromo = (id, accessToken) =>
+  Axios.editPromo(`${BASE_URL}/promos/edit/${id}`, config(accessToken));
+
+export { getPromos, getPromo, createPromo, deletePromo, editPromo };
