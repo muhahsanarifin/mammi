@@ -16,32 +16,27 @@
 
 /* || Header */
 .header {
-  /* border: 1px solid red; */
   height: 5rem;
   border-bottom: 1px solid var(--header-border-color);
 }
 
 .header__logo {
-  /* border: 1px solid darkgoldenrod; */
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
 .header__logo__image img {
-  /* border: 1px solid darkblue; */
   width: 24px;
 }
 
 .header__logo__init p {
   position: relative;
-  /* border:1px solid darkblue; */
   font-size: 20px;
   margin-bottom: 0;
 }
 
 .content-navbar {
-  /* border: 1px solid darkblue; */
   display: flex;
   flex-direction: row;
   padding-left: 0;
@@ -50,60 +45,61 @@
 
 .content-navbar li {
   list-style: none;
-  /* border: 1px solid darkblue; */
   width: 87.1875px;
   text-align: center;
 }
 
 .navbar a {
-  /* border: 1px solid darkorange; */
   text-decoration: none;
   color: var(--header-font-color);
 }
 
-.navbar a:hover {
+.navbar a:focus {
   color: var(--home-font-fourth-color);
   font-weight: 700;
 }
-/* 
-.search, .chat, .avatar {
-  cursor: pointer;
-} */
-
-/* .search img {
-  width: 30px;
-} */
 
 .chat,
 .avatar {
   cursor: pointer;
 }
 
+.chat img {
+  width: 24px;
+  height: 24px;
+}
+
+.search-section {
+  width: 168px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .search {
-  /* border: 1px solid darkred; */
   position: relative;
   display: flex;
   gap: 0.5rem;
   border-radius: 30px;
   background: var(--home-search-color);
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: fit-content;
 }
 
-.search input[type="text"] {
-  /* border: 1px solid darkblue; */
+.search-input {
+  display: none;
+}
+
+.search-input-active {
   background: none;
   border: none;
   outline: none;
-  font-weight: 500;
-  max-width: 10rem;
+  font-weight: 600;
+  max-width: 8rem;
+  font-size: 12px;
 }
 
-/* .search input[type="text"] {
-  display: none;
-} */
-
 .search img {
-  /* border: 1px solid darkblue; */
   width: 14px;
 }
 
@@ -120,20 +116,18 @@
 }
 
 /* || Responsive */
-
 @media all and (max-width: 480px) {
-  .search input[type="text"] {
-    /* border: 1px solid darkblue; */
-    display: none;
-  }
-
   .search {
-    padding: 0.6rem;
+    border-radius: 8px;
   }
 
-  .search img {
-    /* border: 1px solid darkblue; */
-    width: 14px;
+  .search-input-active {
+    width: 5rem;
+  }
+
+  .chat img {
+    width: 18px;
+    height: 18px;
   }
 
   .header {
@@ -159,7 +153,6 @@
   }
 
   .navbar > a {
-    /* border: 1px solid darkgoldenrod; */
     text-decoration: none;
     color: var(--header-font-color);
   }
