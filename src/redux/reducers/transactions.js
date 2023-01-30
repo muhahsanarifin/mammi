@@ -11,6 +11,10 @@ const initialState = {
   },
   createTransaction: [],
   editTransaction: {},
+  updateStatusTransaction: {
+    data: {},
+    msg: {},
+  },
   deleteTransaction: {
     msg: null,
   },
@@ -34,6 +38,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
     getTransactions,
     createTransaction,
     editTransaction,
+    updateStatusTransaction,
     deleteTransaction,
     getHistoryTransaction,
   } = actionStrings;
@@ -48,6 +53,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
     case getTransactions.concat("-", Fulfilled):
       return {
         ...prevState,
+        err: null,
         isLoading: false,
         isError: false,
         isFulfilled: true,
@@ -95,12 +101,37 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
     case editTransaction.concat("-", Fulfilled):
       return {
         ...prevState,
+        err: null,
         isLoading: false,
         isError: false,
         isFulfilled: true,
         editTransaction: payload.data,
       };
     case editTransaction.concat("-", Rejected):
+      return {
+        ...prevState,
+        isLoading: false,
+        isError: true,
+        isFulfilled: false,
+        err: payload.error.response?.data.result.msg,
+      };
+    case updateStatusTransaction.concat("-", Pending):
+      return {
+        ...prevState,
+        isLoading: true,
+        isError: false,
+        isFulfilled: false,
+      };
+    case updateStatusTransaction.concat("-", Fulfilled):
+      return {
+        ...prevState,
+        err: null,
+        isLoading: false,
+        isError: false,
+        isFulfilled: true,
+        updateStatusTransaction: payload.data,
+      };
+    case updateStatusTransaction.concat("-", Rejected):
       return {
         ...prevState,
         isLoading: false,
