@@ -445,16 +445,20 @@ const ProductDetail = () => {
                   Choose Promo
                 </option>
                 {promos.map((discount) => (
-                  <option
-                    value={
-                      product_id === discount.product_id
-                        ? `${discount.discount} ${discount.id}`
-                        : 0
-                    }
-                    style={{ fontSize: "12px" }}
-                  >
-                    {product_id === discount.product_id && discount.code}
-                  </option>
+                  <>
+                   { product_id === discount.product_id ?
+                    <option
+                      value={
+                        product_id === discount.product_id
+                          ? `${discount.discount} ${discount.id}`
+                          : 0
+                      }
+                      style={{ fontSize: "12px" }}
+                    >
+                      {product_id === discount.product_id && discount.code}
+                    </option>
+                    : null}
+                  </>
                 ))}
               </select>
             </span>
