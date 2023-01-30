@@ -82,7 +82,7 @@ const Header = ({ onChange }) => {
             </li>
           </ul>
         </nav>
-        <div className="d-flex flex-row gap-4  align-items-center">
+        <div className="d-flex flex-row gap-3  align-items-center">
           <span className={styles["search-section"]}>
             <span className={styles.search}>
               <input
