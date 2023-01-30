@@ -5,12 +5,13 @@ import {
   editTransaction,
   deleteTransaction,
   getHistoryTransaction,
+  updateStatusTransaction,
 } from "../../utils/api/transactions";
 import { actionStrings } from "./actionStrings";
 
 const { Pending, Rejected, Fulfilled } = ActionType;
 
-// TODO: Get Transactions actions
+// Get transactions actions
 const getTransactionsPending = () => ({
   type: actionStrings.getTransactions.concat("-", Pending),
 });
@@ -25,7 +26,7 @@ const getTransactionsRejected = (error) => ({
   payload: { error },
 });
 
-// TODO: Create Transactions actions
+// Create transactions actions
 const createTransactionPending = () => ({
   type: actionStrings.createTransaction.concat("-", Pending),
 });
@@ -40,7 +41,7 @@ const createTransactionRejected = (error) => ({
   payload: { error },
 });
 
-// TODO: Edit Transaction actions
+// Edit transaction actions
 const editTransactionsPending = () => ({
   type: actionStrings.editTransaction.concat("-", Pending),
 });
@@ -55,7 +56,22 @@ const editTransactionsRejected = (error) => ({
   payload: { error },
 });
 
-// TODO: Delete Transaction actions
+// Update status transaction actions
+const updateStatusTransactionPending = () => ({
+  type: actionStrings.updateStatusTransaction.concat("-", Pending),
+});
+
+const updateStatusTransactionFulfilled = (data) => ({
+  type: actionStrings.updateStatusTransaction.concat("-", Fulfilled),
+  payload: { data },
+});
+
+const updateStatusTransactionRejected = (error) => ({
+  type: actionStrings.updateStatusTransaction.concat("-", Rejected),
+  payload: { error },
+});
+
+// Delete transaction actions
 const deleteTransactionPending = () => ({
   type: actionStrings.deleteTransaction.concat("-", Pending),
 });
@@ -70,8 +86,7 @@ const deleteTransactionRejected = (error) => ({
   payload: { error },
 });
 
-
-// TODO: Get Hisoty Transactions actions
+// Get hisoty transactions actions
 const getHistoryTransactionsPending = () => ({
   type: actionStrings.getHistoryTransaction.concat("-", Pending),
 });
@@ -86,16 +101,15 @@ const getHistoryTransactionsRejected = (error) => ({
   payload: { error },
 });
 
-
-// TODO: Get Transactions Thunk
-const getTransactionsThunk = (token, cbFulfilled, cbError, cbFinally) => {
+// Get transactions thunk
+const getTransactionsThunk = (token, cbQueryParams,cbFulfilled, cbError, cbFinally) => {
   return async (dispatch) => {
     try {
       dispatch(getTransactionsPending());
-      const result = await getTransactions(token);
-      // console.log(result.data);
+      const result = await getTransactions(token, cbQueryParams);
+      console.log(result.data);
       dispatch(getTransactionsFulfilled(result.data));
-      typeof cbFulfilled === "function" && cbFulfilled();
+      typeof cbFulfilled === "function" && cbFulfilled(result.data.result.data);
     } catch (error) {
       dispatch(getTransactionsRejected(error));
       typeof cbError === "function" && cbError();
@@ -105,13 +119,13 @@ const getTransactionsThunk = (token, cbFulfilled, cbError, cbFinally) => {
   };
 };
 
-// TODO: Create Transactions Thunk
+// Create transactions thunk
 const createTransactionThunk = (body, token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(createTransactionPending());
       const result = await createTransaction(body, token);
-      console.log("Result create transaction: ",result);
+      // console.log("Result create transaction: ", result);
       dispatch(createTransactionFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
@@ -121,13 +135,13 @@ const createTransactionThunk = (body, token, cbFulfilled, cbError) => {
   };
 };
 
-// TODO: Edit Transactions Thunk
-const editTransactionsThunk = (id, token, cbFulfilled, cbError) => {
+// Edit transactions thunk
+const editTransactionsThunk = (id, body, token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(editTransactionsPending());
-      const result = await editTransaction(id, token);
-      console.log(result.data);
+      const result = await editTransaction(id, body, token);
+      // console.log(result.data);
       dispatch(editTransactionsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
@@ -137,13 +151,29 @@ const editTransactionsThunk = (id, token, cbFulfilled, cbError) => {
   };
 };
 
-// TODO: Delete Transactions Thunk
+// Update status transactions thunk
+const updateStatusTransactionThunk = (id, body, token, cbFulfilled, cbError) => {
+  return async (dispatch) => {
+    try {
+      dispatch(updateStatusTransactionPending());
+      const result = await updateStatusTransaction(id, body, token);
+      console.log(result.data);
+      dispatch(updateStatusTransactionFulfilled(result.data));
+      typeof cbFulfilled === "function" && cbFulfilled(result.data);
+    } catch (error) {
+      dispatch(updateStatusTransactionRejected(error));
+      typeof cbError === "function" && cbError();
+    }
+  };
+};
+
+// Delete transactions thunk
 const deleteTransactionThunk = (id, token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(deleteTransactionPending());
       const result = await deleteTransaction(id, token);
-      console.log(result.data);
+      // console.log(result.data);
       dispatch(deleteTransactionFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
@@ -153,13 +183,13 @@ const deleteTransactionThunk = (id, token, cbFulfilled, cbError) => {
   };
 };
 
-// TODO: Get  History Transactions Thunk
+// Get history transactions thunk
 const getHistoryTransactionsThunk = (token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(getHistoryTransactionsPending());
       const result = await getHistoryTransaction(token);
-      console.log(result.data);
+      // console.log(result.data);
       dispatch(getHistoryTransactionsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
@@ -173,6 +203,7 @@ const TransactionsAction = {
   getTransactionsThunk,
   createTransactionThunk,
   editTransactionsThunk,
+  updateStatusTransactionThunk,
   deleteTransactionThunk,
   getHistoryTransactionsThunk,
 };
