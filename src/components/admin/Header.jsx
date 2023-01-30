@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import ProfilesAction from "../../redux/actions/profile";
+import { useDispatch } from "react-redux";
 
 import LoaderBtn from "../LoaderBtn";
 import styles from "../../styles/admin/Header.module.css";
@@ -11,12 +13,14 @@ import searchIcon from "../../assets/icons/search.svg";
 import chat from "../../assets/icons/chat.svg";
 
 const Header = ({ onChange }) => {
+  const dispatch = useDispatch();
   const [loaderButton, setLoaderBtn] = useState(false);
+  const [toggleSearch, setToggleSeacrh] = useState(true);
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
 
-  // TODO: Handle logout
+  // Handle logout
   const handleLogout = async () => {
     try {
       setLoaderBtn(true);
@@ -36,6 +40,18 @@ const Header = ({ onChange }) => {
       setLoaderBtn(false);
     }
   };
+
+  const handleToggleSearch = () => {
+    setToggleSeacrh(!toggleSearch);
+  };
+
+  useEffect(() => {
+    dispatch(ProfilesAction.getProfileDetailThunk(accessToken));
+  }, [accessToken, dispatch]);
+
+  useEffect(() => {
+    dispatch(ProfilesAction.getProfileContactThunk(accessToken));
+  }, [accessToken, dispatch]);
 
   return (
     <>
@@ -67,9 +83,20 @@ const Header = ({ onChange }) => {
           </ul>
         </nav>
         <div className="d-flex flex-row gap-4  align-items-center">
-          <span className={styles.search}>
-            <img src={searchIcon} alt="search" />
-            <input type="text" placeholder="Search" onChange={onChange} />
+          <span className={styles["search-section"]}>
+            <span className={styles.search}>
+              <input
+                type="text"
+                placeholder="Search"
+                onChange={onChange}
+                className={
+                  toggleSearch
+                    ? styles["search-input"]
+                    : styles["search-input-active"]
+                }
+              />
+              <img src={searchIcon} alt="search" onClick={handleToggleSearch} />
+            </span>
           </span>
           <span className={styles.chat}>
             <img src={chat} alt="chat" />
