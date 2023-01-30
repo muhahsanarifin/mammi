@@ -32,7 +32,7 @@ const ProductDetail = () => {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
   const [taxes, setTaxes] = useState(0);
-  // const navigation = useNavigate();
+  const navigation = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
   // TODO: Private route
@@ -97,7 +97,11 @@ const ProductDetail = () => {
       try {
         setLoader(true);
         const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,{
+            headers: {
+              "x-access-token": `${accessToken}`,
+            }
+          }
         );
 
         setProductDetail(response.data.result);
@@ -499,8 +503,11 @@ const ProductDetail = () => {
             <span className={styles["confirm-product-btn"]}>
               {accessRole === "Admin" ? (
                 <>
-                  <button className={styles["confirm-product-btn__add"]}>
-                    Add to Cart
+                  <button
+                    className={styles["confirm-product-btn__add"]}
+                    onClick={() => navigation("/order")}
+                  >
+                    Go To Orders
                   </button>
                   <Link
                     to={`/product/${id}/edit`}
