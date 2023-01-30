@@ -97,15 +97,26 @@ const AddPromo = () => {
   };
 
   const handleCancleInput = () => {
-    // setProductId("");
-    // setCode("");
-    // setDiscount("");
-    // setExpiryDate("");
-    // setStartActiveDate("");
-    // setDescription("");
-    
-    window.location.reload()
+    window.location.reload();
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100);
+  }, []);
+
+  console.log({
+    product_id,
+    code,
+    discount,
+    expiry_date,
+    start_active_date,
+    description,
+  });
 
   return (
     <>
@@ -199,6 +210,7 @@ const AddPromo = () => {
                   name="description"
                   id="description"
                   placeholder="Describe your promo min. 150 characters"
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </label>
@@ -243,9 +255,10 @@ const AddPromo = () => {
                         color: "#6a4029",
                         fontWeight: 800,
                         fontSize: "14px",
+                        display: "none",
                       }}
                     >
-                      Choose product :
+                      Choose product
                     </option>
                     <option
                       style={{
@@ -275,6 +288,7 @@ const AddPromo = () => {
                     type="text"
                     name="code"
                     id="code"
+                    value={code}
                     onChange={(e) => setCode(e.target.value)}
                   />
                 </span>
@@ -289,7 +303,13 @@ const AddPromo = () => {
                     id="discount"
                     onChange={(e) => setDiscount(e.target.value)}
                   >
-                    <option style={{ fontWeight: 800, fontSize: "14px" }}>
+                    <option
+                      style={{
+                        fontWeight: 800,
+                        fontSize: "14px",
+                        display: "none",
+                      }}
+                    >
                       Input discount
                     </option>
                     {persentDiscounts.map((persentDiscount) => (
@@ -308,12 +328,14 @@ const AddPromo = () => {
                     type="date"
                     name="start_active_date"
                     id="start_active_date"
+                    value={start_active_date}
                     onChange={(e) => setStartActiveDate(e.target.value)}
                   />
                   <input
                     type="date"
                     name="expiry_date"
                     id="expiry_date"
+                    value={expiry_date}
                     onChange={(e) => setExpiryDate(e.target.value)}
                   />
                 </span>
@@ -347,6 +369,9 @@ const AddPromo = () => {
                     !product_name ||
                     !price ||
                     !product_id ||
+                    !image ||
+                    !discount ||
+                    !code ||
                     !expiry_date ||
                     !start_active_date ||
                     !description
@@ -367,11 +392,14 @@ const AddPromo = () => {
                 </button>
                 <button
                   className={
-                    !product_name ||
-                    !price ||
-                    !product_id ||
-                    !expiry_date ||
-                    !start_active_date ||
+                    !product_name &&
+                    !price &&
+                    !product_id &&
+                    !image &&
+                    !discount &&
+                    !code &&
+                    !expiry_date &&
+                    !start_active_date &&
                     !description
                       ? styles["btn-products__cancel"]
                       : styles["btn-products__cancel-active"]
