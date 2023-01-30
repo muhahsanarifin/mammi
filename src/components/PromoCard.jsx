@@ -7,7 +7,7 @@ import pen from "../assets/icons/pen.svg";
 
 import styles from "../styles/PromoCard.module.css";
 
-const PromoCard = ({ promos }) => {
+const PromoCard = ({ promos, onProductId }) => {
   const navigation = useNavigate();
   const accessRole = localStorage.getItem("access-role");
 
@@ -16,7 +16,11 @@ const PromoCard = ({ promos }) => {
       <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
         {promos.map((promo, idx) => (
           <SwiperSlide>
-            <span className={styles["promo__card"]} key={idx}>
+            <span
+              className={styles["promo__card"]}
+              key={idx}
+              onClick={() => onProductId(`${promo.product_id} ${promo.code}`)}
+            >
               {accessRole === "Admin" ? (
                 <span
                   className={styles["btn-product"]}
@@ -42,9 +46,7 @@ const PromoCard = ({ promos }) => {
               </span>
               <span className={styles.coupon}>
                 <p className={styles["coupon__title"]}>COUPON CODE</p>
-                <h3 onClick={() => navigation(`/product/${promo.product_id}`)}>
-                  {promo.code}
-                </h3>
+                <h3>{promo.code}</h3>
                 <p className={styles.description}>
                   Valid untill {promo.expiry_date}
                 </p>
