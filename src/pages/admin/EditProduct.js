@@ -28,7 +28,12 @@ const EditProduct = () => {
     try {
       setImageLoading(true);
       const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`
+        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,
+        {
+          headers: {
+            "x-access-token": accessToken,
+          },
+        }
       );
       console.log(response.data.result[0]);
       setProductDetail(response.data.result[0]);
