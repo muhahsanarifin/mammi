@@ -176,12 +176,18 @@ const AddProduct = () => {
                     name="category_id"
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option style={{ fontWeight: 800, fontSize: "14px" }}>
+                    <option
+                      style={{
+                        fontWeight: 800,
+                        fontSize: "14px",
+                        display: "none",
+                      }}
+                    >
                       Choose category :
                     </option>
                     <option value={1}>Food</option>
                     <option value={2}>Coffee</option>
-                    <option value={3}>NonCofee</option>
+                    <option value={3}>Non Cofee</option>
                   </select>
                 </span>
               </span>
@@ -226,6 +232,7 @@ const AddProduct = () => {
                 <button
                   className={
                     !product_name ||
+                    !prevImage ||
                     !price ||
                     !description ||
                     !category_id ||
@@ -235,6 +242,7 @@ const AddProduct = () => {
                   }
                   disabled={
                     !product_name ||
+                    !prevImage ||
                     !price ||
                     !description ||
                     !category_id ||
@@ -246,10 +254,11 @@ const AddProduct = () => {
                 </button>
                 <button
                   className={
-                    !product_name ||
-                    !price ||
-                    !description ||
-                    !category_id ||
+                    !product_name &&
+                    !prevImage &&
+                    !price &&
+                    !description &&
+                    !category_id &&
                     !stock
                       ? styles["btn-products__cancel"]
                       : styles["btn-products__cancel-active"]
