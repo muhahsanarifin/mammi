@@ -15,6 +15,7 @@ const Header = ({ onChange }) => {
   const accessToken = localStorage.getItem("access-token");
   const accessPicture = localStorage.getItem("access-picture");
   const [alert, setAlert] = useState(false);
+  const [toggleSearch, setToggleSeacrh] = useState(true);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -28,12 +29,14 @@ const Header = ({ onChange }) => {
 
   const onDismiss = () => setAlert(false);
 
-  // Get Address Customer
+  const handleToggleSearch = () => {
+    setToggleSeacrh(!toggleSearch);
+  };
+
   useEffect(() => {
     dispatch(ProfilesAction.getProfileDetailThunk(accessToken));
   }, [accessToken, dispatch]);
 
-  // Get Detail Profile
   useEffect(() => {
     dispatch(ProfilesAction.getProfileContactThunk(accessToken));
   }, [accessToken, dispatch]);
@@ -75,10 +78,21 @@ const Header = ({ onChange }) => {
             )}
           </ul>
         </nav>
-        <div className="d-flex flex-row gap-4  align-items-center">
-          <span className={styles.search}>
-            <img src={searchIcon} alt="search" />
-            <input type="text" placeholder="Search" onChange={onChange} />
+        <div className="d-flex flex-row gap-3  align-items-center">
+          <span className={styles["search-section"]}>
+            <span className={styles.search}>
+              <input
+                type="text"
+                placeholder="Search"
+                onChange={onChange}
+                className={
+                  toggleSearch
+                    ? styles["search-input"]
+                    : styles["search-input-active"]
+                }
+              />
+              <img src={searchIcon} alt="search" onClick={handleToggleSearch} />
+            </span>
           </span>
           {accessToken ? (
             <>
