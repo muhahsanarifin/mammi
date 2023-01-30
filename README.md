@@ -93,23 +93,27 @@
 
 ![Home](src/assets/images/home-mammi.png?raw=true)
 
-## Product
+## Products | Customer
 
-![Product](src/assets/images/product-mammi.png?raw=true)
+![Product Customer](src/assets/images/product-mammi.png?raw=true)
+
+## Products | Admin
+
+![Product Admin](src/assets/images/products-mammi-admin.png?raw=true)
 
 ## Forgot Password
 
-![Profile](src/assets/images/forgot-password-mammi.png?raw=true)
+![Forgot Password](src/assets/images/forgot-password-mammi.png?raw=true)
 
 
 ## History Customer
 
-![Profile](src/assets/images/history-customer-mammi.png?raw=true)
+![History Customer](src/assets/images/history-customer-mammi.png?raw=true)
 
 
 ## Product Detail Customer
 
-![Profile](src/assets/images/product-detail-customer-mammi.png?raw=true)
+![Product Detail Customer](src/assets/images/product-detail-customer-mammi.png?raw=true)
 
 
 ## Profile
@@ -119,7 +123,19 @@
 
 ## Payment And Delivery
 
-![Profile](src/assets/images/payment-and-delivery-mammi.png?raw=true)
+![Payment And Delivery](src/assets/images/payment-and-delivery-mammi.png?raw=true)
+
+## Create Promo
+
+![Create Promo](src/assets/images/create-promo-mammi.png?raw=true)
+
+## Create Product
+
+![Create Product](src/assets/images/create-product-mammi.png?raw=true)
+
+## Handle Transactions
+
+![Handle Transactions](src/assets/images/handle-transaction-customer-mammi.png?raw=true)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
