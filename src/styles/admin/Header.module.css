@@ -80,6 +80,7 @@
 }
 
 .search-section {
+  /* border: 1px solid darkblue; */
   width: 168px;
   display: flex;
   justify-content: flex-end;
@@ -138,11 +139,16 @@
 /* || Responsive */
 
 @media all and (max-width: 480px) {
+  .search-section {
+    border: 1px solid darkgoldenrod;
+    width: 128px;
+  }
   .search {
     border-radius: 8px;
   }
 
   .search-input-active {
+    border: 1px solid darkgreen;
     width: 5rem;
   }
 
@@ -155,6 +161,7 @@
     position: relative;
     justify-content: space-between !important;
     padding: 0 1rem;
+    border: 1px solid red;
   }
 
   .navbar {
