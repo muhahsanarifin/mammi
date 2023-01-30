@@ -13,26 +13,35 @@ import TitleBar from "../components/TitleBar";
 import PrivateRoute from "../utils/PrivateRoute";
 
 import styles from "../styles/Checkout.module.css";
-import creditCard from "../assets/icons/credit-card.svg";
-import bankAccount from "../assets/icons/bank.svg";
-import delivery from "../assets/icons/fast-delivery.svg";
+import AddressDetails from "../components/AddressDetails";
+import PaymentMethod from "../components/PaymentMethod";
+import CustomersList from "../components/admin/Customers";
+import StatusList from "../components/admin/Status";
+import ProductOrder from "../components/admin/ProductOrder";
 
 const Order = () => {
   // const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
-  // TODO: Private Route
+
+  // Private Route
   PrivateRoute(!accessToken, -1);
+
   const dispatch = useDispatch();
   const checkout = useSelector((state) => state.cart.checkout);
   const orderSummaryOfCheckout = useSelector(
     (state) => state.cart.orderSummaryOfCheckout
   );
 
-  const detail = useSelector((state) => state.profiles.resultProfileDetail[0]); // <= Convert to object result from state
+  const detail = useSelector((state) => state.profiles.resultProfileDetail[0]);
   const contact = useSelector(
     (state) => state.profiles.resultProfileContact[0]
   );
+
+  // Product Order
+  const [status, setStatus] = useState("Pending");
+  const [customer, setCustomer] = useState("");
+  const [orderId, setOrderId] = useState();
 
   // Value Input Form
   const [address, setAddress] = useState(detail.address);
@@ -118,6 +127,43 @@ const Order = () => {
     dispatch(cart.orderSummaryThunkOfCheckout(deletedOrderSummaryOfCheckout));
   };
 
+  // Handle Mark as done
+  // const handlemarkAsDone = () => {
+  //   console.log("Order Id: ", orderId);
+  //   setTimeout(() => {
+  //     console.log("Success");
+  //   }, 2500);
+
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 5000);
+  // };
+
+  const resUpdatedStasusFulfilled = (data) => {
+    console.log(data);
+      setTimeout(() => {
+        console.log("Success");
+      }, 2500);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+  };
+
+  const handlemarkAsDone = () => {
+    const body = {
+      status: "Delivered",
+    };
+
+    dispatch(
+      TransactionsAction.updateStatusTransactionThunk(
+        orderId,
+        body,accessToken,
+        resUpdatedStasusFulfilled
+      )
+    );
+  };
+
   return (
     <>
       <TitleBar title={`MAMMI | Orders`} />
@@ -132,96 +178,89 @@ const Order = () => {
         </section>
         <section className={styles.sides}>
           <span className={styles["left-side"]}>
-            <span className={styles["order-summary"]}>
-              {/* Order Summary Of Checkout Single */}
-              {orderSummaryOfCheckout?.product_name ? (
-                <CartSingleProduct
-                  orderSummaryOfCheckout={orderSummaryOfCheckout}
-                  handleDeleteProduct={handleDeleteProductForCheckout}
-                />
-              ) : (
-                <span className={styles["cart-empty-section"]}>
-                  <p className={styles["cart-empty-section__font"]}>
-                    Your cart is empty
-                  </p>
-                </span>
-              )}
-            </span>
+            {/* Customer & Admin */}
+            {accessRole === "Customer" ? (
+              <span className={styles["order-summary"]}>
+                {/* Order Summary Of Checkout Single */}
+                {orderSummaryOfCheckout?.product_name ? (
+                  <CartSingleProduct
+                    orderSummaryOfCheckout={orderSummaryOfCheckout}
+                    handleDeleteProduct={handleDeleteProductForCheckout}
+                  />
+                ) : (
+                  <span className={styles["cart-empty-section"]}>
+                    <p className={styles["cart-empty-section__font"]}>
+                      Your cart is empty
+                    </p>
+                  </span>
+                )}
+              </span>
+            ) : (
+              <ProductOrder
+                status={status}
+                customer={customer}
+                onSetOrderId={setOrderId}
+              />
+            )}
           </span>
           <span className={styles["right-side"]}>
-            {accessRole === "Customer" && (
-              <span className={styles["right-side__address-details"]}>
+            {/* Customer & Admin */}
+            <span className={styles["right-side__address-details"]}>
+              {accessRole === "Customer" ? (
                 <span className={styles["address-detail-top"]}>
                   <p>Address details</p>
                   <p className={styles["address-btn-edit"]}>Edit</p>
                 </span>
-                <span className={styles["address-detail-bottom"]}>
-                  <input
-                    type="text"
-                    name="address"
-                    id="address"
-                    value={address}
-                    className={styles["address"]}
-                    onChange={(e) => setAddress(e.target.value)}
+              ) : (
+                <>
+                  <span className={styles["address-detail-top"]}>
+                    <p>Customers list</p>
+                  </span>
+                  <CustomersList onCustomers={setCustomer} />
+                </>
+              )}
+
+              {accessRole === "Customer" ? (
+                <AddressDetails
+                  address={address}
+                  onSetAddress={(e) => setAddress(e.target.value)}
+                  telp={telp}
+                  onsetTelp={(e) => setTelp(e.target.value)}
+                />
+              ) : // <span>Admin Section</span>
+              null}
+            </span>
+            {/* Customer & Admin */}
+            <span className={styles["right-side__payment-method"]}>
+              {accessRole === "Customer" ? (
+                <>
+                  <span className={styles["right-side__payment-method__title"]}>
+                    <p>Payment Method</p>
+                  </span>
+                  <PaymentMethod
+                    onSetPayment={(e) => setPayment(e.target.value)}
                   />
-                  <input
-                    type="number"
-                    name="telp"
-                    id="telp"
-                    value={telp}
-                    className={styles["telp"]}
-                    onChange={(e) => setTelp(e.target.value)}
-                  />
-                </span>
-              </span>
-            )}
-            {accessRole === "Customer" && (
-              <span className={styles["right-side__payment-method"]}>
-                <span className={styles["right-side__payment-method__title"]}>
-                  <p>Payment Method</p>
-                </span>
-                <span className={styles["right-side__payment-method__types"]}>
-                  <span className={styles["payment-method__card"]}>
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value={1}
-                      onChange={(e) => setPayment(e.target.value)}
-                    />
-                    <label>
-                      <img src={creditCard} alt="Card" />
-                      Card
-                    </label>
+                </>
+              ) : (
+                <>
+                  <span className={styles["right-side__payment-method__title"]}>
+                    <p>Status list</p>
                   </span>
-                  <span className={styles["bank-account"]}>
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value={2}
-                      onChange={(e) => setPayment(e.target.value)}
-                    />
-                    <label>
-                      <img src={bankAccount} alt="Bank Account" />
-                      Bank Account
-                    </label>
-                  </span>
-                  <span className={styles["cash-on-delivery"]}>
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value={3}
-                      onChange={(e) => setPayment(e.target.value)}
-                    />
-                    <label>
-                      <img src={delivery} alt="Cash on Delivery" />
-                      Cash on Delivery
-                    </label>
-                  </span>
-                </span>
-              </span>
-            )}
+                  <StatusList onFilter={setStatus} />
+                </>
+              )}
+            </span>
+            {/* Customer & Admin */}
             {accessRole === "Admin" ? (
-              <button className={styles["confirm-and-pay"]}>
+              <button
+                className={
+                  !orderId
+                    ? styles["mark-as-done"]
+                    : styles["mark-as-done-active"]
+                }
+                onClick={handlemarkAsDone}
+                disabled={!orderId}
+              >
                 Mark as done
               </button>
             ) : (
