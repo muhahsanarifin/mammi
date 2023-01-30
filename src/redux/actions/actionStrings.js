@@ -1,11 +1,33 @@
 export const actionStrings = {
   // Product
   getProducts: "PRODUCTS_GET",
+  // editProdcut: "PRODUCT_EDIT",
+  // deleteProduct: "PRODUCT_DELETE",
+  // createProduct: "PRODUCT_CREATE",
 
   // Profile
   editProfile: "PROFILE_EDIT",
   getProfileContact: "PROFILE_CONTACT_GET",
   getProfileDetail: "PROFILE_DETAIL_GET",
+
+  // Users
+  getUsers: "USERS_GET",
+  registerUser: "USER_REGISTER",
+  editPassword: "PASSWORD_EDIT",
+  deleteAccount: "ACCOUNT_DELETE",
+
+  // Deliveries
+  // getDeliveries: "DELIVERIES_GET",
+  // getDelivery: "DELIVERY_GET",
+  // createDelivery: "DELIVERY_CREATE",
+  // editDelivery: "DELIVERY_EDIT",
+
+  // Sizes
+  getSizes: "SIZES_GET",
+  getSize: "SIZE_GET",
+  createSize: "SIZE_CREATE",
+  editSize: "SIZE_EDIT",
+  deleteSize: "SIZE_DELETE",
 
   // Counters
   // counterUp: "COUNTER_UP",
@@ -25,7 +47,7 @@ export const actionStrings = {
   getTransactions: "TRANSACTIONS_GET",
   createTransaction: "TRANSACTION_CREATE",
   editTransaction: "TRANSACTION_EDIT",
-  deleteTransaction: "TRANSACTION_DELELTE",
   updateStatusTransaction: "STATUS_TRANSACTION_UPDATE",
+  deleteTransaction: "TRANSACTION_DELELTE",
   getHistoryTransaction: "HISTORY_TRANSACTION_GET",
 };
