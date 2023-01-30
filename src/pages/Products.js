@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -19,7 +19,8 @@ import styles from "../styles/Products.module.css";
 
 const Products = () => {
   // const [loading, setLoading] = useState(false);
-  // const navigation = useNavigate();
+  const navigation = useNavigate();
+  const[productId, setProductId] = useState();
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
   const [loadProduct, setLoadProduct] = useState([]);
@@ -87,7 +88,7 @@ const Products = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
       );
-      // console.log(response.data.result
+      console.log('Promo: ',response.data.result.data)
       setTimeout(() => {
         setPromos(response.data.result.data);
       }, 1000);
@@ -101,6 +102,8 @@ const Products = () => {
   useEffect(() => {
     getPromos();
   }, []);
+
+  console.log("Product id: ", productId?.split(" "));
 
   return (
     <>
@@ -117,11 +120,23 @@ const Products = () => {
           <h3 className={styles["promo__title"]}>Promo for you</h3>
           <p className={styles["promo__announcement"]}>
             Coupon will updated every weeks. Check them out
-          </p>
+        </p>
           {loadPromo && <PromoCardSkeleton />}
           {/* TODO: Promo card */}
-          <PromoCard promos={promos} />
-          <button className={styles["btn-coupon"]}> Apply Coupon</button>
+          <PromoCard promos={promos} onProductId={setProductId} />
+          <button
+            className={
+              !productId ? styles["btn-coupon"] : styles["btn-coupon-active"]
+            }
+            onClick={() => navigation(`/product/${productId?.split(" ")[0]}`)}
+            disabled={!productId}
+          >
+            {!productId ? (
+              <span>Tap promo card</span>
+            ) : (
+              <span>{`Apply ${productId?.split(" ")[1]}`}</span>
+            )}
+          </button>
           <span className={styles["terms-and-condition"]}>
             <h3>Terms and Condition</h3>
             <p>1. You can only apply 1 coupon per day</p>
@@ -149,7 +164,7 @@ const Products = () => {
           >
             {/* {errorMsg ? <p>{errorMsg}</p>: null} */}
             {!products.length && <ProductCardSkeleton products={loadProduct} />}
-            {/* TODO: Product card */}
+            {/* Product card */}
             {products.map((product, idx) => (
               <ProductCard
                 productIdx={idx}
