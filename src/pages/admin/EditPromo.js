@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import promosAction from "../../redux/actions/promo";
 
 import HeaderAdmin from "../../components/admin/Header";
 import styles from "../../styles/admin/EditPromo.module.css";
 import PrivateRoute from "../../utils/PrivateRoute";
+import Button from "../../components/Button";
 
 const EditPromo = () => {
+  const distpatch = useDispatch();
   const navigation = useNavigate();
   const { id } = useParams();
   const [promo, setPromo] = useState([]);
@@ -17,31 +21,38 @@ const EditPromo = () => {
   const [start_active_date, setStartActiveDate] = useState("");
   const [expiry_date, setExpiryDate] = useState("");
   const [description, setDescription] = useState("");
-  // TODO: Private Route
+  const [deleteStatus, setDeleteStatus] = useState(false);
+  const [deleteTextSatus, setDeleteTextStatus] = useState("");
+  // Private Route
   PrivateRoute(!accessToken, -1);
 
-  // TODO: Persent Discount
+  // Persent Discount
   const persentDiscounts = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   // console.log(persentDiscounts);
   // console.log(typeof persentDiscounts);
 
-  // TODO: Get Promos
-  const getPromos = async () => {
-    try {
-      // setLoadPromo(true);
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos/${id}`
-      );
-      // console.log(response.data.result[0]);
-      setPromo(response.data.result[0]);
-    } catch (error) {
-      // setLoadPromo(true);
-      console.log(error.message);
-    } finally {
-      // setLoadPromo(false);
-    }
-  };
+  // Get Promos
   useEffect(() => {
+    const getPromos = async () => {
+      try {
+        // setLoadPromo(true);
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos/${id}`,
+          {
+            headers: {
+              "x-access-token": accessToken,
+            },
+          }
+        );
+        // console.log(response.data.result[0]);
+        setPromo(response.data.result[0]);
+      } catch (error) {
+        // setLoadPromo(true);
+        console.log(error.message);
+      } finally {
+        // setLoadPromo(false);
+      }
+    };
     getPromos();
   }, []);
 
@@ -90,6 +101,47 @@ const EditPromo = () => {
       console.log(error.message);
     }
   };
+
+  // Handle Delete Promo
+  const resFulfilled = (response) => {
+    // console.log(response);
+    setTimeout(() => {
+      setDeleteTextStatus(response);
+      setDeleteStatus(true);
+    }, 4000);
+  };
+
+  const resError = (response) => {
+    console.log(response); // <= Simple error response
+  };
+
+  const resFinnaly = () => {
+    setDeleteStatus(false);
+    setTimeout(() => {
+      window.location.replace("/products");
+    }, 5000);
+  };
+
+  const handleDeletePromo = () => {
+    distpatch(
+      promosAction.deletePromoThunk(
+        id,
+        accessToken,
+        resFulfilled,
+        resError,
+        resFinnaly
+      )
+    );
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100);
+  }, []);
 
   return (
     <>
@@ -209,7 +261,19 @@ const EditPromo = () => {
               </span>
             </span>
             <span className={styles["compact-component"]}>
-              <span className={styles.size}>
+              {!deleteStatus ? (
+                <Button
+                  buttonName={"Delete Promo"}
+                  titleButton={"Delete"}
+                  OnDelete={handleDeletePromo}
+                />
+              ) : (
+                <Button
+                  status={deleteStatus ? deleteTextSatus : null}
+                  displayButton={"none"}
+                />
+              )}
+              {/* <span className={styles.size}>
                 <label htmlFor="#">Input product size:</label>
                 <p>click methods you want to use for this product</p>
                 <span className={styles["size_type"]}>
@@ -222,8 +286,8 @@ const EditPromo = () => {
                     <li>500 gr</li>
                   </ul>
                 </span>
-              </span>
-              <span className={styles["delivery-entity"]}>
+              </span> */}
+              {/* <span className={styles["delivery-entity"]}>
                 <label htmlFor="#">Input delivery methods:</label>
                 <p>Click methods you want to use for this product</p>
                 <ul className={styles["delivery-methods"]}>
@@ -231,7 +295,7 @@ const EditPromo = () => {
                   <li>Dine in</li>
                   <li>Take away</li>
                 </ul>
-              </span>
+              </span> */}
               <span className={styles.stock}>
                 <label htmlFor="#">Enter the discount:</label>
                 <span className={styles["stock-component"]}>
