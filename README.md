@@ -127,11 +127,11 @@
 
 ## Create Promo
 
-![Create Promo](src/assets/images/create-promo-mammi.png?raw=true)
+![Create Promo](src/assets/images/create-promos-mammi.png?raw=true)
 
 ## Create Product
 
-![Create Product](src/assets/images/create-product-mammi.png?raw=true)
+![Create Product](src/assets/images/create-products-mammi.png?raw=true)
 
 ## Handle Transactions
 
