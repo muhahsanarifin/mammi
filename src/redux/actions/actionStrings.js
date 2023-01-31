@@ -2,7 +2,7 @@ export const actionStrings = {
   // Product
   getProducts: "PRODUCTS_GET",
   // editProdcut: "PRODUCT_EDIT",
-  // deleteProduct: "PRODUCT_DELETE",
+  deleteProduct: "PRODUCT_DELETE",
   // createProduct: "PRODUCT_CREATE",
 
   // Profile
@@ -21,6 +21,13 @@ export const actionStrings = {
   // getDelivery: "DELIVERY_GET",
   // createDelivery: "DELIVERY_CREATE",
   // editDelivery: "DELIVERY_EDIT",
+
+  // Promos
+  // getPromos: "PROMOS_GET",
+  // getPromo: "PROMO_GET",
+  // createPromo: "PROMO_CREATE",
+  // editPromo: "EDIT_PROMO",
+  deletePromo: "DELETE_PROMO",
 
   // Sizes
   getSizes: "SIZES_GET",
