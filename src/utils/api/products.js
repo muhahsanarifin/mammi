@@ -16,7 +16,7 @@ const editProduct = (id, body, accessToken) =>
   Axios.patch(`${BASE_URL}/products/edit/${id}`, body, config(accessToken));
 
 const deleteProduct = (id, accessToken) =>
-  Axios.delete(`${BASE_URL}/products/delete${id}`, config(accessToken));
+  Axios.delete(`${BASE_URL}/products/delete/${id}`, config(accessToken));
 
 const createProduct = (body, accessToken) =>
   Axios.post(`${BASE_URL}/products/create`, body, config(accessToken));
