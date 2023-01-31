@@ -109,14 +109,14 @@ const AddPromo = () => {
     }, 100);
   }, []);
 
-  console.log({
-    product_id,
-    code,
-    discount,
-    expiry_date,
-    start_active_date,
-    description,
-  });
+  // console.log({
+  //   product_id,
+  //   code,
+  //   discount,
+  //   expiry_date,
+  //   start_active_date,
+  //   description,
+  // });
 
   return (
     <>
