@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
+import { useDispatch } from "react-redux";
+import productsAction from "../../redux/actions/products";
 
 import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
 import styles from "../../styles/admin/EditProduct.module.css";
 import PrivateRoute from "../../utils/PrivateRoute";
 import { useState } from "react";
+import Button from "../../components/Button";
 
 const EditProduct = () => {
+  const dispatch = useDispatch();
   const [prevImage, setPrevImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [image, setImage] = useState(null);
@@ -20,6 +24,8 @@ const EditProduct = () => {
   const [stock, setStock] = useState(0);
   const accessToken = localStorage.getItem("access-token");
   const [products, setProductDetail] = useState([]);
+  const [deleteStatus, setDeleteStatus] = useState(false);
+  const [deleteTextSatus, setDeleteTextStatus] = useState("");
   const { id } = useParams();
   // TODO: Private Route
   PrivateRoute(!accessToken, -1);
@@ -116,6 +122,48 @@ const EditProduct = () => {
     setDescription(products.description);
     setStock(products.stock);
   };
+
+  // Handle delete product
+  const resFulfilled = (response) => {
+    // console.log(response);
+    setTimeout(() => {
+      setDeleteTextStatus(response);
+      setDeleteStatus(true);
+    }, 4000);
+  };
+
+  const resError = (response) => {
+    console.log(response); // <= Simple error response
+  };
+
+  const resFinnaly = () => {
+    setDeleteStatus(false);
+    setTimeout(() => {
+      window.location.replace("/products");
+    }, 5000);
+  };
+
+  const HandleDeleteProduct = () => {
+    // console.log(id);
+    dispatch(
+      productsAction.deleteProductThunk(
+        id,
+        accessToken,
+        resFulfilled,
+        resError,
+        resFinnaly
+      )
+    );
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100);
+  }, []);
 
   return (
     <>
@@ -260,7 +308,19 @@ const EditProduct = () => {
               </span>
             </span>
             <span className={styles["right-side-compact-component"]}>
-              <span className={styles.size}>
+              {!deleteStatus ? (
+                <Button
+                  buttonName={"Delete Product"}
+                  titleButton={"Delete"}
+                  OnDelete={HandleDeleteProduct}
+                />
+              ) : (
+                <Button
+                  status={deleteStatus ? deleteTextSatus : null}
+                  displayButton={"none"}
+                />
+              )}
+              {/* <span className={styles.size}>
                 <label htmlFor="#">Input product size:</label>
                 <p>click methods you want to use for this product</p>
                 <span className={styles["size_type"]} disabled>
@@ -273,8 +333,8 @@ const EditProduct = () => {
                     <li>500 gram</li>
                   </ul>
                 </span>
-              </span>
-              <span className={styles["delivery-entity"]}>
+              </span> */}
+              {/* <span className={styles["delivery-entity"]}>
                 <label htmlFor="#">Input delivery methods:</label>
                 <p>Click methods you want to use for this product</p>
                 <ul className={styles["delivery-methods"]} disabled>
@@ -282,7 +342,7 @@ const EditProduct = () => {
                   <li>Dine in</li>
                   <li>Take away</li>
                 </ul>
-              </span>
+              </span> */}
               <span className={styles["btn-product"]}>
                 <button
                   className={
