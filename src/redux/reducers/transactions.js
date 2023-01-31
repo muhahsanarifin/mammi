@@ -65,7 +65,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case createTransaction.concat("-", Pending):
       return {
@@ -89,7 +89,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case editTransaction.concat("-", Pending):
       return {
@@ -113,7 +113,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case updateStatusTransaction.concat("-", Pending):
       return {
@@ -137,7 +137,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case deleteTransaction.concat("-", Pending):
       return {
@@ -163,7 +163,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case getHistoryTransaction.concat("-", Pending):
       return {
@@ -195,7 +195,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     default:
       return prevState;
