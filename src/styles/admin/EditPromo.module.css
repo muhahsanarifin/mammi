@@ -416,9 +416,9 @@ select {
 }
 
 .compact-component {
-  /* border: 1px solid darkorchid; */
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .size {

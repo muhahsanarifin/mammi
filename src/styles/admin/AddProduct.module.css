@@ -191,12 +191,13 @@
   flex-direction: row;
   justify-content: center;
   gap: 1rem;
+  align-items: flex-end;
 }
 
 .left-side-compact-component {
   /* border: 1px solid darkgoldenrod; */
   position: relative;
-  right: 5.5rem;
+  /* right: 5.5rem; */
   display: flex;
   flex-direction: column;
 }
