@@ -205,7 +205,7 @@ const AddProduct = () => {
               </span>
             </span>
             <span className={styles["right-side-compact-component"]}>
-              <span className={styles.size}>
+              {/* <span className={styles.size}>
                 <label htmlFor="#">Input product size:</label>
                 <p>click methods you want to use for this product</p>
                 <span className={styles["size_type"]} disabled>
@@ -218,8 +218,8 @@ const AddProduct = () => {
                     <li>500 gram</li>
                   </ul>
                 </span>
-              </span>
-              <span className={styles["delivery-entity"]}>
+              </span> */}
+              {/* <span className={styles["delivery-entity"]}>
                 <label htmlFor="#">Input delivery methods:</label>
                 <p>Click methods you want to use for this product</p>
                 <ul className={styles["delivery-methods"]} disabled>
@@ -227,7 +227,7 @@ const AddProduct = () => {
                   <li>Dine in</li>
                   <li>Take away</li>
                 </ul>
-              </span>
+              </span> */}
               <span className={styles["btn-product"]}>
                 <button
                   className={
