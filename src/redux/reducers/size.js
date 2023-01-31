@@ -58,7 +58,7 @@ const sizesReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case getSize.concat("-", Pending):
       return {
@@ -82,7 +82,7 @@ const sizesReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case createSize.concat("-", Pending):
       return {
@@ -106,7 +106,7 @@ const sizesReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case editSize.concat("-", Pending):
       return {
@@ -130,7 +130,7 @@ const sizesReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
     case deleteSize.concat("-", Pending):
       return {
@@ -156,7 +156,7 @@ const sizesReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.result?.data.result.msg,
       };
 
     default:
