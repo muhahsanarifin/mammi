@@ -571,6 +571,10 @@
   width: 16px;
 }
 
+.review-detail {
+  color: #7895B2;
+}
+
 /* || Responsive */
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
