@@ -97,10 +97,11 @@ const ProductDetail = () => {
       try {
         setLoader(true);
         const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,{
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,
+          {
             headers: {
               "x-access-token": `${accessToken}`,
-            }
+            },
           }
         );
 
@@ -387,9 +388,15 @@ const ProductDetail = () => {
                   {product.description}
                 </article>
               ))}
-              <p className={styles["identity-product__description__delivery"]}>
-                Delivery only on Monday to Friday at 1-7pm
-              </p>
+              {accessRole === "Admin" ? (
+                null
+              ) : (
+                <p
+                  className={styles["identity-product__description__delivery"]}
+                >
+                  Delivery only on Monday to Friday at 1-7pm
+                </p>
+              )}
             </span>
           </section>
         </>
@@ -446,18 +453,18 @@ const ProductDetail = () => {
                 </option>
                 {promos.map((discount) => (
                   <>
-                   { product_id === discount.product_id ?
-                    <option
-                      value={
-                        product_id === discount.product_id
-                          ? `${discount.discount} ${discount.id}`
-                          : 0
-                      }
-                      style={{ fontSize: "12px" }}
-                    >
-                      {product_id === discount.product_id && discount.code}
-                    </option>
-                    : null}
+                    {product_id === discount.product_id ? (
+                      <option
+                        value={
+                          product_id === discount.product_id
+                            ? `${discount.discount} ${discount.id}`
+                            : 0
+                        }
+                        style={{ fontSize: "12px" }}
+                      >
+                        {product_id === discount.product_id && discount.code}
+                      </option>
+                    ) : null}
                   </>
                 ))}
               </select>
@@ -582,12 +589,18 @@ const ProductDetail = () => {
               </li>
             </ul>
           </span>
-          <span className={styles["checkout-btn"]} onClick={handleCheckout}>
-            <p>Checkout</p>
-            <span className={styles["checkout-btn-icon"]}>
-              <img src={arrowBrown} alt="Checkout Button" />
+          {accessRole === "Admin" ? (
+            <span className={styles["checkout-btn"]}>
+              <p className={styles["review-detail"]}>Review Detail</p>
             </span>
-          </span>
+          ) : (
+            <span className={styles["checkout-btn"]} onClick={handleCheckout}>
+              <p>Checkout</p>
+              <span className={styles["checkout-btn-icon"]}>
+                <img src={arrowBrown} alt="Checkout Button" />
+              </span>
+            </span>
+          )}
         </span>
       </section>
       <Footer />
