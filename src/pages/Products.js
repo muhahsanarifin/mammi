@@ -20,7 +20,7 @@ import styles from "../styles/Products.module.css";
 const Products = () => {
   // const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
-  const[productId, setProductId] = useState();
+  const [productId, setProductId] = useState();
   const [products, setProducts] = useState([]);
   const [promos, setPromos] = useState([]);
   const [loadProduct, setLoadProduct] = useState([]);
@@ -31,7 +31,8 @@ const Products = () => {
   const [price, setPrice] = useState([]);
   const [category, setCategory] = useState([]);
   const [search, setSearch] = useState("");
-  // const [errorMsg, setErrorMsg] = useState(false);
+  const [handleErrorMsg, handleSetErrorMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const accessRole = localStorage.getItem("access-role");
 
   // || Research
@@ -54,7 +55,9 @@ const Products = () => {
       }, 1000);
     } catch (error) {
       setLoadProduct(loadProduct);
-      console.log(error.response.data.result.msg);
+      // console.log(error);
+      setErrorMsg(error.response.data.result.msg);
+      handleSetErrorMsg(true);
     }
   };
   useEffect(() => {
@@ -68,7 +71,7 @@ const Products = () => {
   const handleSearch = (e) => {
     const delayDebounce = setTimeout(() => {
       setSearch(e.target.value);
-    }, 500);
+    }, 250);
     return () => clearTimeout(delayDebounce);
   };
 
@@ -88,7 +91,6 @@ const Products = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
       );
-      console.log('Promo: ',response.data.result.data)
       setTimeout(() => {
         setPromos(response.data.result.data);
       }, 1000);
@@ -102,8 +104,6 @@ const Products = () => {
   useEffect(() => {
     getPromos();
   }, []);
-
-  console.log("Product id: ", productId?.split(" "));
 
   return (
     <>
@@ -120,10 +120,11 @@ const Products = () => {
           <h3 className={styles["promo__title"]}>Promo for you</h3>
           <p className={styles["promo__announcement"]}>
             Coupon will updated every weeks. Check them out
-        </p>
+          </p>
           {loadPromo && <PromoCardSkeleton />}
           {/* TODO: Promo card */}
           <PromoCard promos={promos} onProductId={setProductId} />
+
           <button
             className={
               !productId ? styles["btn-coupon"] : styles["btn-coupon-active"]
@@ -157,32 +158,51 @@ const Products = () => {
           {/* Filter */}
           <Filter onCategory={setCategory} />
           <span className={styles["sorting-and-pagination"]}>
+            <button
+              onClick={() => window.location.reload()}
+              className={styles["refresh-product-btn"]}
+            >
+              refresh
+            </button>
             <Sorter onPrice={setPrice} onPost={setPost} />
           </span>
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
-            {/* {errorMsg ? <p>{errorMsg}</p>: null} */}
             {!products.length && <ProductCardSkeleton products={loadProduct} />}
             {/* Product card */}
-            {products.map((product, idx) => (
-              <ProductCard
-                productIdx={idx}
-                productId={product.id}
-                productImage={product.image}
-                productName={product.product_name}
-                prodcutPrice={product.price}
-              />
-            ))}
+            {!handleErrorMsg &&
+              products.map((product, idx) => (
+                <ProductCard
+                  productIdx={idx}
+                  productId={product.id}
+                  productImage={product.image}
+                  productName={product.product_name}
+                  prodcutPrice={product.price}
+                />
+              ))}
+            {handleErrorMsg ? (
+              <span className={styles["error-section"]}>
+                <p className={styles["error-msg"]}>{errorMsg}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className={styles["error-msg-btn"]}
+                >
+                  refresh
+                </button>
+              </span>
+            ) : null}
           </span>
           {accessRole === "Admin" ? (
             <>
-              <Paginations
-                limitPage={limit}
-                currentPage={page}
-                setcurrentPage={setPage}
-                totalPages={totalPages}
-              />
+              {!handleErrorMsg && (
+                <Paginations
+                  limitPage={limit}
+                  currentPage={page}
+                  setcurrentPage={setPage}
+                  totalPages={totalPages}
+                />
+              )}
               <Link
                 to={`/product/add`}
                 className={styles["link-btn-new-product"]}
@@ -193,12 +213,14 @@ const Products = () => {
               </Link>
             </>
           ) : (
-            <Paginations
-              limitPage={limit}
-              currentPage={page}
-              setcurrentPage={setPage}
-              totalPages={totalPages}
-            />
+            !handleErrorMsg && (
+              <Paginations
+                limitPage={limit}
+                currentPage={page}
+                setcurrentPage={setPage}
+                totalPages={totalPages}
+              />
+            )
           )}
         </section>
       </main>

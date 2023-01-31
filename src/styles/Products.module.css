@@ -105,12 +105,38 @@
   min-height: 40.075rem;
 }
 
+.error-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error-msg {
+  font-size: 24px;
+  font-weight: 800;
+  color: #EB455F;
+}
+
+.error-msg-btn , .refresh-product-btn{
+  border: none;
+  width: fit-content;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color:#7895B2;
+  color: var(--product-font-fourth-color);
+  
+}
+
+.error-msg-btn {
+  align-self: flex-end;
+}
+
 .sorting-and-pagination {
-  /* border: 1px solid darkblue; */
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 }
 
