@@ -572,7 +572,7 @@
 }
 
 .review-detail {
-  color: #7895B2;
+  color: #7895b2;
 }
 
 /* || Responsive */
@@ -695,5 +695,9 @@
     /* border: 1px solid darkblue; */
     flex-wrap: wrap;
     padding: 2.5rem 0.5rem;
+  }
+
+  .review-detail {
+    font-size: 12px;
   }
 }
