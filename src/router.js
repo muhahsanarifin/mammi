@@ -18,7 +18,7 @@ import AddProduct from "./pages/admin/AddProduct";
 import AddPromo from "./pages/admin/AddPromo";
 import EditPromo from "./pages/admin/EditPromo";
 import EditProduct from "./pages/admin/EditProduct";
-// import Dashboard from "./pages/admin/Dashboard";
+import Dashboard from "./pages/admin/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -81,11 +81,10 @@ const router = createBrowserRouter([
     path: "/promo/:id/edit",
     element: <EditPromo />,
   },
-
-  // {
-  //   path: "/dashboard",
-  //   element: <Dashboard />,
-  // },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
 ]);
 
 export default router;
