@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from "../styles/AddressDetails.module.css"
 
-const AddressDetails = ({address, telp, onSetAddress, onsetTelp}) => {
+const AddressDetails = ({address, telp, onSetAddress, onsetTelp, onDisable}) => {
   return (
     <span className={styles["address-detail-bottom"]}>
       <input
@@ -12,6 +12,7 @@ const AddressDetails = ({address, telp, onSetAddress, onsetTelp}) => {
         value={address}
         className={styles["address"]}
         onChange={onSetAddress}
+        disabled={onDisable}
       />
       <input
         type="number"
@@ -20,6 +21,7 @@ const AddressDetails = ({address, telp, onSetAddress, onsetTelp}) => {
         value={telp}
         className={styles["telp"]}
         onChange={onsetTelp}
+        disabled={onDisable}
       />
     </span>
   );
