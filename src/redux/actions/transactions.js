@@ -6,6 +6,7 @@ import {
   deleteTransaction,
   getHistoryTransaction,
   updateStatusTransaction,
+  getDataDashboard,
 } from "../../utils/api/transactions";
 import { actionStrings } from "./actionStrings";
 
@@ -101,12 +102,33 @@ const getHistoryTransactionsRejected = (error) => ({
   payload: { error },
 });
 
+// Get data dashboard actions
+const getDataDashboardPending = () => ({
+  type: actionStrings.getDataDashboard.concat("-", Pending),
+});
+
+const getDataDashboardFulfilled = (data) => ({
+  type: actionStrings.getDataDashboard.concat("-", Fulfilled),
+  payload: { data },
+});
+
+const getDataDashboardRejected = (error) => ({
+  type: actionStrings.getDataDashboard.concat("-", Rejected),
+  payload: { error },
+});
+
 // Get transactions thunk
-const getTransactionsThunk = (token, cbQueryParams,cbFulfilled, cbError, cbFinally) => {
+const getTransactionsThunk = (
+  accessToken,
+  cbQueryParams,
+  cbFulfilled,
+  cbError,
+  cbFinally
+) => {
   return async (dispatch) => {
     try {
       dispatch(getTransactionsPending());
-      const result = await getTransactions(token, cbQueryParams);
+      const result = await getTransactions(accessToken, cbQueryParams);
       console.log(result.data);
       dispatch(getTransactionsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled(result.data.result.data);
@@ -120,11 +142,11 @@ const getTransactionsThunk = (token, cbQueryParams,cbFulfilled, cbError, cbFinal
 };
 
 // Create transactions thunk
-const createTransactionThunk = (body, token, cbFulfilled, cbError) => {
+const createTransactionThunk = (body, accessToken, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(createTransactionPending());
-      const result = await createTransaction(body, token);
+      const result = await createTransaction(body, accessToken);
       // console.log("Result create transaction: ", result);
       dispatch(createTransactionFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
@@ -136,11 +158,11 @@ const createTransactionThunk = (body, token, cbFulfilled, cbError) => {
 };
 
 // Edit transactions thunk
-const editTransactionsThunk = (id, body, token, cbFulfilled, cbError) => {
+const editTransactionsThunk = (id, body, accessToken, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(editTransactionsPending());
-      const result = await editTransaction(id, body, token);
+      const result = await editTransaction(id, body, accessToken);
       // console.log(result.data);
       dispatch(editTransactionsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
@@ -152,11 +174,17 @@ const editTransactionsThunk = (id, body, token, cbFulfilled, cbError) => {
 };
 
 // Update status transactions thunk
-const updateStatusTransactionThunk = (id, body, token, cbFulfilled, cbError) => {
+const updateStatusTransactionThunk = (
+  id,
+  body,
+  accessToken,
+  cbFulfilled,
+  cbError
+) => {
   return async (dispatch) => {
     try {
       dispatch(updateStatusTransactionPending());
-      const result = await updateStatusTransaction(id, body, token);
+      const result = await updateStatusTransaction(id, body, accessToken);
       console.log(result.data);
       dispatch(updateStatusTransactionFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled(result.data);
@@ -168,11 +196,11 @@ const updateStatusTransactionThunk = (id, body, token, cbFulfilled, cbError) => 
 };
 
 // Delete transactions thunk
-const deleteTransactionThunk = (id, token, cbFulfilled, cbError) => {
+const deleteTransactionThunk = (id, accessToken, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(deleteTransactionPending());
-      const result = await deleteTransaction(id, token);
+      const result = await deleteTransaction(id, accessToken);
       // console.log(result.data);
       dispatch(deleteTransactionFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
@@ -184,16 +212,32 @@ const deleteTransactionThunk = (id, token, cbFulfilled, cbError) => {
 };
 
 // Get history transactions thunk
-const getHistoryTransactionsThunk = (token, cbFulfilled, cbError) => {
+const getHistoryTransactionsThunk = (accessToken, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(getHistoryTransactionsPending());
-      const result = await getHistoryTransaction(token);
+      const result = await getHistoryTransaction(accessToken);
       // console.log(result.data);
       dispatch(getHistoryTransactionsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
       dispatch(getHistoryTransactionsRejected(error));
+      typeof cbError === "function" && cbError();
+    }
+  };
+};
+
+// Get data dashboard thunk
+const getDataDashboardThunk = (accessToken, cbFulfilled, cbError) => {
+  return async (dispatch) => {
+    try {
+      dispatch(getDataDashboardPending());
+      const result = await getDataDashboard(accessToken);
+      // console.log(result.data);
+      dispatch(getDataDashboardFulfilled(result.data));
+      typeof cbFulfilled === "function" && cbFulfilled(result.data.data);
+    } catch (error) {
+      dispatch(getDataDashboardRejected(error));
       typeof cbError === "function" && cbError();
     }
   };
@@ -206,6 +250,7 @@ const TransactionsAction = {
   updateStatusTransactionThunk,
   deleteTransactionThunk,
   getHistoryTransactionsThunk,
+  getDataDashboardThunk,
 };
 
 export default TransactionsAction;

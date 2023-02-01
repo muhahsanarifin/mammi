@@ -1,5 +1,6 @@
 import { ActionType } from "redux-promise-middleware";
 import { actionStrings } from "../actions/actionStrings";
+import { getDataDashboard } from "../../utils/api/transactions";
 
 const initialState = {
   resultTransactions: {
@@ -27,6 +28,9 @@ const initialState = {
       status: null,
     },
   ],
+  getDataDashboard: {
+    data: [],
+  },
   isLoading: false,
   isError: false,
   err: null,
@@ -41,6 +45,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
     updateStatusTransaction,
     deleteTransaction,
     getHistoryTransaction,
+    getDataDashboard
   } = actionStrings;
   switch (type) {
     case getTransactions.concat("-", Pending):
@@ -179,7 +184,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: false,
         isFulfilled: true,
-        result: [
+        getTransactionHistory: [
           {
             product_name: payload.data.result.product_name,
             price: payload.data.result.price,
@@ -190,6 +195,30 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         ],
       };
     case getHistoryTransaction.concat("-", Rejected):
+      return {
+        ...prevState,
+        isLoading: false,
+        isError: true,
+        isFulfilled: false,
+        err: payload.error.result?.data.result.msg,
+      };
+    case getDataDashboard.concat("-", Pending):
+      return {
+        ...prevState,
+        isLoading: true,
+        isError: false,
+        isFulfilled: false,
+      };
+    case getDataDashboard.concat("-", Fulfilled):
+      return {
+        ...prevState,
+        err: null,
+        isLoading: false,
+        isError: false,
+        isFulfilled: true,
+        getDataDashboard: payload.data,
+      };
+    case getDataDashboard.concat("-", Rejected):
       return {
         ...prevState,
         isLoading: false,

@@ -57,4 +57,7 @@ export const actionStrings = {
   updateStatusTransaction: "STATUS_TRANSACTION_UPDATE",
   deleteTransaction: "TRANSACTION_DELELTE",
   getHistoryTransaction: "HISTORY_TRANSACTION_GET",
+
+  // Data dashboard
+  getDataDashboard: "DATA_DASHBOARD_GET",
 };
