@@ -23,6 +23,7 @@ const Order = () => {
   // const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
+  const [handleAddressDetail, setHandleAddressDetail] = useState(true);
 
   // Private Route
   PrivateRoute(!accessToken, -1);
@@ -42,6 +43,9 @@ const Order = () => {
   const [status, setStatus] = useState("Pending");
   const [customer, setCustomer] = useState("");
   const [orderId, setOrderId] = useState();
+
+  // Another value which display on order side admin.
+  // const [display_name, setDisplayName] = useState(detail.display_name);
 
   // Value Input Form
   const [address, setAddress] = useState(detail.address);
@@ -72,7 +76,7 @@ const Order = () => {
   };
 
   const handleDeleteProductForCheckout = () => {
-    console.log("Accan");
+    // console.log("Accan");
     const deletedCeckout = clearObj(checkout);
     const deletedOrderSummaryOfCheckout = clearObj(orderSummaryOfCheckout);
 
@@ -90,7 +94,7 @@ const Order = () => {
     setBody({ address, telp, payment_id });
   }, [payment_id, telp, address]);
 
-  console.log("Other Body: ", body);
+  // console.log("Other Body: ", body);
 
   const resFullfilled = () => {
     setTimeout(() => {
@@ -128,6 +132,7 @@ const Order = () => {
   };
 
   // Handle Mark as done
+
   // const handlemarkAsDone = () => {
   //   console.log("Order Id: ", orderId);
   //   setTimeout(() => {
@@ -141,13 +146,13 @@ const Order = () => {
 
   const resUpdatedStasusFulfilled = (data) => {
     console.log(data);
-      setTimeout(() => {
-        console.log("Success");
-      }, 2500);
+    setTimeout(() => {
+      console.log("Success");
+    }, 2500);
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
   };
 
   const handlemarkAsDone = () => {
@@ -158,7 +163,8 @@ const Order = () => {
     dispatch(
       TransactionsAction.updateStatusTransactionThunk(
         orderId,
-        body,accessToken,
+        body,
+        accessToken,
         resUpdatedStasusFulfilled
       )
     );
@@ -207,10 +213,26 @@ const Order = () => {
             {/* Customer & Admin */}
             <span className={styles["right-side__address-details"]}>
               {accessRole === "Customer" ? (
-                <span className={styles["address-detail-top"]}>
-                  <p>Address details</p>
-                  <p className={styles["address-btn-edit"]}>Edit</p>
-                </span>
+                <>
+                  <span className={styles["address-detail-top"]}>
+                    <p>Address details</p>
+                    <p
+                      className={styles["address-btn-edit"]}
+                      onClick={() =>
+                        setHandleAddressDetail(!handleAddressDetail)
+                      }
+                    >
+                      Edit
+                    </p>
+                  </span>
+                  <AddressDetails
+                    address={address}
+                    onSetAddress={(e) => setAddress(e.target.value)}
+                    telp={telp}
+                    onsetTelp={(e) => setTelp(e.target.value)}
+                    onDisable={handleAddressDetail}
+                  />
+                </>
               ) : (
                 <>
                   <span className={styles["address-detail-top"]}>
@@ -219,16 +241,6 @@ const Order = () => {
                   <CustomersList onCustomers={setCustomer} />
                 </>
               )}
-
-              {accessRole === "Customer" ? (
-                <AddressDetails
-                  address={address}
-                  onSetAddress={(e) => setAddress(e.target.value)}
-                  telp={telp}
-                  onsetTelp={(e) => setTelp(e.target.value)}
-                />
-              ) : // <span>Admin Section</span>
-              null}
             </span>
             {/* Customer & Admin */}
             <span className={styles["right-side__payment-method"]}>
