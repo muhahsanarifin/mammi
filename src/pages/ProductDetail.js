@@ -388,9 +388,7 @@ const ProductDetail = () => {
                   {product.description}
                 </article>
               ))}
-              {accessRole === "Admin" ? (
-                null
-              ) : (
+              {accessRole === "Admin" ? null : (
                 <p
                   className={styles["identity-product__description__delivery"]}
                 >
