@@ -32,6 +32,9 @@ const deleteTransaction = (id, accessToken) =>
 const getHistoryTransaction = (accessToken) =>
   Axios.get(`${BASE_URL}/transactions/history`, config(accessToken));
 
+const getDataDashboard = (accessToken) =>
+  Axios.get(`${BASE_URL}/transactions/data/dashboard`, config(accessToken));
+
 export {
   getTransactions,
   createTransaction,
@@ -39,4 +42,5 @@ export {
   updateStatusTransaction,
   deleteTransaction,
   getHistoryTransaction,
+  getDataDashboard,
 };
