@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   // Get Transactions
   const resTransactionFulfilled = (data) => {
-     console.log("Transactions data: ", data);
+    //  console.log("Transactions data: ", data);
     setTransactions(data);
   };
 
