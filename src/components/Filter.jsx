@@ -18,7 +18,7 @@ const Filter = ({ onCategory }) => {
     {
       id: 3,
       name: "Non Coffee",
-      nilai: "Non Coffee",
+      nilai: "NonCoffee",
       styles: "non-coffee-products",
     },
     {
