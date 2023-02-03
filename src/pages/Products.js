@@ -34,9 +34,8 @@ const Products = () => {
   const [handleErrorMsg, handleSetErrorMsg] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const accessRole = localStorage.getItem("access-role");
-
-  // || Research
-  const [totalPages, setTotalPages] = useState("");
+  const [intDataOfPagination, setIntDataOfPagination] = useState([]);
+  // const [totalPages, setTotalPages] = useState("");
 
   // TODO: Get Products
   const getProducts = async () => {
@@ -47,11 +46,9 @@ const Products = () => {
       setLoadProduct(response.data.result.data);
       setTimeout(() => {
         setProducts(response.data.result.data);
-        // console.log(response.data.result.data);
-
-        // Research
-        setTotalPages(response.data.result.totalPages);
-        // console.log(response.data.result);
+        // console.log("Products: ", response.data.result.data);
+        setIntDataOfPagination(response.data.result);
+        // setTotalPages(response.data.result.totalPages);
       }, 1000);
     } catch (error) {
       setLoadProduct(loadProduct);
@@ -74,6 +71,9 @@ const Products = () => {
     }, 250);
     return () => clearTimeout(delayDebounce);
   };
+
+  // console.log("sample data: ", intDataOfPagination)
+  //  console.log("products: ", products);
 
   // console.log(search);
   // console.log(products);
@@ -197,10 +197,12 @@ const Products = () => {
             <>
               {!handleErrorMsg && (
                 <Paginations
-                  limitPage={limit}
-                  currentPage={page}
-                  setcurrentPage={setPage}
-                  totalPages={totalPages}
+                  // limitPage={limit}
+                  // currentPage={page}
+                  // setcurrentPage={setPage}
+                  // totalPages={totalPages}
+                  setDataProductsOfPagination={setProducts}
+                  initData={intDataOfPagination}
                 />
               )}
               <Link
@@ -215,10 +217,12 @@ const Products = () => {
           ) : (
             !handleErrorMsg && (
               <Paginations
-                limitPage={limit}
-                currentPage={page}
-                setcurrentPage={setPage}
-                totalPages={totalPages}
+                // limitPage={limit}
+                // currentPage={page}
+                // setcurrentPage={setPage}
+                // totalPages={totalPages}
+                setDataProductsOfPagination={setProducts}
+                initData={intDataOfPagination}
               />
             )
           )}
