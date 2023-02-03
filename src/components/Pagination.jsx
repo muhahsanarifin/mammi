@@ -1,39 +1,84 @@
-import React from "react";
-// import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { paginateProduct } from "../utils/api/products";
 
 import styles from "../styles/Pagination.module.css";
 
 const Paginations = ({
-  totalPages,
+  // totalPages,
   // limitPage,
-  currentPage,
-  setcurrentPage,
+  // currentPage,
+  // setcurrentPage,
+  setDataProductsOfPagination,
+  initData,
 }) => {
   // console.log("currentPage: " + currentPage);
   // console.log("totalPages: " + totalPages);
   // console.log("limitPage: " + limitPage);
   // console.log("securrentPage:" + setcurrentPage);
 
-  let pages = [];
+  const datas = initData;
+  // console.log(datas?.dataCount);
+  // console.log(datas?.next);
+  // console.log(datas?.previous);
+  // console.log(datas?.totalPages);
 
-  for (let idx = 1; idx <= totalPages; idx++) {
-    // console.log(pages.push(idx));
-    pages.push(idx);
-  }
+  const [urlNext, setUrlNext] = useState(datas?.next);
+  const [urlPrev, setUrlPrev] = useState(datas?.previous);
+  useEffect(() => {
+    setUrlNext(datas?.next);
+    setUrlPrev(datas?.previous);
+  }, [datas?.next, datas?.previous]);
+
+  // console.log("Sample url next: ", urlNext);
+  // console.log("Sample url previous: ", urlPrev);
+
+  const handlePrev = async () => {
+    const response = await paginateProduct(urlPrev);
+    // console.log("Handle prev data: ", response.data.result);
+    setDataProductsOfPagination(response.data.result.data);
+    setUrlPrev(response.data.result.previous);
+    setUrlNext(response.data.result.next);
+  };
+
+  const handleNext = async () => {
+    const response = await paginateProduct(urlNext);
+    // console.log("Handle next data: ", response.data.result);
+    setDataProductsOfPagination(response.data.result.data);
+    setUrlNext(response.data.result.next);
+    setUrlPrev(response.data.result.previous);
+    // console.log("Sample handle next: ", response.data.result.next);
+  };
+
+  // Second way
+  // let pages = [];
+  // for (let idx = 1; idx <= totalPages; idx++) {
+  //   console.log(pages.push(idx));
+  //   pages.push(idx);
+  // }
 
   return (
     <>
-      <span className={styles.pagination}>
-        {/* || Research */}
-        {/* <Pagination>
-          <PaginationItem>
-            <PaginationLink href={previous} previous style={{ color: "#6a4029" }} />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href={next} next style={{ color: "#6a4029" }} />
-          </PaginationItem>
-        </Pagination> */}
+      <div className={styles["pagination-section"]}>
+        {urlPrev !== null ? (
+          <button
+            className={styles["pagination-btn-next"]}
+            onClick={handlePrev}
+          >
+            Previous
+          </button>
+        ) : null}
+        {urlNext !== null ? (
+          <button
+            className={styles["pagination-btn-prev"]}
+            onClick={handleNext}
+          >
+            Next
+          </button>
+        ) : null}
+      </div>
 
+      {/* Second way */}
+      {/* <span className={styles.pagination}>
         {pages.map((page, idx) => (
           <button
             key={idx}
@@ -47,7 +92,7 @@ const Paginations = ({
             {page}
           </button>
         ))}
-      </span>
+      </span> */}
     </>
   );
 };
