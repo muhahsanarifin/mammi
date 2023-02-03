@@ -21,4 +21,13 @@ const deleteProduct = (id, accessToken) =>
 const createProduct = (body, accessToken) =>
   Axios.post(`${BASE_URL}/products/create`, body, config(accessToken));
 
-export { getProducts, editProduct, deleteProduct, createProduct };
+// Paginations
+const paginateProduct = (url) => Axios.get(url);
+
+export {
+  getProducts,
+  editProduct,
+  deleteProduct,
+  createProduct,
+  paginateProduct,
+};
