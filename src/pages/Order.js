@@ -17,13 +17,17 @@ import AddressDetails from "../components/AddressDetails";
 import PaymentMethod from "../components/PaymentMethod";
 import CustomersList from "../components/admin/Customers";
 import StatusList from "../components/admin/Status";
-import ProductOrder from "../components/admin/ProductOrder";
+import {
+  ProductOrder,
+  ProudctOrderPagination,
+} from "../components/admin/ProductOrder";
 
 const Order = () => {
   // const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
   const [handleAddressDetail, setHandleAddressDetail] = useState(true);
+  const [productOrder, setProductOrder] = useState([]);
 
   // Private Route
   PrivateRoute(!accessToken, -1);
@@ -202,11 +206,19 @@ const Order = () => {
                 )}
               </span>
             ) : (
-              <ProductOrder
-                status={status}
-                customer={customer}
-                onSetOrderId={setOrderId}
-              />
+              <>
+                <ProductOrder
+                  status={status}
+                  customer={customer}
+                  onSetOrderId={setOrderId}
+                  onProducctOrder={productOrder}
+                  onsetProductOrder={setProductOrder}
+                />
+                <ProudctOrderPagination
+                  token={accessToken}
+                  onsetProductOrder={setProductOrder}
+                />
+              </>
             )}
           </span>
           <span className={styles["right-side"]}>
