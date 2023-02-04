@@ -11,17 +11,7 @@ const Paginations = ({
   setDataProductsOfPagination,
   initData,
 }) => {
-  // console.log("currentPage: " + currentPage);
-  // console.log("totalPages: " + totalPages);
-  // console.log("limitPage: " + limitPage);
-  // console.log("securrentPage:" + setcurrentPage);
-
   const datas = initData;
-  // console.log(datas?.dataCount);
-  // console.log(datas?.next);
-  // console.log(datas?.previous);
-  // console.log(datas?.totalPages);
-
   const [urlNext, setUrlNext] = useState(datas?.next);
   const [urlPrev, setUrlPrev] = useState(datas?.previous);
   useEffect(() => {
@@ -29,12 +19,8 @@ const Paginations = ({
     setUrlPrev(datas?.previous);
   }, [datas?.next, datas?.previous]);
 
-  // console.log("Sample url next: ", urlNext);
-  // console.log("Sample url previous: ", urlPrev);
-
   const handlePrev = async () => {
     const response = await paginateProduct(urlPrev);
-    // console.log("Handle prev data: ", response.data.result);
     setDataProductsOfPagination(response.data.result.data);
     setUrlPrev(response.data.result.previous);
     setUrlNext(response.data.result.next);
@@ -42,11 +28,9 @@ const Paginations = ({
 
   const handleNext = async () => {
     const response = await paginateProduct(urlNext);
-    // console.log("Handle next data: ", response.data.result);
     setDataProductsOfPagination(response.data.result.data);
     setUrlNext(response.data.result.next);
     setUrlPrev(response.data.result.previous);
-    // console.log("Sample handle next: ", response.data.result.next);
   };
 
   // Second way
