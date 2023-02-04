@@ -35,6 +35,10 @@ const getHistoryTransaction = (accessToken) =>
 const getDataDashboard = (accessToken) =>
   Axios.get(`${BASE_URL}/transactions/data/dashboard`, config(accessToken));
 
+// Pagination
+const paginateProductOrder = (url, accessToken) =>
+  Axios.get(url, config(accessToken));
+
 export {
   getTransactions,
   createTransaction,
@@ -43,4 +47,5 @@ export {
   deleteTransaction,
   getHistoryTransaction,
   getDataDashboard,
+  paginateProductOrder,
 };
