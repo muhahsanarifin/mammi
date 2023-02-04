@@ -102,3 +102,24 @@
   font-size: 10px;
   color: #0081b4;
 }
+
+/* || Pagination button */
+.pagination-section {
+  /* border: 1px solid darkblue; */
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.btn-prev,
+.btn-next {
+  outline: none;
+  border: none;
+  padding: 0.2rem;
+  border-radius: 20px;
+  width: 56px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--product-border-color);
+  color: var(--pad-border-color);
+}
