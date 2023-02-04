@@ -36,7 +36,7 @@ const CustomersList = ({ onCustomers }) => {
         resFullfilled
       )
     );
-  }, [distpatch, page, limit]);
+  }, [distpatch, accessToken, page, limit]);
 
   const handleCustomer = (e) => {
     const delayDebounce = setTimeout(() => {
