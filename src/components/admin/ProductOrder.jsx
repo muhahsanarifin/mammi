@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TransactionsAction from "../../redux/actions/transactions";
+import { paginateProductOrder } from "../../utils/api/transactions";
 
 import styles from "../../styles/admin/ProductOrder.module.css";
 
-const ProductOrder = ({ status, customer, onSetOrderId }) => {
-  const [page, setPage] = useState("");
-  const [limit, setLimit] = useState("");
-  // const [status, setStatus] = useState("Pending");
-  const [products, setProducts] = useState([]);
-  // const [orderId, setOrderId] = useState();
+const ProductOrder = ({
+  status,
+  customer,
+  onSetOrderId,
+  onsetProductOrder,
+  onProducctOrder,
+}) => {
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
   const accessToken = localStorage.getItem("access-token");
   const dispatch = useDispatch();
 
   const resFullfilled = (data) => {
-    setProducts(data);
-    // console.log("Data customer transactions: ", data);
+    onsetProductOrder(data);
   };
 
   useEffect(() => {
@@ -28,13 +31,10 @@ const ProductOrder = ({ status, customer, onSetOrderId }) => {
     );
   }, [dispatch, accessToken, page, limit, status, customer]);
 
-  // console.log(orderId)
-
   return (
     <>
-      {/* <span>Product Order</span> */}
       <ul className={styles["order-summary__products"]}>
-        {products.map((product) => (
+        {onProducctOrder.map((product) => (
           <li
             className={styles["order-summary__product"]}
             onClick={
@@ -64,4 +64,61 @@ const ProductOrder = ({ status, customer, onSetOrderId }) => {
   );
 };
 
-export default ProductOrder;
+const ProudctOrderPagination = ({ token, onsetProductOrder }) => {
+  // Data of paginations
+  const resultTransactions = useSelector(
+    (state) => state.transactions.resultTransactions
+  );
+
+  // console.log("Data Count: ", resultTransactions?.dataCount);
+  // console.log("Next: ", resultTransactions?.next);
+  // console.log("Prev: ", resultTransactions?.previous);
+  // console.log("Total Pages: ", resultTransactions?.totalPages);
+
+  const [urlNext, setUrlNext] = useState(resultTransactions?.next);
+  const [urlPrev, setUrlPrev] = useState(resultTransactions?.previous);
+
+  useEffect(() => {
+    setUrlNext(resultTransactions?.next);
+    setUrlPrev(resultTransactions?.previous);
+  }, [resultTransactions?.next, resultTransactions?.previous]);
+
+  const handleNext = async () => {
+    const response = await paginateProductOrder(urlNext, token);
+    onsetProductOrder(response.data.result.data);
+    setUrlNext(response.data.result.next);
+    setUrlPrev(response.data.result.previous);
+    // console.log("Next data: ", response.data.result.next);
+    // console.log("Prev data: ", response.data.result.previous);
+  };
+
+  // console.log("Sample next: ", urlNext);
+  // console.log("Sample prev: ", urlPrev);
+
+  const handlePrev = async () => {
+    const response = await paginateProductOrder(urlPrev, token);
+    onsetProductOrder(response.data.result.data);
+    setUrlPrev(response.data.result.previous);
+    setUrlNext(response.data.result.next);
+    // console.log("Prev data: ", response.data.result.previous);
+  };
+
+  return (
+    <>
+      <span className={styles["pagination-section"]}>
+        {urlPrev !== null ? (
+          <button onClick={handlePrev} className={styles["btn-prev"]}>
+            prev
+          </button>
+        ) : null}
+        {urlNext !== null ? (
+          <button onClick={handleNext} className={styles["btn-next"]}>
+            next
+          </button>
+        ) : null}
+      </span>
+    </>
+  );
+};
+
+export { ProductOrder, ProudctOrderPagination };
