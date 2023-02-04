@@ -129,7 +129,7 @@ const getTransactionsThunk = (
     try {
       dispatch(getTransactionsPending());
       const result = await getTransactions(accessToken, cbQueryParams);
-      console.log(result.data);
+      // console.log("Transactions: ",result.data);
       dispatch(getTransactionsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled(result.data.result.data);
     } catch (error) {
@@ -185,7 +185,7 @@ const updateStatusTransactionThunk = (
     try {
       dispatch(updateStatusTransactionPending());
       const result = await updateStatusTransaction(id, body, accessToken);
-      console.log(result.data);
+      // console.log(result.data);
       dispatch(updateStatusTransactionFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled(result.data);
     } catch (error) {
