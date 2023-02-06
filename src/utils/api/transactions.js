@@ -29,8 +29,11 @@ const updateStatusTransaction = (id, body, accessToken) =>
 const deleteTransaction = (id, accessToken) =>
   Axios.delete(`${BASE_URL}/transactions/delete/${id}`, config(accessToken));
 
-const getHistoryTransaction = (accessToken) =>
-  Axios.get(`${BASE_URL}/transactions/history`, config(accessToken));
+const getHistoryTransaction = (accessToken, queryParams) =>
+  Axios.get(
+    `${BASE_URL}/transactions/history?${queryParams}`,
+    config(accessToken)
+  );
 
 const getDataDashboard = (accessToken) =>
   Axios.get(`${BASE_URL}/transactions/data/dashboard`, config(accessToken));
