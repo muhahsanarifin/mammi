@@ -83,6 +83,7 @@ const ProudctOrderPagination = ({ token, onsetProductOrder }) => {
     setUrlPrev(resultTransactions?.previous);
   }, [resultTransactions?.next, resultTransactions?.previous]);
 
+  // Handle Pagination
   const handleNext = async () => {
     const response = await paginateProductOrder(urlNext, token);
     onsetProductOrder(response.data.result.data);
@@ -108,12 +109,12 @@ const ProudctOrderPagination = ({ token, onsetProductOrder }) => {
       <span className={styles["pagination-section"]}>
         {urlPrev !== null ? (
           <button onClick={handlePrev} className={styles["btn-prev"]}>
-            prev
+            Previous
           </button>
         ) : null}
         {urlNext !== null ? (
           <button onClick={handleNext} className={styles["btn-next"]}>
-            next
+            Next
           </button>
         ) : null}
       </span>
