@@ -1,42 +1,69 @@
-import React from "react";
-import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import TitleBar from "../components/TitleBar";
 import PrivateRoute from "../utils/PrivateRoute";
+import TransactionsAction from "../redux/actions/transactions";
+import { paginateProductOrder } from "../utils/api/transactions";
+
 import styles from "../styles/History.module.css";
 
 const History = () => {
-  // const navigation = useNavigate();
+  const dispatch = useDispatch();
   const [historyTransactions, setHistoryTransactions] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(8);
   const accessToken = localStorage.getItem("access-token");
-  // const accessRole = localStorage.getItem("access-role");
-  // TODO: Private route
+  // Private route
   PrivateRoute(!accessToken, -1);
+  const getHistoryTransaction = useSelector(
+    (state) => state.transactions?.getHistoryTransaction
+  );
+  console.log("History transaction: ", getHistoryTransaction);
+  const [urlNext, setUrlNext] = useState();
+  const [urlPrev, setUrlPrev] = useState();
 
-  // TODO: Get History Transaction
-  const getHistoryTransactions = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/transactions/history`,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      setHistoryTransactions(response.data.result);
-    } catch (error) {
-      console.log(error.message);
-    }
+  useEffect(() => {
+    setUrlNext(getHistoryTransaction.next);
+    setUrlPrev(getHistoryTransaction.previous);
+  }, [getHistoryTransaction.next, getHistoryTransaction.previous]);
+
+  console.log("Url next: ", urlNext);
+  console.log("Url prev: ", urlPrev);
+
+  // Get History Transaction
+  const resFulfilled = (data) => {
+    // console.log("Get History Transactions: ", data);
+    setHistoryTransactions(data);
   };
 
   useEffect(() => {
-    getHistoryTransactions();
-  }, []);
+    dispatch(
+      TransactionsAction.getHistoryTransactionsThunk(
+        accessToken,
+        `page=${page}&limit=${limit}`,
+        resFulfilled
+      )
+    );
+  }, [dispatch, accessToken, limit, page]);
+
+// Handle Pagination
+  const handleNext = async () => {
+    const response = await paginateProductOrder(urlNext, accessToken);
+    // console.log(response);
+    setHistoryTransactions(response.data.result.data);
+    setUrlPrev(response.data.result.previous);
+    setUrlNext(response.data.result.next);
+  };
+
+  const handlePrev = async () => {
+    const response = await paginateProductOrder(urlPrev, accessToken);
+    setHistoryTransactions(response.data.result.data);
+    setUrlPrev(response.data.result.previous);
+    setUrlNext(response.data.result.next);
+  };
 
   return (
     <>
@@ -85,6 +112,30 @@ const History = () => {
               </>
             ))}
           </ul>
+        </section>
+        <section className={styles["pagination-history-cutomer"]}>
+          <button
+            className={
+              styles[
+                urlPrev === null ? "pagination-btn" : "pagination-btn-active"
+              ]
+            }
+            onClick={handlePrev}
+            disabled={urlPrev === null}
+          >
+            Previous
+          </button>
+          <button
+            className={
+              styles[
+                urlNext === null ? "pagination-btn" : "pagination-btn-active"
+              ]
+            }
+            onClick={handleNext}
+            disabled={urlNext === null}
+          >
+            Next
+          </button>
         </section>
       </main>
       <Footer />
