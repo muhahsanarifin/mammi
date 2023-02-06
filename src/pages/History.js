@@ -26,12 +26,14 @@ const History = () => {
   const [urlPrev, setUrlPrev] = useState();
 
   useEffect(() => {
+    setPage(1);
+    setLimit(8);
     setUrlNext(getHistoryTransaction.next);
     setUrlPrev(getHistoryTransaction.previous);
   }, [getHistoryTransaction.next, getHistoryTransaction.previous]);
 
-  console.log("Url next: ", urlNext);
-  console.log("Url prev: ", urlPrev);
+  // console.log("Url next: ", urlNext);
+  // console.log("Url prev: ", urlPrev);
 
   // Get History Transaction
   const resFulfilled = (data) => {
@@ -49,7 +51,7 @@ const History = () => {
     );
   }, [dispatch, accessToken, limit, page]);
 
-// Handle Pagination
+  // Handle Pagination
   const handleNext = async () => {
     const response = await paginateProductOrder(urlNext, accessToken);
     // console.log(response);
