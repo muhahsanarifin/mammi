@@ -1,6 +1,9 @@
 import { ActionType } from "redux-promise-middleware";
 import { actionStrings } from "../actions/actionStrings";
-import { getDataDashboard } from "../../utils/api/transactions";
+import {
+  getHistoryTransaction,
+  getDataDashboard,
+} from "../../utils/api/transactions";
 
 const initialState = {
   resultTransactions: {
@@ -19,15 +22,13 @@ const initialState = {
   deleteTransaction: {
     msg: null,
   },
-  getTransactionHistory: [
-    {
-      product_name: null,
-      price: null,
-      image: null,
-      notes: null,
-      status: null,
-    },
-  ],
+  getHistoryTransaction: {
+    dataCount: null,
+    next: null,
+    previous: null,
+    totalPages: null,
+    data: [],
+  },
   getDataDashboard: {
     data: [],
   },
@@ -45,7 +46,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
     updateStatusTransaction,
     deleteTransaction,
     getHistoryTransaction,
-    getDataDashboard
+    getDataDashboard,
   } = actionStrings;
   switch (type) {
     case getTransactions.concat("-", Pending):
@@ -184,15 +185,7 @@ const transactionReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: false,
         isFulfilled: true,
-        getTransactionHistory: [
-          {
-            product_name: payload.data.result.product_name,
-            price: payload.data.result.price,
-            image: payload.data.result.image,
-            notes: payload.data.result.notes,
-            status: payload.data.result.status,
-          },
-        ],
+        getHistoryTransaction: payload.data.result,
       };
     case getHistoryTransaction.concat("-", Rejected):
       return {

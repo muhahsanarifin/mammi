@@ -212,14 +212,14 @@ const deleteTransactionThunk = (id, accessToken, cbFulfilled, cbError) => {
 };
 
 // Get history transactions thunk
-const getHistoryTransactionsThunk = (accessToken, cbFulfilled, cbError) => {
+const getHistoryTransactionsThunk = (accessToken, queryParams, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(getHistoryTransactionsPending());
-      const result = await getHistoryTransaction(accessToken);
-      // console.log(result.data);
+      const result = await getHistoryTransaction(accessToken, queryParams);
+      // console.log("Get History Transactions: ", result.data);
       dispatch(getHistoryTransactionsFulfilled(result.data));
-      typeof cbFulfilled === "function" && cbFulfilled();
+      typeof cbFulfilled === "function" && cbFulfilled(result.data.result.data);
     } catch (error) {
       dispatch(getHistoryTransactionsRejected(error));
       typeof cbError === "function" && cbError();
