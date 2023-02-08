@@ -44,7 +44,7 @@ const EditPromo = () => {
             },
           }
         );
-        // console.log(response.data.result[0]);
+        // console.log("Promo:", response.data.result[0]);
         setPromo(response.data.result[0]);
       } catch (error) {
         // setLoadPromo(true);
@@ -174,7 +174,7 @@ const EditPromo = () => {
             >
               <span className={styles["promo__card"]}>
                 <img src={promo.image} alt={promo.product_name} />
-                <p>{promo.product_name}</p>
+                <p>{promo.product_name} {discount ? `${discount}% off`: null}</p>
                 {/* <span className={styles["btn-profile"]}>
                   <input type="file"/>
                 </span> */}
@@ -305,6 +305,7 @@ const EditPromo = () => {
                         color: "#6a4029",
                         fontWeight: 800,
                         fontSize: "14px",
+                        display: "none",
                       }}
                     >
                       Choose the discount :
