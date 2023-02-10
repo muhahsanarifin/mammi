@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
@@ -57,41 +57,32 @@ const Home = () => {
         <nav className={styles.navbar}>
           <ul className={styles["content-navbar"]}>
             <li>
-              <Link to={"/"} className={styles["content-navbar-text"]}>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? styles["active-style-nav"] : undefined
+                }
+              >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={"/products"} className={styles["content-navbar-text"]}>
-                Product
-              </Link>
+              <NavLink to="/products">Product</NavLink>
             </li>
             {accessRole === "Admin" ? (
               <>
                 <li>
-                  <Link to={"/order"} className={styles["content-navbar-text"]}>
-                    Order
-                  </Link>
+                  <NavLink to="/order">Order</NavLink>
                 </li>
                 <li>
-                  <Link
-                    to={"/dashboard"}
-                    className={styles["content-navbar-text"]}
-                  >
-                    Dashboard
-                  </Link>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
               </>
             ) : (
               <>
                 {accessToken ? (
                   <li>
-                    <Link
-                      to={"/order"}
-                      className={styles["content-navbar-text"]}
-                    >
-                      YourCart
-                    </Link>
+                    <NavLink to="/order">YourCart</NavLink>
                   </li>
                 ) : (
                   <li className={styles["content-navbar-text__disallowed"]}>
@@ -101,12 +92,7 @@ const Home = () => {
 
                 {accessToken ? (
                   <li>
-                    <Link
-                      to={"/history"}
-                      className={styles["content-navbar-text"]}
-                    >
-                      History
-                    </Link>
+                    <NavLink to="/history">History</NavLink>
                   </li>
                 ) : (
                   <li className={styles["content-navbar-text__disallowed"]}>
