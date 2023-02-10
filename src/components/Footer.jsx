@@ -67,7 +67,7 @@ const Footer = () => {
         </span>
       </section>
       <section className={styles.copyright}>
-        <p>©2022MAMMI</p>
+        <p>© 2022-2023 MAMMI</p>
       </section>
     </footer>
   );
