@@ -10,8 +10,8 @@ import Order from "./pages/Order";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 // import EditPassword from "./pages/EditPassword";
-import NotFound from "./pages/NotFound";
 // import Chat from "./pages/Chat";
+import NotFound from "./pages/NotFound";
 
 // TODO: Admin
 import AddProduct from "./pages/admin/AddProduct";
@@ -19,6 +19,7 @@ import AddPromo from "./pages/admin/AddPromo";
 import EditPromo from "./pages/admin/EditPromo";
 import EditProduct from "./pages/admin/EditProduct";
 import Dashboard from "./pages/admin/Dashboard";
+import { PreventBackPage, PrivateRoute } from "./utils/handleRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,15 +29,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <PreventBackPage>
+        <Login />
+      </PreventBackPage>
+    ),
   },
   {
     path: "/sign-up",
-    element: <SignUp />,
+    element: (
+      <PreventBackPage>
+        <SignUp />
+      </PreventBackPage>
+    ),
   },
   {
     path: "/password/forgot",
-    element: <ForgotPassword />,
+    element: (
+      <PreventBackPage>
+        <ForgotPassword />
+      </PreventBackPage>
+    ),
   },
   // {
   //   path: "/profile/edit",
@@ -44,7 +57,11 @@ const router = createBrowserRouter([
   // },
   {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/products",
@@ -53,37 +70,69 @@ const router = createBrowserRouter([
 
   {
     path: "/product/:id",
-    element: <ProductDetail />,
+    element: (
+      <PrivateRoute>
+        <ProductDetail />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/history",
-    element: <History />,
+    element: (
+      <PrivateRoute>
+        <History />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/order",
-    element: <Order />,
+    element: (
+      <PrivateRoute>
+        <Order />
+      </PrivateRoute>
+    ),
   },
 
-  // TODO: Admin
+  // Admin
   {
     path: "/product/add",
-    element: <AddProduct />,
+    element: (
+      <PrivateRoute>
+        <AddProduct />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/product/:id/edit",
-    element: <EditProduct />,
+    element: (
+      <PrivateRoute>
+        <EditProduct />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/promo/add",
-    element: <AddPromo />,
+    element: (
+      <PrivateRoute>
+        <AddPromo />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/promo/:id/edit",
-    element: <EditPromo />,
+    element: (
+      <PrivateRoute>
+        <EditPromo />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
   },
 ]);
 
