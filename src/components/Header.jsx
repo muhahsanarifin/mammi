@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ProfilesAction from "../redux/actions/profile";
@@ -57,21 +57,43 @@ const Header = ({ onChange }) => {
         <nav className={`d-flex flex-row gap-4 ${styles.navbar}`}>
           <ul className={styles["content-navbar"]}>
             <li>
-              <Link to={`/`}>Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <Link to={`/products`}>Product</Link>
+              <NavLink
+                to="/products"
+                className={({ isActive }) =>
+                  isActive ? styles["active-style-nav"] : undefined
+                }
+              >
+                Products
+              </NavLink>
             </li>
             {accessToken ? (
               <li>
-                <Link to={`/order`}>Your Cart</Link>
+                <NavLink
+                  to="/order"
+                  className={({ isActive }) =>
+                    isActive ? styles["active-style-nav"] : undefined
+                  }
+                >
+                  Your Cart
+                </NavLink>
               </li>
             ) : (
               <li style={{ cursor: "no-drop" }}>Your Cart</li>
             )}
+
             {accessToken ? (
               <li>
-                <Link to={`/history`}>History</Link>
+                <NavLink
+                  to="/history"
+                  className={({ isActive }) =>
+                    isActive ? styles["active-style-nav"] : undefined
+                  }
+                >
+                  History
+                </NavLink>
               </li>
             ) : (
               <li style={{ cursor: "no-drop" }}>History</li>
@@ -99,10 +121,11 @@ const Header = ({ onChange }) => {
               <span className={styles.chat}>
                 <img src={chat} alt="chat" />
               </span>
-              <span className={styles.avatar}>
-                <Link to={`/profile`}>
-                  <img src={accessPicture} alt="profile" />
-                </Link>
+              <span
+                className={styles.avatar}
+                onClick={() => navigation("/profile")}
+              >
+                <img src={accessPicture} alt="profile" />
               </span>
             </>
           ) : null}

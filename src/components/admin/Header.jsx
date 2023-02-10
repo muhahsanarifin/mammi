@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import ProfilesAction from "../../redux/actions/profile";
@@ -18,7 +18,6 @@ const Header = ({ onChange }) => {
   const [toggleSearch, setToggleSeacrh] = useState(true);
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access-token");
-  const accessRole = localStorage.getItem("access-role");
 
   // Handle logout
   const handleLogout = async () => {
@@ -69,16 +68,37 @@ const Header = ({ onChange }) => {
         <nav className={`d-flex flex-row gap-4 ${styles.navbar}`}>
           <ul className={styles["content-navbar"]}>
             <li>
-              <Link to={`/`}>Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <Link to={`/products`}>Product</Link>
+              <NavLink
+                to="/products"
+                className={({ isActive }) =>
+                  isActive ? styles["active-style-nav"] : undefined
+                }
+              >
+                Product
+              </NavLink>
             </li>
             <li>
-              <Link to={`/order`}>Orders</Link>
+              <NavLink
+                to="/order"
+                className={({ isActive }) =>
+                  isActive ? styles["active-style-nav"] : undefined
+                }
+              >
+                Orders
+              </NavLink>
             </li>
             <li>
-              <Link to={`/dashboard`}>Dashboard</Link>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive ? styles["active-style-nav"] : undefined
+                }
+              >
+                Dashboard
+              </NavLink>
             </li>
           </ul>
         </nav>

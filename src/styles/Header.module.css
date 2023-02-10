@@ -54,9 +54,10 @@
   color: var(--header-font-color);
 }
 
-.navbar a:focus {
-  color: var(--home-font-fourth-color);
+.active-style-nav {
+  color: #6a4029 !important;
   font-weight: 700;
+  border-bottom: 3px solid var(--home-acent-border-color);
 }
 
 .chat,
