@@ -48,7 +48,7 @@ const PromoCard = ({ promos, onProductId }) => {
                 <p className={styles["coupon__title"]}>COUPON CODE</p>
                 <h3>{promo.code}</h3>
                 <p className={styles.description}>
-                  Valid untill {promo.expiry_date}
+                  Valid until {promo.expiry_date}
                 </p>
               </span>
             </span>
