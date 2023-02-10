@@ -132,6 +132,21 @@
   height: 60px;
   padding: 0 1rem;
 }
+
+.sectionEmail-active,
+.sectionPassword-active {
+  border: 1px solid var(--login-btn-color);
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 31.5625rem;
+  height: 60px;
+  padding: 0 1rem;
+}
+
+
 .forgot-password {
   cursor: pointer;
   border-radius: 20px;

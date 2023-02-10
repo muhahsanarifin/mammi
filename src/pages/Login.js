@@ -8,7 +8,6 @@ import CardMember from "../components/MemberCard";
 import PasswordToggle from "../components/PasswordToggle";
 import LoaderBtn from "../components/LoaderBtn";
 import TitleBar from "../components/TitleBar";
-import PrivateRoute from "../utils/PrivateRoute";
 
 import eat from "../assets/images/eat.png";
 import mammiLogo from "../assets/images/mammi-logo.png";
@@ -24,8 +23,6 @@ const Login = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [loaderButton, setLoaderBtn] = useState(false);
-  const accessToken = localStorage.getItem("access-token");
-  PrivateRoute(accessToken, +1);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -99,7 +96,11 @@ const Login = () => {
             <h3>Login</h3>
             <form className={styles.form} onSubmit={submitHandler}>
               <label htmlFor="inputEmail">Email Address:</label>
-              <span className={styles.sectionEmail}>
+              <span
+                className={
+                  styles[!email ? "sectionEmail" : "sectionEmail-active"]
+                }
+              >
                 <input
                   type="text"
                   placeholder="Enter your Email Address"
@@ -116,7 +117,13 @@ const Login = () => {
                 </span>
               )}
               <label htmlFor="inputPassword">Password:</label>
-              <span className={styles.sectionPassword}>
+              <span
+                className={
+                  styles[
+                    !password ? "sectionPassword" : "sectionPassword-active"
+                  ]
+                }
+              >
                 <input
                   type={!show ? "password" : "text"}
                   id="inputPassword"
