@@ -6,7 +6,6 @@ import { useState } from "react";
 import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
 import styles from "../../styles/admin/AddProduct.module.css";
-import PrivateRoute from "../../utils/PrivateRoute";
 
 const AddProduct = () => {
   const [prevImage, setPrevImage] = useState(null);
@@ -17,8 +16,6 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
   const accessToken = localStorage.getItem("access-token");
-  // TODO: Private Route
-  PrivateRoute(!accessToken, -1);
 
   const handleUploadeImage = (e) => {
     let uploaded = e.target.files[0];

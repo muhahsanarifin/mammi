@@ -7,7 +7,6 @@ import promosAction from "../../redux/actions/promo";
 
 import HeaderAdmin from "../../components/admin/Header";
 import styles from "../../styles/admin/EditPromo.module.css";
-import PrivateRoute from "../../utils/PrivateRoute";
 import Button from "../../components/Button";
 
 const EditPromo = () => {
@@ -23,8 +22,6 @@ const EditPromo = () => {
   const [description, setDescription] = useState("");
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [deleteTextSatus, setDeleteTextStatus] = useState("");
-  // Private Route
-  PrivateRoute(!accessToken, -1);
 
   // Persent Discount
   const persentDiscounts = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
@@ -174,7 +171,9 @@ const EditPromo = () => {
             >
               <span className={styles["promo__card"]}>
                 <img src={promo.image} alt={promo.product_name} />
-                <p>{promo.product_name} {discount ? `${discount}% off`: null}</p>
+                <p>
+                  {promo.product_name} {discount ? `${discount}% off` : null}
+                </p>
                 {/* <span className={styles["btn-profile"]}>
                   <input type="file"/>
                 </span> */}

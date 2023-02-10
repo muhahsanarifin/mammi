@@ -5,7 +5,6 @@ import Axios from "axios";
 import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
 import styles from "../../styles/admin/AddPromo.module.css";
-import PrivateRoute from "../../utils/PrivateRoute";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import productsAction from "../../redux/actions/products";
@@ -23,10 +22,8 @@ const AddPromo = () => {
   const [product_name, setProductName] = useState("");
   const accessToken = localStorage.getItem("access-token");
   const [products, setProducts] = useState([]);
-  // TODO: Private Route
-  PrivateRoute(!accessToken, -1);
 
-  // TODO: Persent Discount
+  // Persent Discount
   const persentDiscounts = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   const resPending = () => {};

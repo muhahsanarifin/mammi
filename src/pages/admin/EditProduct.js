@@ -7,7 +7,6 @@ import productsAction from "../../redux/actions/products";
 import HeaderAdmin from "../../components/admin/Header";
 import { CameraOutlined } from "@ant-design/icons";
 import styles from "../../styles/admin/EditProduct.module.css";
-import PrivateRoute from "../../utils/PrivateRoute";
 import { useState } from "react";
 import Button from "../../components/Button";
 
@@ -27,8 +26,6 @@ const EditProduct = () => {
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [deleteTextSatus, setDeleteTextStatus] = useState("");
   const { id } = useParams();
-  // TODO: Private Route
-  PrivateRoute(!accessToken, -1);
 
   const getProductDetail = async () => {
     try {

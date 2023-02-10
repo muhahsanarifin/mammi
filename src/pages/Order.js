@@ -10,7 +10,6 @@ import HeaderAdmin from "../components/admin/Header";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import TitleBar from "../components/TitleBar";
-import PrivateRoute from "../utils/PrivateRoute";
 
 import styles from "../styles/Checkout.module.css";
 import AddressDetails from "../components/AddressDetails";
@@ -28,9 +27,6 @@ const Order = () => {
   const accessRole = localStorage.getItem("access-role");
   const [handleAddressDetail, setHandleAddressDetail] = useState(true);
   const [productOrder, setProductOrder] = useState([]);
-
-  // Private Route
-  PrivateRoute(!accessToken, -1);
 
   const dispatch = useDispatch();
   const checkout = useSelector((state) => state.cart.checkout);

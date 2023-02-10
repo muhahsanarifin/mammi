@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import TitleBar from "../components/TitleBar";
-import PrivateRoute from "../utils/PrivateRoute";
 import TransactionsAction from "../redux/actions/transactions";
 import { paginateProductOrder } from "../utils/api/transactions";
 
@@ -16,8 +15,6 @@ const History = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
   const accessToken = localStorage.getItem("access-token");
-  // Private route
-  PrivateRoute(!accessToken, -1);
   const getHistoryTransaction = useSelector(
     (state) => state.transactions?.getHistoryTransaction
   );

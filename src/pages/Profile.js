@@ -10,7 +10,6 @@ import TitleBar from "../components/TitleBar";
 
 import pen from "../assets/icons/pen.svg";
 import styles from "../styles/Profile.module.css";
-import PrivateRoute from "../utils/PrivateRoute";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -30,10 +29,8 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
-  // TODO: Private route
-  PrivateRoute(!accessToken, -1);
 
-  // TODO: Get Contact Profile
+  // Get Contact Profile
   const getContact = async () => {
     try {
       setLoading(true);
@@ -53,7 +50,7 @@ const Profile = () => {
     }
   };
 
-  // TODO: Get Detail Profile
+  // Get Detail Profile
   const getDetail = async () => {
     try {
       setLoading(true);
@@ -153,7 +150,7 @@ const Profile = () => {
           },
         }
       );
-      console.log(response)
+      console.log(response);
       if (response.status === 200) {
         localStorage.removeItem("access-picture");
         localStorage.setItem("access-picture", response.data.result[0].picture);

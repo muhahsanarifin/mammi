@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import TransactionsAction from "../../redux/actions/transactions";
 
-import PrivateRoute from "../../utils/PrivateRoute";
 import Header from "../../components/admin/Header";
 import Footer from "../../components/Footer";
 import TitleBar from "../../components/TitleBar";
@@ -18,8 +17,6 @@ const Dashboard = () => {
   const [status, setStatus] = useState("Pending");
   // const [pending, setPending] = useState([]);
   // const [delivered, setDelivered] = useState([]);
-  // Private Route
-  PrivateRoute(!accessToken, -1);
 
   // Get data dashboard
   const resFulfilled = (data) => {

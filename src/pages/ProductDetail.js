@@ -12,7 +12,6 @@ import Footer from "../components/Footer";
 
 import styles from "../styles/ProductDetail.module.css";
 import arrowBrown from "../assets/icons/arrow-brown.svg";
-import PrivateRoute from "../utils/PrivateRoute";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -35,8 +34,6 @@ const ProductDetail = () => {
   const navigation = useNavigate();
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
-  // TODO: Private route
-  PrivateRoute(!accessToken, "/login");
 
   // Part of sub total
   const [charge_cost, setChargeCost] = useState(0);
