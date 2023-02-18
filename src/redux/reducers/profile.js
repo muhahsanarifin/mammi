@@ -1,9 +1,7 @@
 import { ActionType } from "redux-promise-middleware";
 import { actionStrings } from "../actions/actionStrings";
 
-let initialState;
-
-initialState = {
+const initialState = {
   editProfileResult:[],
   resultProfileContact: [],
   resultProfileDetail: [],

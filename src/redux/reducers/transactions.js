@@ -1,9 +1,5 @@
 import { ActionType } from "redux-promise-middleware";
 import { actionStrings } from "../actions/actionStrings";
-import {
-  getHistoryTransaction,
-  getDataDashboard,
-} from "../../utils/api/transactions";
 
 const initialState = {
   resultTransactions: {
