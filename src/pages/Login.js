@@ -98,7 +98,13 @@ const Login = () => {
               <label htmlFor="inputEmail">Email Address:</label>
               <span
                 className={
-                  styles[!email ? "sectionEmail" : "sectionEmail-active"]
+                  styles[
+                    errorEmail
+                      ? "sectionEmail-error"
+                      : !email
+                      ? "sectionEmail"
+                      : "sectionEmail-active"
+                  ]
                 }
               >
                 <input
@@ -120,7 +126,11 @@ const Login = () => {
               <span
                 className={
                   styles[
-                    !password ? "sectionPassword" : "sectionPassword-active"
+                    errorPassword
+                      ? "sectionPassword-error"
+                      : !password
+                      ? "sectionPassword"
+                      : "sectionPassword-active"
                   ]
                 }
               >

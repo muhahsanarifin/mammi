@@ -115,7 +115,7 @@ const ProductDetail = () => {
       }
     };
     getProductDetail();
-  }, []);
+  }, [accessToken, id]);
 
   // console.log(products);
   // console.log(deliveryId);
@@ -496,12 +496,12 @@ const ProductDetail = () => {
                   <p className={styles["size-fee"]}>
                     {sizeFee === 0
                       ? null
-                      : `Size fee IDR.${sizeFee} of one item**`}
+                      : `Size fee IDR.${sizeFee} of one item`}
                   </p>
                   <p className={styles["discount-price"]}>
                     {discount === 0
                       ? null
-                      : `Discount ${discount}% of one item**`}
+                      : `Discount ${discount}% of one item`}
                   </p>
                 </div>
               </span>

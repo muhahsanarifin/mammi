@@ -51,7 +51,7 @@ const EditPromo = () => {
       }
     };
     getPromos();
-  }, []);
+  }, [accessToken, id]);
 
   useEffect(() => {
     setCode(promo.code);

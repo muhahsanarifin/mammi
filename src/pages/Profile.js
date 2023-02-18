@@ -31,49 +31,54 @@ const Profile = () => {
   const accessRole = localStorage.getItem("access-role");
 
   // Get Contact Profile
-  const getContact = async () => {
-    try {
-      setLoading(true);
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/contact/id`,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      setContact(response.data.result[0]);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const getContact = async () => {
+      try {
+        setLoading(true);
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/contact/id`,
+          {
+            headers: {
+              "x-access-token": accessToken,
+            },
+          }
+        );
+        setContact(response.data.result[0]);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getContact();
+  }, [accessToken]);
 
   // Get Detail Profile
-  const getDetail = async () => {
-    try {
-      setLoading(true);
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/detail/id`,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      setDetail(response.data.result[0]);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const getDetail = async () => {
+      try {
+        setLoading(true);
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/detail/id`,
+          {
+            headers: {
+              "x-access-token": accessToken,
+            },
+          }
+        );
+        setDetail(response.data.result[0]);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getDetail();
+  }, [accessToken]);
 
   useEffect(() => {
-    getContact();
-    getDetail();
-
     //TODO: Default Contacts input values
     setAddress(detail.address);
 

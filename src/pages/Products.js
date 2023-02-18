@@ -25,11 +25,11 @@ const Products = () => {
   const [promos, setPromos] = useState([]);
   const [loadProduct, setLoadProduct] = useState([]);
   const [loadPromo, setLoadPromo] = useState(false);
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
-  const [price, setPrice] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [handleErrorMsg, handleSetErrorMsg] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -38,26 +38,27 @@ const Products = () => {
   // const [totalPages, setTotalPages] = useState("");
 
   // TODO: Get Products
-  const getProducts = async () => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?post=${post}&price=${price}&category=${category}&search=${search}&page=${page}&limit=${limit}`
-      );
-      setLoadProduct(response.data.result.data);
-      setTimeout(() => {
-        setProducts(response.data.result.data);
-        // console.log("Products: ", response.data.result.data);
-        setIntDataOfPagination(response.data.result);
-        // setTotalPages(response.data.result.totalPages);
-      }, 1000);
-    } catch (error) {
-      setLoadProduct(loadProduct);
-      // console.log(error);
-      setErrorMsg(error.response.data.result.msg);
-      handleSetErrorMsg(true);
-    }
-  };
   useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?post=${post}&price=${price}&category=${category}&search=${search}&page=${page}&limit=${limit}`
+        );
+        setLoadProduct(response.data.result.data);
+        setTimeout(() => {
+          setProducts(response.data.result.data);
+          // console.log("Products: ", response.data.result.data);
+          setIntDataOfPagination(response.data.result);
+          // setTotalPages(response.data.result.totalPages);
+        }, 1000);
+      } catch (error) {
+        setLoadProduct(loadProduct);
+        // console.log(error);
+        setErrorMsg(error.response.data.result.msg);
+        handleSetErrorMsg(true);
+      }
+    };
+
     getProducts();
     // setLimit(5);
     // setPost("oldest");
@@ -160,7 +161,13 @@ const Products = () => {
           <span className={styles["sorting-and-pagination"]}>
             <button
               onClick={() => window.location.reload()}
-              className={styles["refresh-product-btn"]}
+              className={
+                styles[
+                  !category && !search && !price && !post
+                    ? "refresh-product-btn-disable"
+                    : "refresh-product-btn"
+                ]
+              }
             >
               refresh
             </button>

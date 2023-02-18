@@ -21,39 +21,39 @@ const EditProduct = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
-  const accessToken = localStorage.getItem("access-token");
   const [products, setProductDetail] = useState([]);
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [deleteTextSatus, setDeleteTextStatus] = useState("");
+  const accessToken = localStorage.getItem("access-token");
   const { id } = useParams();
 
-  const getProductDetail = async () => {
-    try {
-      setImageLoading(true);
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      console.log(response.data.result[0]);
-      setProductDetail(response.data.result[0]);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setImageLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getProductDetail = async () => {
+      try {
+        setImageLoading(true);
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,
+          {
+            headers: {
+              "x-access-token": accessToken,
+            },
+          }
+        );
+        console.log(response.data.result[0]);
+        setProductDetail(response.data.result[0]);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setImageLoading(false);
+      }
+    };
     getProductDetail();
-  }, []);
+  }, [accessToken, id]);
 
   // TODO: Default input values
   useEffect(() => {
     setProductName(products.product_name);
+    setImage(products.image);
     setPrice(products.price);
     setCategoryId(products.category_id);
     setDescription(products.description);
@@ -61,6 +61,7 @@ const EditProduct = () => {
     setCategoryName(products.category_name);
   }, [
     products.product_name,
+    products.image,
     products.price,
     products.category_id,
     products.description,
@@ -69,6 +70,7 @@ const EditProduct = () => {
   ]);
 
   const handleUploadeImage = (e) => {
+    console.log(e);
     let uploaded = e.target.files[0];
     setPrevImage(URL.createObjectURL(uploaded));
     setImage(uploaded);
@@ -76,9 +78,10 @@ const EditProduct = () => {
 
   const handleSaveProduct = async () => {
     if (
-      product_name.length === 0 ||
-      price.length === 0 ||
-      description.length === 0
+      product_name?.length === 0 ||
+      image?.length === 0 ||
+      price?.length === 0 ||
+      description?.length === 0
     ) {
       return console.log("Please, fill in data completely!");
     }
@@ -104,7 +107,7 @@ const EditProduct = () => {
       );
       // console.log(response.data.result);
       if (response.status === 200) {
-        console.log(response.data.result.msg);
+        // console.log(response.data.result.msg);
         window.location.reload();
       }
     } catch (error) {
