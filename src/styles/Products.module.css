@@ -1,7 +1,7 @@
 /* || Root Colors */
 :root {
   --product-font-color: #6a4029;
-  --product-border-color: #9F9F9F;
+  --product-border-color: #9f9f9f;
   --product-font-fourth-color: #ffffff;
   --product-btn-color: #6a4029;
   --btn-add-promo-bg: #ffba33;
@@ -114,18 +114,23 @@
 .error-msg {
   font-size: 24px;
   font-weight: 800;
-  color: #EB455F;
+  color: #eb455f;
 }
 
-.error-msg-btn , .refresh-product-btn{
+.error-msg-btn,
+.refresh-product-btn {
   border: none;
   width: fit-content;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 12px;
-  background-color:#7895B2;
-  color: var(--product-font-fourth-color);
-  
+  /* padding: 0.2rem 0.5rem; */
+  font-size: 14px;
+  color: var(--product-btn-color);
+  font-weight: 600;
+  background: none;
+}
+
+.error-msg-btn-disable,
+.refresh-product-btn-disable {
+  visibility: hidden;
 }
 
 .error-msg-btn {

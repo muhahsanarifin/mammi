@@ -146,6 +146,18 @@
   padding: 0 1rem;
 }
 
+.sectionEmail-error,
+.sectionPassword-error {
+  border: 1px solid red;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 31.5625rem;
+  height: 60px;
+  padding: 0 1rem;
+}
 
 .forgot-password {
   cursor: pointer;
