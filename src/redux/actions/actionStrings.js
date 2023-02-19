@@ -1,4 +1,9 @@
 export const actionStrings = {
+  
+  // Auth
+  login: "LOGIN",
+  logout: "LOGOUT",
+
   // Product
   getProducts: "PRODUCTS_GET",
   // editProdcut: "PRODUCT_EDIT",
@@ -43,6 +48,7 @@ export const actionStrings = {
 
   // Cart
   addCart: "ADD_CART",
+
   // Checkout
   checkoutProduct: "CHECKOUT_PRODUCT",
 

@@ -59,23 +59,21 @@ const editProfileThunk = (body, token, cbFulfilled, cbError) => {
     try {
       dispatch(editProfilePending());
       const result = await editProfile(body, token);
-      // console.log(result.data);
       dispatch(editProfileFulfilled(result.data));
-      typeof cbFulfilled === "function" && cbFulfilled();
+      typeof cbFulfilled === "function" && cbFulfilled(result.data);
     } catch (error) {
       dispatch(editProfileRejected(error));
-      typeof cbError === "function" && cbError();
+      typeof cbError === "function" && cbError(error);
     }
   };
 };
 
-// TODO: Get Profile Thunk
+// TODO: Get Profile Contact Thunk
 const getProfileContactThunk = (token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
       dispatch(getProfileContactPending());
       const result = await getProfileContact(token);
-      // console.log(result.data);
       dispatch(getProfileContactFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
@@ -91,7 +89,6 @@ const getProfileDetailThunk = (token, cbFulfilled, cbDenied) => {
     try {
       dispatch(getProfileDetailPending());
       const result = await getProfileDetail(token);
-      // console.log(result);
       dispatch(getProfileDetailFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
