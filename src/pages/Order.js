@@ -34,9 +34,11 @@ const Order = () => {
     (state) => state.cart.orderSummaryOfCheckout
   );
 
-  const detail = useSelector((state) => state.profiles.resultProfileDetail[0]);
+  const detail = useSelector(
+    (state) => state.profiles.resultProfileDetail.result[0]
+  );
   const contact = useSelector(
-    (state) => state.profiles.resultProfileContact[0]
+    (state) => state.profiles.resultProfileContact.result[0]
   );
 
   // Product Order
