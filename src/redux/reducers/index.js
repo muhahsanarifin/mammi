@@ -6,13 +6,15 @@ import transactionReducer from "./transactions";
 import usersReducer from "./users";
 import sizesReducer from "./size";
 import promosReducer from "./promo";
+import authReducer from "./auth";
 
 export default combineReducers({
-  products: productsReducer,
+  auth: authReducer,
+  users: usersReducer,
   profiles: profileReducer,
+  products: productsReducer,
   cart: cartReducer,
   transactions: transactionReducer,
-  users: usersReducer,
   sizes: sizesReducer,
   promos: promosReducer
 });

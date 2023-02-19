@@ -29,7 +29,7 @@ const profileReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: false,
         isFulfilled: true,
-        editProfileResult: payload.data.result,
+        editProfileResult: payload.data,
       };
     case editProfile.concat("-", Rejected):
       return {
@@ -37,7 +37,7 @@ const profileReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.result?.data.result.msg,
+        err: payload.error.message,
       };
 
     case getProfileContact.concat("-", Pending):
@@ -54,7 +54,7 @@ const profileReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: false,
         isFulfilled: true,
-        resultProfileContact: payload.data.result,
+        resultProfileContact: payload.data,
       };
     case getProfileContact.concat("-", Rejected):
       return {
@@ -79,7 +79,7 @@ const profileReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: false,
         isFulfilled: true,
-        resultProfileDetail: payload.data.result,
+        resultProfileDetail: payload.data,
       };
     case getProfileDetail.concat("-", Rejected):
       return {
