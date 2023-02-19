@@ -11,7 +11,7 @@ const config = (accessToken) => {
 };
 
 const editProfile = (body, accessToken) =>
-  Axios.patch(`${BASE_URL}/users/profile/edit`, body, config(accessToken));
+  Axios.patch(`${BASE_URL}/users/acc/profile/edit`, body, config(accessToken));
 
 const getProfileContact = (accessToken) =>
   Axios.get(`${BASE_URL}/users/acc/profile/contact/id`, config(accessToken));
