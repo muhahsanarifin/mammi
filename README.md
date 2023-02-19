@@ -81,13 +81,44 @@ Home    | Create & Edit Product   | Cart
 
 ## Features
 
-<img width="500" height="500" src="src/assets/images/sign-up-mammi.png" alt="Sign Up" style="border-radius: 6px; image-rendering: smooth"> <img width="500" height="500" src="src/assets/images/login-mammi.png" alt="Login" style="border-radius: 6px; image-rendering: smooth"> <img width="500" height="500" src="src/assets/images/product-mammi.png" alt="Products" style="border-radius: 6px; image-rendering: smooth"> <img width="500" height="500" src="src/assets/images/products-mammi-admin.png" alt="Products Admin" style="border-radius: 6px; image-rendering: smooth"> <img width="500" height="500" src="src/assets/images/forgot-password-mammi.png" alt="Forgot Password" style="border-radius: 6px; image-rendering: smooth"> <img width="500" height="500" src="src/assets/images/history-customer-mammi.png" alt="History" style="border-radius: 6px; image-rendering: smooth"> <img width="500" height="500" src="src/assets/images/product-detail-customer-mammi.png" alt="Product Detail" style="border-radius: 6px; image-rendering: smooth">
-<img width="500" height="500" src="src/assets/images/profile-mammi.png" alt="Profile" style="border-radius: 6px; image-rendering: smooth">
-<img width="500" height="500" src="src/assets/images/payment-and-delivery-mammi.png" alt="Payment and Delivery" style="border-radius: 6px; image-rendering: smooth">
-<img width="500" height="500" src="src/assets/images/create-promos-mammi.png" alt="Create Promo" style="border-radius: 6px; image-rendering: smooth">
-<img width="500" height="500" src="src/assets/images/create-products-mammi.png" alt="Create Product" style="border-radius: 6px; image-rendering: smooth">
-<img width="500" height="500" src="src/assets/images/handle-transaction-customer-mammi.png" alt="Transaction" style="border-radius: 6px; image-rendering: smooth">
-<img width="500" height="500" src="src/assets/images/dashboard-mammi.png" alt="Dashboard" style="border-radius: 6px; image-rendering: smooth">
+### Sign Up
+<img width="500" height="100%" src="src/assets/images/sign-up-mammi.png" alt="Sign Up" style="border-radius: 6px; image-rendering: smooth">
+
+### Login
+<img width="500" height="100%" src="src/assets/images/login-mammi.png" alt="Login" style="border-radius: 6px; image-rendering: smooth">
+
+### Products
+<img width="500" height="100%" src="src/assets/images/product-mammi.png" alt="Products" style="border-radius: 6px; image-rendering: smooth">
+
+### Products | Admin
+<img width="500" height="100%" src="src/assets/images/products-mammi-admin.png" alt="Products Admin" style="border-radius: 6px; image-rendering: smooth">
+
+### Forgot Password
+<img width="500" height="100%" src="src/assets/images/forgot-password-mammi.png" alt="Forgot Password" style="border-radius: 6px; image-rendering: smooth">
+
+### History
+<img width="500" height="100%" src="src/assets/images/history-customer-mammi.png" alt="History" style="border-radius: 6px; image-rendering: smooth">
+
+### Product Detail
+<img width="500" height="100%" src="src/assets/images/product-detail-customer-mammi.png" alt="Product Detail" style="border-radius: 6px; image-rendering: smooth">
+
+### Profile
+<img width="500" height="100%" src="src/assets/images/profile-mammi.png" alt="Profile" style="border-radius: 6px; image-rendering: smooth">
+
+### Payment & Delivery
+<img width="500" height="100%" src="src/assets/images/payment-and-delivery-mammi.png" alt="Payment and Delivery" style="border-radius: 6px; image-rendering: smooth">
+
+### Create Promo
+<img width="500" height="100%" src="src/assets/images/create-promos-mammi.png" alt="Create Promo" style="border-radius: 6px; image-rendering: smooth">
+
+### Create Product
+<img width="500" height="100%" src="src/assets/images/create-products-mammi.png" alt="Create Product" style="border-radius: 6px; image-rendering: smooth">
+
+### Transaction
+<img width="500" height="100%" src="src/assets/images/handle-transaction-customer-mammi.png" alt="Transaction" style="border-radius: 6px; image-rendering: smooth">
+
+### Dashboard
+<img width="500" height="100%" src="src/assets/images/dashboard-mammi.png" alt="Dashboard" style="border-radius: 6px; image-rendering: smooth">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
