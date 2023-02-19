@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 import ProfilesAction from "../../redux/actions/profile";
 import { useDispatch } from "react-redux";
+import authAction from "../../redux/actions/auth";
 
 import LoaderBtn from "../LoaderBtn";
 import styles from "../../styles/admin/Header.module.css";
@@ -20,24 +20,33 @@ const Header = ({ onChange }) => {
   const accessToken = localStorage.getItem("access-token");
 
   // Handle logout
-  const handleLogout = async () => {
-    try {
-      setLoaderBtn(true);
-      await Axios.delete(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/logout`,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      localStorage.clear();
-      navigate("/login");
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoaderBtn(false);
-    }
+  const handleLogout = () => {
+    dispatch(
+      authAction.logoutThunk(
+        accessToken,
+        resCbPending,
+        resCbFulfilled,
+        resCbRejected,
+        resCbFinally
+      )
+    );
+  };
+
+  const resCbPending = () => {
+    setLoaderBtn(true);
+  };
+
+  const resCbFulfilled = () => {
+    window.localStorage.clear();
+    navigate("/login");
+  };
+
+  const resCbRejected = (error) => {
+    console.log(error.message);
+  };
+
+  const resCbFinally = () => {
+    setLoaderBtn(false);
   };
 
   const handleToggleSearch = () => {
