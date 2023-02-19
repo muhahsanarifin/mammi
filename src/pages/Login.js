@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import authAction from "../redux/actions/auth";
 
 import Footer from "../components/Footer";
 import CardMember from "../components/MemberCard";
@@ -14,6 +15,7 @@ import mammiLogo from "../assets/images/mammi-logo.png";
 import styles from "../styles/Login.module.css";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,46 +26,52 @@ const Login = () => {
   const [errorPassword, setErrorPassword] = useState(false);
   const [loaderButton, setLoaderBtn] = useState(false);
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    try {
-      setLoaderBtn(true);
-      const response = await Axios.post(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/login`,
-        {
-          email,
-          password,
-        }
-      );
-      if (response.status === 200) {
-        // const user = response.data.result.data;
-        // localStorage.setItem("user-data", JSON.stringify(user));
-        localStorage.setItem("access-role", response.data.result.data.role);
-        localStorage.setItem("access-token", response.data.result.data.token);
-        localStorage.setItem(
-          "access-picture",
-          response.data.result.data.picture
-        );
-        navigation("/products");
-      }
-    } catch (err) {
-      if (err.response.data.result.msg === "Email is incorrect") {
-        setTimeout(() => {
-          setFeedEmail(err.response.data.result.msg);
-          setErrorEmail(true);
-        }, 500);
-      } else if (err.response.data.result.msg === "Password is incorrect") {
-        setTimeout(() => {
-          setFeedPassword(err.response.data.result.msg);
-          setErrorPassword(true);
-        }, 500);
-      }
-    } finally {
+
+    dispatch(
+      authAction.LoginThunk(
+        { email, password },
+        resCbPending,
+        resCbFulfilled,
+        resCbRejected,
+        resCbFinally
+      )
+    );
+    
+  };
+
+  const resCbPending = () => {
+    setLoaderBtn(true);
+  };
+
+  const resCbFulfilled = (response) => {
+    localStorage.setItem("access-role", response.data.result.data.role);
+    localStorage.setItem("access-token", response.data.result.data.token);
+    localStorage.setItem("access-picture", response.data.result.data.picture);
+    navigation("/products");
+  };
+
+  const resCbRejected = (err) => {
+    console.log(err);
+    if (err.response.data.result.msg === "Email is incorrect") {
+      setTimeout(() => {
+        setFeedEmail(err.response.data.result.msg);
+        setErrorEmail(true);
+      }, 500);
+    } else if (err.response.data.result.msg === "Password is incorrect") {
+      setTimeout(() => {
+        setFeedPassword(err.response.data.result.msg);
+        setErrorPassword(true);
+      }, 500);
+    }
+  };
+
+  const resCbFinally = () => {
       setLoaderBtn(false);
       setErrorEmail(false);
       setErrorPassword(false);
-    }
-  };
+  }
 
   const handleShowPassword = () => {
     setShow(!show);

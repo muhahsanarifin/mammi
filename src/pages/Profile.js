@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import authAction from "../redux/actions/auth";
+import ProfilesAction from "../redux/actions/profile";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -12,9 +14,8 @@ import pen from "../assets/icons/pen.svg";
 import styles from "../styles/Profile.module.css";
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [contact, setContact] = useState([]);
-  const [detail, setDetail] = useState([]);
   const [disableInputContact, setDisableInputContact] = useState(true);
   const [disableInputDetail, setDisableInputDetail] = useState(true);
   const [modal, setModal] = useState(false);
@@ -25,115 +26,66 @@ const Profile = () => {
   const [gender, setGender] = useState("");
   const [birth, setBirth] = useState("");
   const [previewImage, setPrevImage] = useState(null);
-  const [picture, setPicture] = useState();
-  const [loading, setLoading] = useState(false);
+  const [picture, setPicture] = useState("");
   const accessToken = localStorage.getItem("access-token");
   const accessRole = localStorage.getItem("access-role");
 
   // Get Contact Profile
-  useEffect(() => {
-    const getContact = async () => {
-      try {
-        setLoading(true);
-        const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/contact/id`,
-          {
-            headers: {
-              "x-access-token": accessToken,
-            },
-          }
-        );
-        setContact(response.data.result[0]);
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getContact();
-  }, [accessToken]);
+  const contactProfile = useSelector(
+    (state) => state.profiles.resultProfileContact.result[0]
+  );
 
   // Get Detail Profile
-  useEffect(() => {
-    const getDetail = async () => {
-      try {
-        setLoading(true);
-        const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/detail/id`,
-          {
-            headers: {
-              "x-access-token": accessToken,
-            },
-          }
-        );
-        setDetail(response.data.result[0]);
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getDetail();
-  }, [accessToken]);
+  const detailProfile = useSelector(
+    (state) => state.profiles.resultProfileDetail.result[0]
+  );
 
   useEffect(() => {
-    //TODO: Default Contacts input values
-    setAddress(detail.address);
+    //Default Contacts input values
+    setAddress(detailProfile?.address);
 
-    //TODO: Default Details input values
-    setDisplayName(detail.display_name);
-    setFirstName(detail.first_name);
-    setLastName(detail.last_name);
-    setGender(detail.gender);
-    setBirth(detail.birth);
-    setPicture(detail.picture);
+    //Default Details input values
+    setDisplayName(detailProfile?.display_name);
+    setFirstName(detailProfile?.first_name);
+    setLastName(detailProfile?.last_name);
+    setGender(detailProfile?.gender);
+    setBirth(detailProfile?.birth);
+    setPicture(detailProfile?.picture);
   }, [
-    detail.address,
-    detail.display_name,
-    detail.first_name,
-    detail.last_name,
-    detail.gender,
-    detail.birth,
-    detail.picture,
+    detailProfile?.address,
+    detailProfile?.display_name,
+    detailProfile?.first_name,
+    detailProfile?.last_name,
+    detailProfile?.gender,
+    detailProfile?.birth,
+    detailProfile?.picture,
   ]);
 
-  // TODO: Handle Logout
-  const handleLogOut = async () => {
-    try {
-      await Axios.delete(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/auth/logout`,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      localStorage.clear();
-      navigate("/login");
-    } catch (error) {
-      console.log(error.message);
-    }
+  // Handle Logout
+  const handleLogOut = () => {
+    dispatch(
+      authAction.logoutThunk(accessToken, "", resCbFulfilled, resCbRejected, "")
+    );
   };
 
-  const handleInputContact = () => {
-    setDisableInputContact(!disableInputContact);
+  const resCbFulfilled = () => {
+    window.localStorage.clear();
+    navigate("/login");
   };
 
-  const handleInputDetail = () => {
-    setDisableInputDetail(!disableInputDetail);
+  const resCbRejected = (error) => {
+    console.log(error.message);
   };
 
-  // TODO: Handle Upload Image
+  // Handle Upload Image
   const handleUploadImage = (e) => {
     let uploaded = e.target.files[0];
     setPrevImage(URL.createObjectURL(uploaded));
     setPicture(uploaded);
   };
 
-  // TODO: Handle Save Form
-  const handleSaveForm = async () => {
+  // Handle Save Form
+  const handleSaveForm = () => {
     let formData = new FormData();
     formData.append("address", address);
     formData.append("display_name", display_name);
@@ -145,39 +97,45 @@ const Profile = () => {
 
     let body = formData;
 
-    try {
-      const response = await Axios.patch(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/acc/profile/edit`,
+    dispatch(
+      ProfilesAction.editProfileThunk(
         body,
-        {
-          headers: {
-            "x-access-token": accessToken,
-          },
-        }
-      );
-      console.log(response);
-      if (response.status === 200) {
-        localStorage.removeItem("access-picture");
-        localStorage.setItem("access-picture", response.data.result[0].picture);
-        // console.log(response.data.msg);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+        accessToken,
+        resCbEditProfileFulfilled,
+        resCbEditProfileRejected
+      )
+    );
+  };
+
+  const resCbEditProfileFulfilled = (response) => {
+    localStorage.removeItem("access-picture");
+    localStorage.setItem("access-picture", response.result[0].picture);
+    window.location.reload();
+  };
+
+  const resCbEditProfileRejected = (error) => {
+    console.log(error.message);
   };
 
   const handleCancelForm = () => {
-    setAddress(detail.address);
-    setDisplayName(detail.display_name);
-    setFirstName(detail.first_name);
-    setLastName(detail.last_name);
-    setGender(detail.gender);
-    setBirth(detail.birth);
+    setAddress(detailProfile?.address);
+    setDisplayName(detailProfile?.display_name);
+    setFirstName(detailProfile?.first_name);
+    setLastName(detailProfile?.last_name);
+    setGender(detailProfile?.gender);
+    setBirth(detailProfile?.birth);
   };
 
-  // TODO: Handle Modal
+  // Handle Modal
   const handleModal = () => setModal(!modal);
+
+  const handleInputContact = () => {
+    setDisableInputContact(!disableInputContact);
+  };
+
+  const handleInputDetail = () => {
+    setDisableInputDetail(!disableInputDetail);
+  };
 
   return (
     <>
@@ -201,35 +159,20 @@ const Profile = () => {
           {accessRole === "Admin" ? (
             <span className={styles.profile}>
               <img
-                src={detail.picture}
+                src={picture}
                 alt="Profile"
                 className={styles["profile__image"]}
               />
               <span className={styles["btn-profile"]}>
                 <input type="file" />
               </span>
-              <p className={styles["display-name"]}>{detail.display_name}</p>
-              <p className={styles.email}>{contact.email}</p>
+              <p className={styles["display-name"]}>{display_name}</p>
+              <p className={styles.email}>{contactProfile?.email}</p>
             </span>
           ) : (
             <span className={styles.profile}>
-              {loading && (
-                <span
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: "600",
-                    width: "117px",
-                    height: "117px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <p style={{ marginBottom: "0" }}>Loading...</p>
-                </span>
-              )}
               <img
-                src={previewImage ? previewImage : detail.picture}
+                src={previewImage ? previewImage : picture}
                 alt="Profile"
                 className={styles["profile__image"]}
               />
@@ -241,18 +184,10 @@ const Profile = () => {
                   onChange={handleUploadImage}
                 />
               </span>
-              {loading && (
-                <span style={{ fontSize: "12px", fontWeight: "600" }}>
-                  Loading...
-                </span>
-              )}
-              <p className={styles["display-name"]}>{detail.display_name}</p>
-              {loading && (
-                <span style={{ fontSize: "12px", fontWeight: "600" }}>
-                  Loading...
-                </span>
-              )}
-              <p className={styles.email}>{contact.email}</p>
+              <p className={styles["display-name"]}>
+                {display_name}
+              </p>
+              <p className={styles.email}>{contactProfile?.email}</p>
               <p className={styles.status}>Has been ordered 15 products</p>
             </span>
           )}
@@ -269,39 +204,24 @@ const Profile = () => {
             <form className={styles.forms}>
               <span className={styles.email}>
                 <label htmlFor="emailAddress">Email address:</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   type="text"
                   id="emailAddress"
-                  value={contact.email}
+                  value={contactProfile?.email}
                   disabled
                 />
               </span>
               <span className={styles["mobile-number"]}>
                 <label htmlFor="mobileNumber">Mobile number:</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   type="text"
                   id="mobileNumber"
-                  value={contact.phone_number}
+                  value={contactProfile?.phone_number}
                   disabled
                 />
               </span>
               <span className={styles["delivery"]}>
                 <label htmlFor="deliveryAddress">Delivery address:</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   name="address"
                   type="text"
@@ -328,11 +248,6 @@ const Profile = () => {
             <span className={styles["details__left-side"]}>
               <span className={styles["display-name"]}>
                 <label htmlFor="displayName">Display name:</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   name="display_name"
                   type="text"
@@ -344,11 +259,6 @@ const Profile = () => {
               </span>
               <span className={styles["first-name"]}>
                 <label htmlFor="firstName">First name:</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   name="first_name"
                   type="text"
@@ -360,11 +270,6 @@ const Profile = () => {
               </span>
               <span className={styles["last-name"]}>
                 <label htmlFor="lastName">Last name:</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   name="last_name"
                   type="text"
@@ -378,11 +283,6 @@ const Profile = () => {
             <span className={styles["details__right-side"]}>
               <span className={styles.date}>
                 <label htmlFor="birth">DD/MM/YY</label>
-                {loading && (
-                  <span style={{ fontSize: "14px", fontWeight: "600" }}>
-                    Loading...
-                  </span>
-                )}
                 <input
                   name="birth"
                   type="text"

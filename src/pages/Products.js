@@ -86,23 +86,23 @@ const Products = () => {
   // console.log(typeof totalPage.next);
 
   // TODO: Get Promos
-  const getPromos = async () => {
-    try {
-      setLoadPromo(true);
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
-      );
-      setTimeout(() => {
-        setPromos(response.data.result.data);
-      }, 1000);
-    } catch (error) {
-      setLoadPromo(true);
-      console.log(error.message);
-    } finally {
-      setLoadPromo(false);
-    }
-  };
   useEffect(() => {
+    const getPromos = async () => {
+      try {
+        setLoadPromo(true);
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
+        );
+        setTimeout(() => {
+          setPromos(response.data.result.data);
+        }, 1000);
+      } catch (error) {
+        setLoadPromo(true);
+        console.log(error.message);
+      } finally {
+        setLoadPromo(false);
+      }
+    };
     getPromos();
   }, []);
 
@@ -169,7 +169,7 @@ const Products = () => {
                 ]
               }
             >
-              refresh
+              Reset
             </button>
             <Sorter onPrice={setPrice} onPost={setPost} />
           </span>
@@ -195,7 +195,7 @@ const Products = () => {
                   onClick={() => window.location.reload()}
                   className={styles["error-msg-btn"]}
                 >
-                  refresh
+                  Reset
                 </button>
               </span>
             ) : null}
