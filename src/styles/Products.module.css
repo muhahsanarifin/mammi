@@ -121,11 +121,12 @@
 .refresh-product-btn {
   border: none;
   width: fit-content;
-  /* padding: 0.2rem 0.5rem; */
+  padding: 0.2rem 0.6rem;
   font-size: 14px;
-  color: var(--product-btn-color);
-  font-weight: 600;
-  background: none;
+  font-weight: 500;
+  background: #cebbb2;
+  color: var( --product-btn-color);
+  border-radius: 12px;
 }
 
 .error-msg-btn-disable,
