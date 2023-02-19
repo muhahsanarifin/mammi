@@ -48,8 +48,8 @@ const Order = () => {
   // const [display_name, setDisplayName] = useState(detail.display_name);
 
   // Value Input Form
-  const [address, setAddress] = useState(detail.address);
-  const [telp, setTelp] = useState(contact.phone_number);
+  const [address, setAddress] = useState(detail?.address);
+  const [telp, setTelp] = useState(contact?.phone_number);
   const [payment_id, setPayment] = useState("");
   const [body, setBody] = useState({});
 
