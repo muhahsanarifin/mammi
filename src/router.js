@@ -12,6 +12,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 // import EditPassword from "./pages/EditPassword";
 // import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
+import Offline from "./components/Offline";
 
 // TODO: Admin
 import AddProduct from "./pages/admin/AddProduct";
@@ -24,31 +25,41 @@ import { PreventBackPage, PrivateRoute } from "./utils/handleRoute";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <Offline>
+        <Home />
+      </Offline>
+    ),
     errorElement: <NotFound />,
   },
   {
     path: "/login",
     element: (
-      <PreventBackPage>
-        <Login />
-      </PreventBackPage>
+      <Offline>
+        <PreventBackPage>
+          <Login />
+        </PreventBackPage>
+      </Offline>
     ),
   },
   {
     path: "/sign-up",
     element: (
-      <PreventBackPage>
-        <SignUp />
-      </PreventBackPage>
+      <Offline>
+        <PreventBackPage>
+          <SignUp />
+        </PreventBackPage>
+      </Offline>
     ),
   },
   {
     path: "/password/forgot",
     element: (
-      <PreventBackPage>
-        <ForgotPassword />
-      </PreventBackPage>
+      <Offline>
+        <PreventBackPage>
+          <ForgotPassword />
+        </PreventBackPage>
+      </Offline>
     ),
   },
   // {
@@ -58,38 +69,50 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <PrivateRoute>
-        <Profile />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <Profile />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/products",
-    element: <Products />,
+    element: (
+      <Offline>
+        <Products />
+      </Offline>
+    ),
   },
 
   {
     path: "/product/:id",
     element: (
-      <PrivateRoute>
-        <ProductDetail />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <ProductDetail />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/history",
     element: (
-      <PrivateRoute>
-        <History />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <History />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/order",
     element: (
-      <PrivateRoute>
-        <Order />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <Order />
+        </PrivateRoute>
+      </Offline>
     ),
   },
 
@@ -97,41 +120,51 @@ const router = createBrowserRouter([
   {
     path: "/product/add",
     element: (
-      <PrivateRoute>
-        <AddProduct />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <AddProduct />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/product/:id/edit",
     element: (
-      <PrivateRoute>
-        <EditProduct />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <EditProduct />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/promo/add",
     element: (
-      <PrivateRoute>
-        <AddPromo />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <AddPromo />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/promo/:id/edit",
     element: (
-      <PrivateRoute>
-        <EditPromo />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <EditPromo />
+        </PrivateRoute>
+      </Offline>
     ),
   },
   {
     path: "/dashboard",
     element: (
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
+      <Offline>
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      </Offline>
     ),
   },
 ]);
