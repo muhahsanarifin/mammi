@@ -66,7 +66,7 @@ const usersReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.response?.data.msg,
       };
     case editPassword.concat("-", Pending):
       return {
@@ -89,7 +89,7 @@ const usersReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.response?.data.msg,
       };
     case deleteAccount.concat("-", Pending):
       return {
@@ -113,7 +113,7 @@ const usersReducer = (prevState = initialState, { payload, type }) => {
         isLoading: false,
         isError: true,
         isFulfilled: false,
-        err: payload.error.response?.data.result.msg,
+        err: payload.error.response?.data.msg,
       };
 
     default:

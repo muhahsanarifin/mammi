@@ -10,7 +10,6 @@ const initalState = {
 const cartReducer = (prevState = initalState, { type, payload }) => {
   switch (type) {
     case actionStrings.addCart:
-      console.log("Reducer Payload: ", payload);
       return {
         ...prevState,
         addToCart: payload.data,
