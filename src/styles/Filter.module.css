@@ -6,7 +6,6 @@
 
 .main__products__header {
   position: relative;
-  /* border: 1px solid darkblue; */
   padding: 1rem 4.5rem;
   display: flex;
   flex-direction: row;
@@ -14,12 +13,7 @@
   z-index: 1;
 }
 
-.favor-products,
-.coffee-products,
-.non-coffee-products,
-.foods,
-.add-on {
-  /* border: 1px solid darkblue; */
+.btn-style {
   border: none;
   position: relative;
   cursor: pointer;

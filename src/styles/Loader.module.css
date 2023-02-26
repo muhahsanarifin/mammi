@@ -1,9 +1,14 @@
+.loader-section {
+  display: flex;
+  align-items: center;
+  max-height: 50vh;
+}
+
 .lds-ripple {
   display: inline-block;
   position: relative;
   width: 72px;
   height: 72px;
-  /* border: 1px solid darkblue; */
 }
 .lds-ripple div {
   position: absolute;
