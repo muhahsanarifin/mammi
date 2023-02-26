@@ -41,4 +41,16 @@ const PreventBackPage = ({ children }) => {
   return children;
 };
 
-export { PrivateRoute, PreventBackPage };
+const DisallowedAccessPageByCustomer = ({ children }) => {
+  const accessRole = localStorage.getItem("access-role");
+  if (accessRole === "Admin") return children;
+  return (
+    <Navigate
+      to="/"
+      replace={true}
+      state={{ msg: "Disallowed access page", isRedirected: true }}
+    />
+  );
+};
+
+export { PrivateRoute, PreventBackPage, DisallowedAccessPageByCustomer };

@@ -10,7 +10,10 @@ const config = (accessToken) => {
   };
 };
 
-const getProducts = () => Axios.get(`${BASE_URL}/products`);
+const getProducts = (params) => Axios.get(`${BASE_URL}/products?${params}`);
+
+const getProduct = (id, accessToken) =>
+  Axios.get(`${BASE_URL}/products/${id}`, config(accessToken));
 
 const editProduct = (id, body, accessToken) =>
   Axios.patch(`${BASE_URL}/products/edit/${id}`, body, config(accessToken));
@@ -26,6 +29,7 @@ const paginateProduct = (url) => Axios.get(url);
 
 export {
   getProducts,
+  getProduct,
   editProduct,
   deleteProduct,
   createProduct,
