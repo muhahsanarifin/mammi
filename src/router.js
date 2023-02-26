@@ -20,7 +20,11 @@ import AddPromo from "./pages/admin/AddPromo";
 import EditPromo from "./pages/admin/EditPromo";
 import EditProduct from "./pages/admin/EditProduct";
 import Dashboard from "./pages/admin/Dashboard";
-import { PreventBackPage, PrivateRoute } from "./utils/handleRoute";
+import {
+  PreventBackPage,
+  PrivateRoute,
+  DisallowedAccessPageByCustomer,
+} from "./utils/handleRoute";
 
 const router = createBrowserRouter([
   {
@@ -118,11 +122,13 @@ const router = createBrowserRouter([
 
   // Admin
   {
-    path: "/product/add",
+    path: "/product/create",
     element: (
       <Offline>
         <PrivateRoute>
-          <AddProduct />
+          <DisallowedAccessPageByCustomer>
+            <AddProduct />
+          </DisallowedAccessPageByCustomer>
         </PrivateRoute>
       </Offline>
     ),
@@ -132,17 +138,21 @@ const router = createBrowserRouter([
     element: (
       <Offline>
         <PrivateRoute>
-          <EditProduct />
+          <DisallowedAccessPageByCustomer>
+            <EditProduct />
+          </DisallowedAccessPageByCustomer>
         </PrivateRoute>
       </Offline>
     ),
   },
   {
-    path: "/promo/add",
+    path: "/promo/create",
     element: (
       <Offline>
         <PrivateRoute>
-          <AddPromo />
+          <DisallowedAccessPageByCustomer>
+            <AddPromo />
+          </DisallowedAccessPageByCustomer>
         </PrivateRoute>
       </Offline>
     ),
@@ -152,7 +162,9 @@ const router = createBrowserRouter([
     element: (
       <Offline>
         <PrivateRoute>
-          <EditPromo />
+          <DisallowedAccessPageByCustomer>
+            <EditPromo />
+          </DisallowedAccessPageByCustomer>
         </PrivateRoute>
       </Offline>
     ),
@@ -162,7 +174,9 @@ const router = createBrowserRouter([
     element: (
       <Offline>
         <PrivateRoute>
-          <Dashboard />
+          <DisallowedAccessPageByCustomer>
+            <Dashboard />
+          </DisallowedAccessPageByCustomer>
         </PrivateRoute>
       </Offline>
     ),
