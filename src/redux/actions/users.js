@@ -71,7 +71,13 @@ const deleteAccountRejected = (error) => ({
 });
 
 // Get users thunk
-const getUsersThunk = (token, cbQueryParams, cbFulfilled, cbError, cbFinally) => {
+const getUsersThunk = (
+  token,
+  cbQueryParams,
+  cbFulfilled,
+  cbError,
+  cbFinally
+) => {
   return async (dispatch) => {
     try {
       dispatch(getUsersPending());
@@ -88,16 +94,25 @@ const getUsersThunk = (token, cbQueryParams, cbFulfilled, cbError, cbFinally) =>
 };
 
 // Register user thunk
-const registerUserThunk = (body, token, cbFulfilled, cbError) => {
+const registerUserThunk = (
+  body,
+  cbPending,
+  cbFulfilled,
+  cbError,
+  cbFinally
+) => {
   return async (dispatch) => {
     try {
       dispatch(registerUserPending());
-      const result = await register(body, token);
+      typeof cbPending === "function" && cbPending();
+      const result = await register(body);
       dispatch(registerUserFulfilled(result.data));
-      typeof cbFulfilled === "function" && cbFulfilled();
+      typeof cbFulfilled === "function" && cbFulfilled(result.data);
     } catch (error) {
       dispatch(registerUserRejected(error));
-      typeof cbError === "function" && cbError();
+      typeof cbError === "function" && cbError(error);
+    } finally {
+      typeof cbFinally === "function" && cbFinally();
     }
   };
 };
@@ -108,7 +123,6 @@ const editPasswordThunk = (body, token, cbFulfilled, cbError) => {
     try {
       dispatch(editPasswordPending());
       const result = await editPassword(body, token);
-      // console.log(result.data);
       dispatch(editPasswordFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {
@@ -124,7 +138,6 @@ const deleteAccountThunk = (token, cbFulfilled, cbError) => {
     try {
       dispatch(deleteAccountPending());
       const result = await deleteAccount(token);
-      // console.log(result.data);
       dispatch(deleteAccountFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled();
     } catch (error) {

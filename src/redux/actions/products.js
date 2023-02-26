@@ -35,12 +35,18 @@ const deleteProductRejected = (error) => ({
 });
 
 // Get products thunk
-const getProductsThunk = (cbPending, cbFulfilled, cbError, cbFinally) => {
+const getProductsThunk = (
+  cbParams,
+  cbPending,
+  cbFulfilled,
+  cbError,
+  cbFinally
+) => {
   return async (dispatch) => {
     try {
       dispatch(getProductsPending());
       typeof cbPending === "function" && cbPending();
-      const result = await getProducts();
+      const result = await getProducts(cbParams);
       // console.log(result.data.result.data);
       dispatch(getProductsFulfilled(result.data));
       typeof cbFulfilled === "function" && cbFulfilled(result.data.result.data);
