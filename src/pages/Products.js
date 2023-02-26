@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDebouncedCallback } from "use-debounce";
+import { useSearchParams } from "react-router-dom";
+import { getProducts } from "../utils/api/products";
+import { getPromos } from "../utils/api/promos";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-// import Loader from "../components/Loader";
+import Loader from "../components/Loader";
 import HeaderAdmin from "../components/admin/Header";
 import ProductCard from "../components/ProductCard";
 import TitleBar from "../components/TitleBar";
 import PromoCard from "../components/PromoCard";
-import { ProductCardSkeleton, PromoCardSkeleton } from "../components/Skeleton";
+import { PromoCardSkeleton } from "../components/Skeleton";
 import Paginations from "../components/Pagination";
 import Sorter from "../components/Sorter";
 import Filter from "../components/Filter";
@@ -18,84 +21,93 @@ import Filter from "../components/Filter";
 import styles from "../styles/Products.module.css";
 
 const Products = () => {
-  // const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [productId, setProductId] = useState();
   const [products, setProducts] = useState([]);
-  const [promos, setPromos] = useState([]);
-  const [loadProduct, setLoadProduct] = useState([]);
-  const [loadPromo, setLoadPromo] = useState(false);
-  const [post, setPost] = useState("");
+  const [post, setPost] = useState(searchParams.get("post") || "");
+  const [price, setPrice] = useState(searchParams.get("price") || "");
+  const [category, setCategory] = useState(searchParams.get("category") || "");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [search, setSearch] = useState("");
   const [handleErrorMsg, handleSetErrorMsg] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const accessRole = localStorage.getItem("access-role");
   const [intDataOfPagination, setIntDataOfPagination] = useState([]);
   // const [totalPages, setTotalPages] = useState("");
+  const [promos, setPromos] = useState([]);
+  const [loadProduct, setLoadProduct] = useState(false);
+  const [loadPromo, setLoadPromo] = useState(false);
+
+  useEffect(() => {
+    setSearchParams({
+      post: post,
+      price: price,
+      category: category,
+      search: search,
+    });
+  }, [setSearchParams, post, price, category, search]);
+
+  // useEffect(() => {
+  //   const currentParams = Object.fromEntries([...searchParams]);
+  //   console.log("Current params: ", currentParams);
+  // }, [searchParams]);
+
+  const handleResfreshProduct = () => {
+    setSearchParams({
+      post: "",
+      price: "",
+      category: "",
+      search: "",
+    });
+    window.location.reload();
+  };
 
   // TODO: Get Products
   useEffect(() => {
-    const getProducts = async () => {
+    const allProducts = async () => {
       try {
-        const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products?post=${post}&price=${price}&category=${category}&search=${search}&page=${page}&limit=${limit}`
+        setLoadProduct(true);
+        const response = await getProducts(
+          `${searchParams}&page=${page}&limit=${limit}`
         );
-        setLoadProduct(response.data.result.data);
-        setTimeout(() => {
-          setProducts(response.data.result.data);
-          // console.log("Products: ", response.data.result.data);
-          setIntDataOfPagination(response.data.result);
-          // setTotalPages(response.data.result.totalPages);
-        }, 1000);
+        setProducts(response.data.result.data);
+
+        setIntDataOfPagination(response.data.result);
       } catch (error) {
-        setLoadProduct(loadProduct);
-        // console.log(error);
         setErrorMsg(error.response.data.result.msg);
         handleSetErrorMsg(true);
+      } finally {
+        setLoadProduct(false);
       }
     };
 
-    getProducts();
-    // setLimit(5);
-    // setPost("oldest");
-    // setPage(2);
-  }, [search, post, price, category, limit, page]);
+    allProducts();
+  }, [searchParams, page, limit]);
 
-  // TODO: Search Product
-  const handleSearch = (e) => {
-    const delayDebounce = setTimeout(() => {
-      setSearch(e.target.value);
-    }, 250);
-    return () => clearTimeout(delayDebounce);
-  };
+  // Search Product
+  //  Implementation debounce without package.
+  // const handleSearch = (e) => {
+  //   const delayDebounce = setTimeout(() => {
+  //     setSearch(e.target.value);
+  //   }, 1000);
 
-  // console.log("sample data: ", intDataOfPagination)
-  //  console.log("products: ", products);
+  //   return () => clearTimeout(delayDebounce);
+  // };
 
-  // console.log(search);
-  // console.log(products);
-  // console.log(typeof limit);
-  // console.log(typeof post);
-  // console.log(page);
+  // Implementation debounce using useDebouncedCallback from use-debounce
+  const debouncedSearch = useDebouncedCallback((search) => {
+    setSearch(search);
+  }, 1000);
 
-  // || Research
-  // console.log(typeof totalPage.next);
-
-  // TODO: Get Promos
+  // Get Promos
   useEffect(() => {
-    const getPromos = async () => {
+    const promos = async () => {
       try {
         setLoadPromo(true);
-        const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/promos`
-        );
-        setTimeout(() => {
-          setPromos(response.data.result.data);
-        }, 1000);
+        const response = await getPromos();
+        setPromos(response.data.result.data);
       } catch (error) {
         setLoadPromo(true);
         console.log(error.message);
@@ -103,16 +115,16 @@ const Products = () => {
         setLoadPromo(false);
       }
     };
-    getPromos();
+    promos();
   }, []);
 
   return (
     <>
       <TitleBar title={`MAMMI | Products`} />
       {accessRole === "Admin" ? (
-        <HeaderAdmin onChange={handleSearch} />
+        <HeaderAdmin onChange={(e) => debouncedSearch(e.target.value)} />
       ) : (
-        <Header onChange={handleSearch} />
+        <Header onChange={(e) => debouncedSearch(e.target.value)} />
       )}
       <main className={styles.main}>
         <aside
@@ -122,9 +134,13 @@ const Products = () => {
           <p className={styles["promo__announcement"]}>
             Coupon will updated every weeks. Check them out
           </p>
-          {loadPromo && <PromoCardSkeleton />}
-          {/* TODO: Promo card */}
-          <PromoCard promos={promos} onProductId={setProductId} />
+
+          {/* Promo card */}
+          {loadPromo ? (
+            <PromoCardSkeleton />
+          ) : (
+            <PromoCard promos={promos} onProductId={setProductId} />
+          )}
 
           <button
             className={
@@ -148,7 +164,7 @@ const Products = () => {
           </span>
 
           {accessRole === "Admin" ? (
-            <Link to={`/promo/add`}>
+            <Link to={`/promo/create`}>
               <button className={styles["btn-add-promo"]}>Add new promo</button>
             </Link>
           ) : null}
@@ -158,9 +174,10 @@ const Products = () => {
         >
           {/* Filter */}
           <Filter onCategory={setCategory} />
+
           <span className={styles["sorting-and-pagination"]}>
             <button
-              onClick={() => window.location.reload()}
+              onClick={handleResfreshProduct}
               className={
                 styles[
                   !category && !search && !price && !post
@@ -171,28 +188,26 @@ const Products = () => {
             >
               Reset
             </button>
+
+            {/* Sorter */}
             <Sorter onPrice={setPrice} onPost={setPost} />
           </span>
           <span
             className={`row gap-4 mx-5 ${styles["main__products__content"]}`}
           >
-            {!products.length && <ProductCardSkeleton products={loadProduct} />}
             {/* Product card */}
-            {!handleErrorMsg &&
-              products.map((product, idx) => (
-                <ProductCard
-                  productIdx={idx}
-                  productId={product.id}
-                  productImage={product.image}
-                  productName={product.product_name}
-                  prodcutPrice={product.price}
-                />
-              ))}
+            {loadProduct ? (
+              <>{errorMsg ? null : <Loader />}</>
+            ) : (
+              // <ProductCardSkeleton products={copyData}/>
+              <>{!handleErrorMsg && <ProductCard products={products} />}</>
+            )}
+
             {handleErrorMsg ? (
               <span className={styles["error-section"]}>
                 <p className={styles["error-msg"]}>{errorMsg}</p>
                 <button
-                  onClick={() => window.location.reload()}
+                  onClick={handleResfreshProduct}
                   className={styles["error-msg-btn"]}
                 >
                   Reset
@@ -213,7 +228,7 @@ const Products = () => {
                 />
               )}
               <Link
-                to={`/product/add`}
+                to={`/product/create`}
                 className={styles["link-btn-new-product"]}
               >
                 <span className={styles["btn-new-product"]}>

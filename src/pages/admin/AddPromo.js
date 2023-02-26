@@ -26,19 +26,20 @@ const AddPromo = () => {
   // Persent Discount
   const persentDiscounts = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-  const resPending = () => {};
+  const resPending = () => {}; // <- Developer does not use response pending function temporarily
 
   const resFullfilled = (data) => {
     setProducts(data);
   };
 
-  const resError = () => {};
+  const resError = () => {}; // <- Developer does not  response error function temporarily
 
-  const resFinally = () => {};
+  const resFinally = () => {}; // <- Developer does not  response finally function temporarily
 
   useEffect(() => {
     dispatch(
       productsAction.getProductsThunk(
+        "",
         resPending,
         resFullfilled,
         resError,
@@ -105,15 +106,6 @@ const AddPromo = () => {
       });
     }, 100);
   }, []);
-
-  // console.log({
-  //   product_id,
-  //   code,
-  //   discount,
-  //   expiry_date,
-  //   start_active_date,
-  //   description,
-  // });
 
   return (
     <>

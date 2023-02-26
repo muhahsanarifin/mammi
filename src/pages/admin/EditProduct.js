@@ -39,7 +39,6 @@ const EditProduct = () => {
             },
           }
         );
-        console.log(response.data.result[0]);
         setProductDetail(response.data.result[0]);
       } catch (error) {
         console.log(error.message);
@@ -70,7 +69,6 @@ const EditProduct = () => {
   ]);
 
   const handleUploadeImage = (e) => {
-    console.log(e);
     let uploaded = e.target.files[0];
     setPrevImage(URL.createObjectURL(uploaded));
     setImage(uploaded);

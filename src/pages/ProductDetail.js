@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import { getProduct } from "../utils/api/products";
 import { useDispatch, useSelector } from "react-redux";
 import cart from "../redux/actions/cart";
 
@@ -93,14 +94,7 @@ const ProductDetail = () => {
     const getProductDetail = async () => {
       try {
         setLoader(true);
-        const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_HOST}api/v1/products/${id}`,
-          {
-            headers: {
-              "x-access-token": `${accessToken}`,
-            },
-          }
-        );
+        const response = await getProduct(id, accessToken);
 
         setProductDetail(response.data.result);
         setProductId(response.data.result[0].id);
@@ -117,14 +111,7 @@ const ProductDetail = () => {
     getProductDetail();
   }, [accessToken, id]);
 
-  // console.log(products);
-  // console.log(deliveryId);
-  // console.log(productId);
-  // console.log(product_name);
-  // console.log(sizeId);
-  // console.log(promoId);
-
-  // TODO: Get Delivery
+  // Get Delivery
   useEffect(() => {
     const getDelivery = async () => {
       try {
@@ -173,7 +160,7 @@ const ProductDetail = () => {
     setSizeName(e.target.value.split(" ")[2]);
   };
 
-  // TODO Get Promo
+  // Get Promo
   useEffect(() => {
     const getPromos = async () => {
       try {
@@ -258,11 +245,11 @@ const ProductDetail = () => {
       (e) => e.product_id === product_id
     );
 
-    console.log("Filter duplicate: ", filterDuplicateProduct);
+    // console.log("Filter duplicate: ", filterDuplicateProduct);
 
     if (filterDuplicateProduct.length > 0)
       return setTimeout(() => {
-        console.log("Product have been added to cart!");
+        // console.log("Product have been added to cart!");
       }, 1500);
 
     const filterDuplicateDelivery = addToCart.find(
@@ -317,7 +304,7 @@ const ProductDetail = () => {
     // );
 
     setTimeout(() => {
-      console.log("Add to cart successfully!");
+      console.log("Add to cart successfully.");
     }, 2500);
   };
 

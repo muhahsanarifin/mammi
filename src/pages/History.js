@@ -18,7 +18,6 @@ const History = () => {
   const getHistoryTransaction = useSelector(
     (state) => state.transactions?.getHistoryTransaction
   );
-  console.log("History transaction: ", getHistoryTransaction);
   const [urlNext, setUrlNext] = useState();
   const [urlPrev, setUrlPrev] = useState();
 

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import usersAction from "../redux/actions/users";
+import authAction from "../redux/actions/auth";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -18,6 +21,9 @@ const SignUp = () => {
   const navigation = useNavigate();
   const [show, setShow] = useState(false);
   const [loaderButton, setLoaderBtn] = useState(false);
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const {
     register,
@@ -28,26 +34,66 @@ const SignUp = () => {
   } = useForm({ mode: "onChange" });
 
   const onSubmit = async (data) => {
+    setEmail(data.name);
+    setPassword(data.password);
     reset();
-    try {
-      setLoaderBtn(true);
-      const response = await Axios.post(
-        `${process.env.REACT_APP_BACKEND_HOST}api/v1/users/register`,
+
+    dispatch(
+      usersAction.registerUserThunk(
         {
-          email: data.name,
-          password: data.password,
+          email: email,
+          password: password,
           phone_number: data.phonenumber,
-        }
-      );
-      // console.log(response.data.result.data);
-      if (response.status === 200) {
-        navigation("/login");
-      }
-    } catch (err) {
-      console.log(err.response.data.result.msg);
-    } finally {
-      setLoaderBtn(false);
-    }
+        },
+        resRegisterCBPending,
+        resRegisterCBFulfilled,
+        resRegisterCBError,
+        resRegisterCBFinally
+      )
+    );
+  };
+
+  const resRegisterCBPending = () => {
+    setLoaderBtn(true);
+  };
+
+  const resRegisterCBFulfilled = (response) => {
+    dispatch(
+      authAction.LoginThunk(
+        { email: email, password: password },
+        resLoginCBPending,
+        resLoginCBFulfilled,
+        resLoginCBError,
+        resLoginCBFinally
+      )
+    );
+  };
+
+  const resRegisterCBError = (error) => {
+    // Developer does not use it temporarily
+    console.log(error.response?.data.msg);
+  };
+
+  const resRegisterCBFinally = () => {
+    setLoaderBtn(false);
+  };
+
+  const resLoginCBPending = () => {};
+
+  const resLoginCBFulfilled = (response) => {
+    localStorage.setItem("access-role", response.data.result.data.role);
+    localStorage.setItem("access-token", response.data.result.data.token);
+    localStorage.setItem("access-picture", response.data.result.data.picture);
+    navigation("/products");
+  };
+
+  const resLoginCBError = (error) => {
+    // Developer does not use it temporarily
+    console.log(error.response?.data.resul.msg);
+  };
+
+  const resLoginCBFinally = () => {
+    setLoaderBtn(false);
   };
 
   const handleShowPassword = () => {

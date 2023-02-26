@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 import cart from "../redux/actions/cart";
@@ -146,17 +145,6 @@ const Order = () => {
   //   }, 5000);
   // };
 
-  const resUpdatedStasusFulfilled = (data) => {
-    console.log(data);
-    setTimeout(() => {
-      console.log("Success");
-    }, 2500);
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 5000);
-  };
-
   const handlemarkAsDone = () => {
     const body = {
       status: "Delivered",
@@ -170,6 +158,17 @@ const Order = () => {
         resUpdatedStasusFulfilled
       )
     );
+  };
+
+  const resUpdatedStasusFulfilled = (data) => {
+    // console.log(data);
+    setTimeout(() => {
+      console.log("Success.");
+    }, 2500);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
   };
 
   return (
