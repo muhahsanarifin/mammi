@@ -1,8 +1,7 @@
 import React from "react";
 import { Spinner } from "reactstrap";
 
-const LoaderBtn = ({loaderStyle}) => {
-  console.log(loaderStyle)
+const LoaderBtn = ({ loaderStyle }) => {
   return <Spinner className={loaderStyle}>Loading...</Spinner>;
 };
 

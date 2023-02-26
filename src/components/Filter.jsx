@@ -6,26 +6,22 @@ const Filter = ({ onCategory }) => {
     {
       id: 1,
       name: "Favorite Product",
-      nilai: "Favorite",
-      styles: "favor-products",
+      value: "Favorite",
     },
     {
       id: 2,
       name: "Coffee",
-      nilai: "Coffee",
-      styles: "coffee-products",
+      value: "Coffee",
     },
     {
       id: 3,
       name: "Non Coffee",
-      nilai: "NonCoffee",
-      styles: "non-coffee-products",
+      value: "NonCoffee",
     },
     {
       id: 4,
       name: "Foods",
-      nilai: "Food",
-      styles: "non-coffee-products",
+      value: "Food",
     },
     // {
     //   name: "Add-on",
@@ -33,22 +29,19 @@ const Filter = ({ onCategory }) => {
     // },
   ];
 
-  // console.log(onCategory);
-
   const handleCategory = (e) => {
-    // console.log(e.target.value);
     onCategory(e.target.value);
   };
 
   return (
     <>
       <span className={styles["main__products__header"]}>
-        {filters.map((filter, idx) => (
+        {filters.map((filter) => (
           <button
-            key={idx}
-            className={`${styles[filter.styles]}`}
+            key={filter.id}
+            className={styles["btn-style"]}
             onClick={handleCategory}
-            value={`${filter.nilai}`}
+            value={`${filter.value}`}
           >
             {filter.name}
           </button>

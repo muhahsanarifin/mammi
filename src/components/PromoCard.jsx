@@ -14,11 +14,11 @@ const PromoCard = ({ promos, onProductId }) => {
   return (
     <span className={styles["promo__card-section"]}>
       <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]}>
-        {promos.map((promo, idx) => (
+        {promos.map((promo) => (
           <SwiperSlide>
             <span
               className={styles["promo__card"]}
-              key={idx}
+              key={promo.id}
               onClick={() => onProductId(`${promo.product_id} ${promo.code}`)}
             >
               {accessRole === "Admin" ? (

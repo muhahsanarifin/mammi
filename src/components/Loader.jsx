@@ -2,9 +2,9 @@ import React from "react";
 
 import styles from "../styles/Loader.module.css";
 
-const Loader = ({ styleSection }) => {
+const Loader = () => {
   return (
-    <span className={styleSection}>
+    <span className={styles["loader-section"]}>
       <div className={styles["lds-ripple"]}>
         <div></div>
         <div></div>

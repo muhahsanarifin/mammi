@@ -3,42 +3,38 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/ProductCard.module.css";
 import pen from "../assets/icons/pen.svg";
 
-const Product = ({
-  productId,
-  productImage,
-  productName,
-  prodcutPrice,
-  productIdx
-}) => {
-  const navigation =useNavigate()
+const Product = ({ products }) => {
+  const navigation = useNavigate();
   const accessRole = localStorage.getItem("access-role");
   return (
     <>
-      {
-        <span className={`col my-3 ${styles.product}`} key={productIdx}>
-          <Link to={`/product/${productId}`}>
-            <img
-              src={productImage}
-              alt={productName}
-              className={styles["image-product"]}
-            />
-          </Link>
-          <p className={styles["product__name"]}>{productName}</p>
-          <p className={styles["product__price"]}>{`IDR ${prodcutPrice}`}</p>
-          {accessRole === "Admin" ? (
-            <span
-              className={styles["btn-product"]}
-              onClick={() => navigation(`/product/${productId}/edit`)}
-            >
+      {products.map((product) => (
+        <>
+          <span className={`col my-3 ${styles.product}`} key={product.id}>
+            <Link to={`/product/${product.id}`}>
               <img
-                src={pen}
-                alt="btn-product"
-                className={styles["btn-product-icon"]}
+                src={product.image}
+                alt={product.product_name}
+                className={styles["image-product"]}
               />
-            </span>
-          ) : null}
-        </span>
-      }
+            </Link>
+            <p className={styles["product__name"]}>{product.product_name}</p>
+            <p className={styles["product__price"]}>{`IDR ${product.price}`}</p>
+            {accessRole === "Admin" ? (
+              <span
+                className={styles["btn-product"]}
+                onClick={() => navigation(`/product/${product.id}/edit`)}
+              >
+                <img
+                  src={pen}
+                  alt="btn-product"
+                  className={styles["btn-product-icon"]}
+                />
+              </span>
+            ) : null}
+          </span>
+        </>
+      ))}
     </>
   );
 };

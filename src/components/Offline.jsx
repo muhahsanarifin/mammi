@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useNavigatorOnline from "use-navigator-online";
-import DisconnectIcon from "../assets/icons/disconnected.png";
+import offlineIcon from "../assets/icons/offlineIcon.svg";
 
 const Offline = ({ children }) => {
-  const { isOnline } = useNavigatorOnline();
+  const [image, setImage] = useState();
+  const { isOnline, backOffline } = useNavigatorOnline();
+
+  useEffect(() => {
+    setImage(offlineIcon);
+  }, [backOffline]);
+  
   return (
     <>
       {isOnline ? (
@@ -17,16 +23,23 @@ const Offline = ({ children }) => {
             alignItems: "center",
             gap: "1rem",
             justifyContent: "center",
+            background: "#BCBABA",
           }}
         >
           <img
-            src={DisconnectIcon}
-            alt="Disconnect Icon"
+            src={image}
+            alt="Offline Icon"
             style={{ width: "75px", heigth: "75px" }}
           />
-          <h3 style={{ fontSize: "16px", color: "#4f5665" }}>
-            Your are currently offline
+          <h3 style={{ fontSize: "28px", fontWeight: "900" }}>
+            No internet Connection
           </h3>
+          <p
+            style={{ fontSize: "16px", color: "#4f5665", textAlign: "center" }}
+          >
+            Your internet connection is currently not available please check or
+            try again.
+          </p>
         </div>
       )}
     </>

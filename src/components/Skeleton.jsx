@@ -2,11 +2,11 @@ import React from "react";
 
 import styles from "../styles/Skeleton.module.css";
 
-const ProductCardSkeleton = ({ products }) => {
+const ProductCardSkeleton = ({ products }) => { // Developer does not use it temporarily
   return (
     <>
       {products.map((product) => (
-        <span className={`col my-3 ${styles.product}`}>
+        <span className={`col my-3 ${styles.product}`} key={product.id}>
           <div className={styles["product__image"]}></div>
           <div className={styles["product__decs"]}>
             <div className={styles["product__name"]}></div>
