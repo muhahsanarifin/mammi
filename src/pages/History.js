@@ -32,7 +32,7 @@ const History = () => {
   // console.log("Url prev: ", urlPrev);
 
   // Get History Transaction
-  const resFulfilled = (data) => {
+  const resFulfilledgetHistoryTransactions = (data) => {
     // console.log("Get History Transactions: ", data);
     setHistoryTransactions(data);
   };
@@ -42,7 +42,7 @@ const History = () => {
       TransactionsAction.getHistoryTransactionsThunk(
         accessToken,
         `page=${page}&limit=${limit}`,
-        resFulfilled
+        resFulfilledgetHistoryTransactions
       )
     );
   }, [dispatch, accessToken, limit, page]);

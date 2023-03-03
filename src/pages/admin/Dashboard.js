@@ -18,49 +18,33 @@ const Dashboard = () => {
   // const [pending, setPending] = useState([]);
   // const [delivered, setDelivered] = useState([]);
 
-  // Get data dashboard
-  const resFulfilled = (data) => {
-    setDataDashboard(data);
-  };
-
-  // Get Transactions
-  const resTransactionFulfilled = (data) => {
-    //  console.log("Transactions data: ", data);
-    setTransactions(data);
-  };
-
-  // console.log("Status: ", status);
-
-  // console.log(transactions.map((transaction) => transaction.status));
-
   useEffect(() => {
     dispatch(
-      TransactionsAction.getDataDashboardThunk(accessToken, resFulfilled)
+      TransactionsAction.getDataDashboardThunk(
+        accessToken,
+        resFulfilledGetDataDashboard
+      )
     );
 
     dispatch(
       TransactionsAction.getTransactionsThunk(
         accessToken,
         `status=${status}`,
-        resTransactionFulfilled
+        resFulfilledGetTransactions
       )
     );
   }, [dispatch, accessToken, status]);
 
-  console.log("Data dashboard: ", dataDashboard);
+  // Get data dashboard
+  const resFulfilledGetDataDashboard = (data) => {
+    setDataDashboard(data);
+  };
 
-  // console.log(
-  //   "Income : ",
-  //   dataDashboard.map((e) => parseFloat(e.subtotal))
-  // );
-
-  // console.log(dataDashboard.map((e) => e.updated_at.split(" ")[1]));
-
-  // const month = (data) => {
-  //   let result = data.map((e) => e.updated_at.split(" ")[1]);
-  //   return result;
-  // };
-  // console.log("Sample: ", month(dataDashboard));
+  // Get Transactions
+  const resFulfilledGetTransactions = (data) => {
+    //  console.log("Transactions data: ", data);
+    setTransactions(data);
+  };
 
   const sum = (data) => {
     // First way

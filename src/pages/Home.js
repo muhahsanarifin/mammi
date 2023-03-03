@@ -40,7 +40,7 @@ const Home = () => {
         setshow(false);
       }, 6000);
     }
-  }, []);
+  }, [accessRole]);
 
   return (
     <>

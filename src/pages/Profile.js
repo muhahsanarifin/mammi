@@ -64,16 +64,22 @@ const Profile = () => {
   // Handle Logout
   const handleLogOut = () => {
     dispatch(
-      authAction.logoutThunk(accessToken, "", resCbFulfilled, resCbRejected, "")
+      authAction.logoutThunk(
+        accessToken,
+        "",
+        resFulfilledLogout,
+        resRejectedLogout,
+        ""
+      )
     );
   };
 
-  const resCbFulfilled = () => {
+  const resFulfilledLogout = () => {
     window.localStorage.clear();
     navigate("/login");
   };
 
-  const resCbRejected = (error) => {
+  const resRejectedLogout = (error) => {
     console.log(error.message);
   };
 
@@ -101,19 +107,19 @@ const Profile = () => {
       ProfilesAction.editProfileThunk(
         body,
         accessToken,
-        resCbEditProfileFulfilled,
-        resCbEditProfileRejected
+        resFulfilledEditProfile,
+        resRejectedEditProfile
       )
     );
   };
 
-  const resCbEditProfileFulfilled = (response) => {
+  const resFulfilledEditProfile = (response) => {
     localStorage.removeItem("access-picture");
     localStorage.setItem("access-picture", response.result[0].picture);
     window.location.reload();
   };
 
-  const resCbEditProfileRejected = (error) => {
+  const resRejectedEditProfile = (error) => {
     console.log(error.message);
   };
 
@@ -184,9 +190,7 @@ const Profile = () => {
                   onChange={handleUploadImage}
                 />
               </span>
-              <p className={styles["display-name"]}>
-                {display_name}
-              </p>
+              <p className={styles["display-name"]}>{display_name}</p>
               <p className={styles.email}>{contactProfile?.email}</p>
               <p className={styles.status}>Has been ordered 15 products</p>
             </span>

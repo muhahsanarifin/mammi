@@ -45,54 +45,52 @@ const SignUp = () => {
           password: password,
           phone_number: data.phonenumber,
         },
-        resRegisterCBPending,
-        resRegisterCBFulfilled,
-        resRegisterCBError,
-        resRegisterCBFinally
+        resPendingRegister,
+        resFulfilledRegister,
+        resErrorRegister,
+        resFinallyRegister
       )
     );
   };
 
-  const resRegisterCBPending = () => {
+  const resPendingRegister = () => {
     setLoaderBtn(true);
   };
 
-  const resRegisterCBFulfilled = (response) => {
+  const resFulfilledRegister = (response) => {
     dispatch(
-      authAction.LoginThunk(
+      authAction.loginThunk(
         { email: email, password: password },
-        resLoginCBPending,
-        resLoginCBFulfilled,
-        resLoginCBError,
-        resLoginCBFinally
+        resPendingLogin,
+        resFulfilledLogin,
+        resErrorLogin,
+        resFinallyLogin
       )
     );
   };
 
-  const resRegisterCBError = (error) => {
-    // Developer does not use it temporarily
-    console.log(error.response?.data.msg);
+  const resErrorRegister = (error) => { // Developer does not use it temporarily
+    // console.log(error.response?.data.msg);
   };
 
-  const resRegisterCBFinally = () => {
+  const resFinallyRegister = () => {
     setLoaderBtn(false);
   };
 
-  const resLoginCBPending = () => {};
+  const resPendingLogin = () => {}; // Developer does not use it temporarily
 
-  const resLoginCBFulfilled = (response) => {
+  const resFulfilledLogin = (response) => {
     localStorage.setItem("access-role", response.data.result.data.role);
     localStorage.setItem("access-token", response.data.result.data.token);
     localStorage.setItem("access-picture", response.data.result.data.picture);
     navigation("/products");
   };
 
-  const resLoginCBError = (error) => {
-    // Developer does not use it temporarily
-    console.log(error.response?.data.resul.msg);
+  const resErrorLogin = (error) => { // Developer does not use it temporarily
+    // console.log(error.response?.data.resul.msg);
   };
 
-  const resLoginCBFinally = () => {
+  const resFinallyLogin = () => {
     setLoaderBtn(false);
   };
 

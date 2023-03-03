@@ -25,8 +25,6 @@ const EditPromo = () => {
 
   // Persent Discount
   const persentDiscounts = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-  // console.log(persentDiscounts);
-  // console.log(typeof persentDiscounts);
 
   // Get Promos
   useEffect(() => {
@@ -99,8 +97,20 @@ const EditPromo = () => {
     }
   };
 
-  // Handle Delete Promo
-  const resFulfilled = (response) => {
+  const handleDeletePromo = () => {
+    distpatch(
+      promosAction.deletePromoThunk(
+        id,
+        accessToken,
+        resFulfilledDeletePromo,
+        resErrorDeletePromo,
+        resFinnalyDeletePromo
+      )
+    );
+  };
+
+  // Delete Promo conditions
+  const resFulfilledDeletePromo = (response) => {
     // console.log(response);
     setTimeout(() => {
       setDeleteTextStatus(response);
@@ -108,27 +118,15 @@ const EditPromo = () => {
     }, 4000);
   };
 
-  const resError = (response) => {
+  const resErrorDeletePromo = (response) => {
     console.log(response); // <= Simple error response
   };
 
-  const resFinnaly = () => {
+  const resFinnalyDeletePromo = () => {
     setDeleteStatus(false);
     setTimeout(() => {
       window.location.replace("/products");
     }, 5000);
-  };
-
-  const handleDeletePromo = () => {
-    distpatch(
-      promosAction.deletePromoThunk(
-        id,
-        accessToken,
-        resFulfilled,
-        resError,
-        resFinnaly
-      )
-    );
   };
 
   useEffect(() => {

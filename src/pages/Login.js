@@ -30,29 +30,29 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(
-      authAction.LoginThunk(
+      authAction.loginThunk(
         { email, password },
-        resCbPending,
-        resCbFulfilled,
-        resCbRejected,
-        resCbFinally
+        resPendingLogin,
+        resFulfilledLogin,
+        resRejectedLogin,
+        resFinallyLogin
       )
     );
     
   };
 
-  const resCbPending = () => {
+  const resPendingLogin = () => {
     setLoaderBtn(true);
   };
 
-  const resCbFulfilled = (response) => {
+  const resFulfilledLogin = (response) => {
     localStorage.setItem("access-role", response.data.result.data.role);
     localStorage.setItem("access-token", response.data.result.data.token);
     localStorage.setItem("access-picture", response.data.result.data.picture);
     navigation("/products");
   };
 
-  const resCbRejected = (err) => {
+  const resRejectedLogin = (err) => {
     console.log(err);
     if (err.response.data.result.msg === "Email is incorrect") {
       setTimeout(() => {
@@ -67,11 +67,11 @@ const Login = () => {
     }
   };
 
-  const resCbFinally = () => {
-      setLoaderBtn(false);
-      setErrorEmail(false);
-      setErrorPassword(false);
-  }
+  const resFinallyLogin = () => {
+    setLoaderBtn(false);
+    setErrorEmail(false);
+    setErrorPassword(false);
+  };
 
   const handleShowPassword = () => {
     setShow(!show);

@@ -61,6 +61,12 @@ const Products = () => {
       category: "",
       search: "",
     });
+
+    // // Reset to be normal state similar to default state.
+    // setPost("");
+    // setPrice("");
+    // setCategory("");
+    // setSearch("");
     window.location.reload();
   };
 
@@ -97,8 +103,8 @@ const Products = () => {
   // };
 
   // Implementation debounce using useDebouncedCallback from use-debounce
-  const debouncedSearch = useDebouncedCallback((search) => {
-    setSearch(search);
+  const debouncedSearch = useDebouncedCallback((value) => {
+    setSearch(value);
   }, 1000);
 
   // Get Promos
