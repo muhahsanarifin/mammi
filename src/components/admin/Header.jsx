@@ -24,28 +24,28 @@ const Header = ({ onChange }) => {
     dispatch(
       authAction.logoutThunk(
         accessToken,
-        resCbPending,
-        resCbFulfilled,
-        resCbRejected,
-        resCbFinally
+        resPendingLogout,
+        resCbFulfilledLogout,
+        resCbRejectedLogout,
+        resCbFinallyLogout
       )
     );
   };
 
-  const resCbPending = () => {
+  const resPendingLogout = () => {
     setLoaderBtn(true);
   };
 
-  const resCbFulfilled = () => {
+  const resCbFulfilledLogout = () => {
     window.localStorage.clear();
     navigate("/login");
   };
 
-  const resCbRejected = (error) => {
+  const resCbRejectedLogout = (error) => {
     console.log(error.message);
   };
 
-  const resCbFinally = () => {
+  const resCbFinallyLogout = () => {
     setLoaderBtn(false);
   };
 
