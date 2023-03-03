@@ -35,7 +35,7 @@ const logoutRejected = (error) => ({
 });
 
 // Login Thunk
-const LoginThunk = (body, cbPending, cbFulfilled, cbError, cbFinally) => {
+const loginThunk = (body, cbPending, cbFulfilled, cbError, cbFinally) => {
   return async (dispatch) => {
     try {
       dispatch(loginPending());
@@ -77,7 +77,7 @@ const logoutThunk = (
 };
 
 const authAction = {
-  LoginThunk,
+  loginThunk,
   logoutThunk,
 };
 
