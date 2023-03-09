@@ -1,25 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Products from "./pages/Products";
-import ProductDetail from "./pages/ProductDetail";
-import History from "./pages/History";
-import Order from "./pages/Order";
-import Profile from "./pages/Profile";
-import ForgotPassword from "./pages/ForgotPassword";
+import Home from "./pages/home";
+import Login from "./pages/login";
+import SignUp from "./pages/signUp";
+import Products from "./pages/products";
+import ProductDetail from "./pages/productDetail";
+import History from "./pages/history";
+import Order from "./pages/order";
+import Profile from "./pages/profile";
+import ForgotPassword from "./pages/forgotPassword";
 // import EditPassword from "./pages/EditPassword";
 // import Chat from "./pages/Chat";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/notFound";
 import Offline from "./components/Offline";
 
-// TODO: Admin
-import AddProduct from "./pages/admin/AddProduct";
-import AddPromo from "./pages/admin/AddPromo";
-import EditPromo from "./pages/admin/EditPromo";
-import EditProduct from "./pages/admin/EditProduct";
-import Dashboard from "./pages/admin/Dashboard";
+// Admin
+import AddProduct from "./pages/admin/addProduct";
+import AddPromo from "./pages/admin/addPromo";
+import EditPromo from "./pages/admin/editPromo";
+import EditProduct from "./pages/admin/editProduct";
+import Dashboard from "./pages/admin/dashboard";
 import {
   PreventBackPage,
   PrivateRoute,
