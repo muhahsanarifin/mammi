@@ -8,7 +8,7 @@ import { actionStrings } from "./actionStrings";
 
 const { Pending, Rejected, Fulfilled } = ActionType;
 
-// TODO: Edit Profile actions
+// Edit Profile actions
 const editProfilePending = () => ({
   type: actionStrings.editProfile.concat("-", Pending),
 });
@@ -23,7 +23,7 @@ const editProfileFulfilled = (data) => ({
   payload: { data },
 });
 
-// TODO: Get Profile Contact actions
+// Get Profile Contact actions
 const getProfileContactPending = () => ({
   type: actionStrings.getProfileContact.concat("-", Pending),
 });
@@ -38,7 +38,7 @@ const getProfileContactFulfilled = (data) => ({
   payload: { data },
 });
 
-// TODO: Get Profile Detail actions
+// Get Profile Detail actions
 const getProfileDetailPending = () => ({
   type: actionStrings.getProfileDetail.concat("-", Pending),
 });
@@ -53,7 +53,7 @@ const getProfileDetailFulfilled = (data) => ({
   payload: { data },
 });
 
-// TODO: Edit Profile Thunk
+// Edit Profile Thunk
 const editProfileThunk = (body, token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
@@ -68,7 +68,7 @@ const editProfileThunk = (body, token, cbFulfilled, cbError) => {
   };
 };
 
-// TODO: Get Profile Contact Thunk
+// Get Profile Contact Thunk
 const getProfileContactThunk = (token, cbFulfilled, cbError) => {
   return async (dispatch) => {
     try {
@@ -83,7 +83,7 @@ const getProfileContactThunk = (token, cbFulfilled, cbError) => {
   };
 };
 
-// TODO: Get Profile Detail Thunk
+// Get Profile Detail Thunk
 const getProfileDetailThunk = (token, cbFulfilled, cbDenied) => {
   return async (dispatch) => {
     try {
