@@ -49,7 +49,7 @@ const EditProduct = () => {
     getProductDetail();
   }, [accessToken, id]);
 
-  // TODO: Default input values
+  // Default input values
   useEffect(() => {
     setProductName(products.product_name);
     setImage(products.image);

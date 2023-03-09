@@ -13,7 +13,7 @@ import HeaderAdmin from "../components/admin/Header";
 import ProductCard from "../components/ProductCard";
 import TitleBar from "../components/TitleBar";
 import PromoCard from "../components/PromoCard";
-import { PromoCardSkeleton } from "../components/Skeleton";
+import { PromoCardSkeleton, ProductCardSkeleton } from "../components/Skeleton";
 import Paginations from "../components/Pagination";
 import Sorter from "../components/Sorter";
 import Filter from "../components/Filter";
@@ -39,6 +39,8 @@ const Products = () => {
   const [promos, setPromos] = useState([]);
   const [loadProduct, setLoadProduct] = useState(false);
   const [loadPromo, setLoadPromo] = useState(false);
+
+  const [sample, setSample] = useState([]);
 
   useEffect(() => {
     setSearchParams({
@@ -70,7 +72,7 @@ const Products = () => {
     window.location.reload();
   };
 
-  // TODO: Get Products
+  // Get Products
   useEffect(() => {
     const allProducts = async () => {
       try {
@@ -79,6 +81,7 @@ const Products = () => {
           `${searchParams}&page=${page}&limit=${limit}`
         );
         setProducts(response.data.result.data);
+        setSample(response.data);
 
         setIntDataOfPagination(response.data.result);
       } catch (error) {
@@ -203,7 +206,13 @@ const Products = () => {
           >
             {/* Product card */}
             {loadProduct ? (
-              <>{errorMsg ? null : <Loader />}</>
+              <>
+                {errorMsg
+                  ? null
+                  : new Array(8)
+                      .fill(0)
+                      .map((_, idx) => <ProductCardSkeleton key={idx} />)}
+              </>
             ) : (
               // <ProductCardSkeleton products={copyData}/>
               <>{!handleErrorMsg && <ProductCard products={products} />}</>

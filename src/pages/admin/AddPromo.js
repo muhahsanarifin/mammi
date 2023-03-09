@@ -38,15 +38,15 @@ const AddPromo = () => {
     );
   }, [dispatch]);
 
-  const resPendingGetProducts = () => {}; // Developer does not use response pending function temporarily
+  const resPendingGetProducts = () => {}; // Developer does not use it temporarily
 
   const resFullfilledGetProducts = (data) => {
     setProducts(data);
   };
 
-  const resErrorGetProducts = () => {}; // Developer does not  response error function temporarily
+  const resErrorGetProducts = () => {}; // Developer does not it temporarily
 
-  const resFinallyGetProducts = () => {}; // Developer does not  response finally function temporarily
+  const resFinallyGetProducts = () => {}; // Developer does not it temporarily
 
   const handleSavePromo = async () => {
     if (product_id.length === 0) {

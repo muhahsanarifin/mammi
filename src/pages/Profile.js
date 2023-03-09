@@ -146,7 +146,7 @@ const Profile = () => {
   return (
     <>
       <TitleBar title={`MAMMI | Profile`} />
-      {/* TODO: Modal */}
+      {/* Modal */}
       <Modal
         toggle={handleModal}
         isOpen={modal}
@@ -154,9 +154,9 @@ const Profile = () => {
         decs={`Are you sure want to logout ?`}
         onClick={handleLogOut}
       />
-      {/* TODO: Header */}
+      {/* Header */}
       <Header />
-      {/* TODO: Main */}
+      {/* Main */}
       <main className={styles.main}>
         <h3 className={styles.title}>User Profile</h3>
         <section
